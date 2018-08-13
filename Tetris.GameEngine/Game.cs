@@ -264,6 +264,49 @@ namespace Tetris.GameEngine
             if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY))
             {
                 _currPiece = tmp_piece;
+                return;
+            }
+            else
+            {
+                //wall kicking logic here
+                if (_posX + 1 < _default_board_width) //x+1 is ok?
+                {
+                    if (_gameBoard.CanPosAt(tmp_piece, _posX+1, _posY)) // attempt rightward wall kick
+                    {
+                        _currPiece = tmp_piece;
+                        MoveRight();
+                        return; //break the method, so we dont rotate again
+                    }
+                    else if (_posY+1 < _default_board_height) // y+1
+                    {
+                        if (_gameBoard.CanPosAt(tmp_piece, _posX+1, _posY+1)) // attempt down right wall kick
+                        {
+                            _currPiece = tmp_piece;
+                            MoveRight();
+                            MoveDown();
+                            return;
+                        }
+                    }
+                }
+                if (_posX - 1 > 0) // x-1 is ok?
+                {
+                    if (_gameBoard.CanPosAt(tmp_piece, _posX - 1, _posY)) // attempt leftward wall kick
+                    {
+                        _currPiece = tmp_piece;
+                        MoveLeft();
+                        return;
+                    }
+                    else if (_posY + 1 < _default_board_height) // y+1
+                    {
+                        if (_gameBoard.CanPosAt(tmp_piece, _posX - 1, _posY + 1)) // attempt down left wall kick
+                        {
+                            _currPiece = tmp_piece;
+                            MoveLeft();
+                            MoveDown();
+                            return;
+                        }
+                    }
+                }
             }
         }
 

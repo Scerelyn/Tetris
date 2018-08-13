@@ -70,32 +70,79 @@ namespace Tetris.GameEngine
         {
             _pieces = new List<Piece>();
 
-            //####
-            _pieces.Add(new Piece(new int[,] { { 1, 1, 1, 1 } }));
+            //following SRS rotations
+            //http://tetris.wikia.com/wiki/SRS
+            //using the image on the site, left most is 0 deg, left center is 90 deg, right center is 180 deg, and right is 270 deg
+            //due to the engine limitations, padding zeroes cannot be used
+
+            //####, I piece
+            int[,] IPiece0Deg = new int[,] { { 1, 1, 1, 1 } };
+            int[,] IPiece90Deg = new int[,] { { 1 }, { 1 }, { 1 }, { 1 } };
+            int[,] IPiece180Deg = new int[,] { { 1, 1, 1, 1 } };
+            int[,] IPiece270Deg = new int[,] { { 1 }, { 1 }, { 1 }, { 1 } };
+            List<int[,]> IRotationStates = new List<int[,]>() { IPiece0Deg, IPiece90Deg, IPiece180Deg, IPiece270Deg };
+
+            _pieces.Add(new Piece(IPiece0Deg, IRotationStates, 0));
 
             //##
-            //##
-            _pieces.Add(new Piece(new int[,] { { 2, 2 }, { 2, 2 } }));
+            //##, O Piece
+            int[,] OPiece0Deg =   new int[,] { { 2, 2 }, { 2, 2 } };
+            int[,] OPiece90Deg =  new int[,] { { 2, 2 }, { 2, 2 } };
+            int[,] OPiece180Deg = new int[,] { { 2, 2 }, { 2, 2 } };
+            int[,] OPiece270Deg = new int[,] { { 2, 2 }, { 2, 2 } }; // seems redundant but if we want O spin for whatever reason, just change these
+            List<int[,]> ORotationStates = new List<int[,]>() { OPiece0Deg, OPiece90Deg, OPiece180Deg, OPiece270Deg, };
+
+            _pieces.Add(new Piece(OPiece0Deg, ORotationStates, 0));
 
             //  #
-            //###
-            _pieces.Add(new Piece(new int[,] { { 0, 0, 3 }, { 3, 3, 3 } }));
+            //###, L Piece
+            int[,] LPiece0Deg   = new int[,] { { 0, 0, 3 }, { 3, 3, 3 } };
+            int[,] LPiece90Deg  = new int[,] { { 3, 0 }, { 3, 0 }, { 3, 3 } };
+            int[,] LPiece180Deg = new int[,] { { 3, 3, 3 }, { 3, 0, 0 } };
+            int[,] LPiece270Deg = new int[,] { { 3, 3 }, { 0, 3 }, { 0, 3 } };
+            List<int[,]> LRotationStates = new List<int[,]>() { LPiece0Deg, LPiece90Deg, LPiece180Deg, LPiece270Deg };
+
+            _pieces.Add(new Piece(LPiece0Deg, LRotationStates, 0));
 
             //#
-            //###
-            _pieces.Add(new Piece(new int[,] { { 4, 0, 0 }, { 4, 4, 4 } }));
+            //###, J Piece
+            int[,] JPiece0Deg   = new int[,] { { 4, 0, 0 }, { 4, 4, 4 } };
+            int[,] JPiece90Deg  = new int[,] { { 4, 4 }, { 4, 0 }, { 4, 0 } };
+            int[,] JPiece180Deg = new int[,] { { 4, 4, 4 }, { 0, 0, 4 } };
+            int[,] JPiece270Deg = new int[,] { { 0, 4 }, { 0, 4 }, { 4, 4 } };
+            List<int[,]> JRotationStates = new List<int[,]>() { JPiece0Deg, JPiece90Deg, JPiece180Deg, JPiece270Deg };
 
-            // ##
+            _pieces.Add(new Piece(JPiece0Deg, JRotationStates, 0));
+
+            // ##, S Piece
             //##
-            _pieces.Add(new Piece(new int[,] { { 0, 5, 5 }, { 5, 5, 0 } }));
+            int[,] SPiece0Deg   = new int[,] { { 0, 5, 5 }, { 5, 5, 0 } };
+            int[,] SPiece90Deg  = new int[,] { { 5, 0 }, { 5, 5 }, { 0, 5 } };
+            int[,] SPiece180Deg = new int[,] { { 0, 5, 5 }, { 5, 5, 0 } };
+            int[,] SPiece270Deg = new int[,] { { 5, 0 }, { 5, 5 }, { 0, 5 } };
+            List<int[,]> SRotationStates = new List<int[,]>() { SPiece0Deg, SPiece90Deg, SPiece180Deg, SPiece270Deg };
+
+            _pieces.Add(new Piece(SPiece0Deg, SRotationStates, 0));
 
             //##
-            // ##
-            _pieces.Add(new Piece(new int[,] { { 6, 6, 0 }, { 0, 6, 6 } }));
+            // ##, Z Piece
+            int[,] ZPiece0Deg   = new int[,]{ { 6, 6, 0 }, { 0, 6, 6 } };
+            int[,] ZPiece90Deg  = new int[,] { { 0, 6 }, { 6, 6 }, { 6, 0 } };
+            int[,] ZPiece180Deg = new int[,] { { 6, 6, 0 }, { 0, 6, 6 } };
+            int[,] ZPiece270Deg = new int[,] { { 0, 6 }, { 6, 6 }, { 6, 0 } };
+            List<int[,]> ZRotationStates = new List<int[,]>() { ZPiece0Deg, ZPiece90Deg, ZPiece180Deg, ZPiece270Deg };
 
-            //###
+            _pieces.Add(new Piece(ZPiece0Deg, ZRotationStates, 0));
+
+            //###, T Piece
             // #
-            _pieces.Add(new Piece(new int[,] { { 7, 7, 7 }, { 0, 7, 0 } }));
+            int[,] TPiece0Deg   = new int[,] { { 0, 7, 0 }, { 7, 7, 7 } };
+            int[,] TPiece90Deg  = new int[,] { { 7, 0 }, { 7, 7 }, { 7, 0 } };
+            int[,] TPiece180Deg = new int[,] { { 7, 7, 7 }, { 0, 7, 0 } };
+            int[,] TPiece270Deg = new int[,] { { 0, 7 }, { 7, 7 }, { 0, 7 } };
+            List<int[,]> TRotationStates = new List<int[,]>() { TPiece0Deg, TPiece90Deg, TPiece180Deg, TPiece270Deg };
+
+            _pieces.Add(new Piece(TPiece0Deg, TRotationStates, 0));
         }
 
         #endregion
