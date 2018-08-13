@@ -122,25 +122,25 @@ namespace TetrisConsoleUI
                     switch (arr[i, j])
                     {
                         case 1:
-                            DrawColor(BLOCK, ConsoleColor.White);
+                            DrawColor(BLOCK, ConsoleColor.Cyan);
                             break;
                         case 2:
-                            DrawColor(BLOCK, ConsoleColor.Magenta);
+                            DrawColor(BLOCK, ConsoleColor.Yellow);
                             break;
                         case 3:
                             DrawColor(BLOCK, ConsoleColor.Blue);
                             break;
                         case 4:
-                            DrawColor(BLOCK, ConsoleColor.Green);
+                            DrawColor(BLOCK, ConsoleColor.DarkYellow);
                             break;
                         case 5:
-                            DrawColor(BLOCK, ConsoleColor.Yellow);
+                            DrawColor(BLOCK, ConsoleColor.Green);
                             break;
                         case 6:
                             DrawColor(BLOCK, ConsoleColor.Red);
                             break;
                         case 7:
-                            DrawColor(BLOCK, ConsoleColor.Cyan);
+                            DrawColor(BLOCK, ConsoleColor.DarkMagenta);
                             break;
                         case 8:
                             DrawColor(BLOCK, ConsoleColor.Gray);
