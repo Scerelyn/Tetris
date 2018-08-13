@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tetris.GameEngine
 {
@@ -9,12 +10,14 @@ namespace Tetris.GameEngine
         private int[,] _piece;
         private int _initPosX;
         private int _initPosY;
+        private List<int[,]> _rotationStates = null; // possible states to rotate to
+        private int _rotationIndex; // which state to rotate on
 
         #endregion
 
         #region Constructors
 
-        public Piece(int[,] p)
+        public Piece(int[,] p, List<int[,]> rotationStates=null, int rotateIndex=0)
         {
             if (p == null)
             {
@@ -23,6 +26,8 @@ namespace Tetris.GameEngine
             _piece = (int[,])p.Clone();
             _initPosY = (p.GetUpperBound(0) + 1) * -1;
             _initPosX = 0;
+            _rotationStates = rotationStates;
+            _rotationIndex = rotateIndex;
         }
 
         #endregion
@@ -72,14 +77,47 @@ namespace Tetris.GameEngine
         public Piece RotateRight()
         {
             int[,] rotated = new int[this.Width, this.Height];
-            for (int i = 0; i < Height; i++)
+            if (_rotationStates == null || _rotationStates.Count <= 0) // default roation behavior
             {
-                for (int j = 0; j < Width; j++)
+                for (int i = 0; i < Height; i++)
                 {
-                    rotated[j, Height - i - 1] = _piece[i, j];
+                    for (int j = 0; j < Width; j++)
+                    {
+                        rotated[j, Height - i - 1] = _piece[i, j];
+                    }
                 }
+                return new Piece( rotated );
             }
-            return new Piece( rotated );
+            else // if we have rotated states, use them
+            {
+                _rotationIndex = _rotationIndex >= _rotationStates.Count-1 ? 0 : _rotationIndex + 1; // move the rotation index up 1, if over the states size, move to 0
+                return new Piece(_rotationStates[_rotationIndex], _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
+            }
+        }
+
+        /// <summary>
+        /// Rotates a Piece counter clockwise
+        /// </summary>
+        /// <returns>rotated Piece</returns>
+        public Piece RotateLeft()
+        {
+            int[,] rotated = new int[this.Width, this.Height];
+            if (_rotationStates.Count <= 0) // default roation behavior
+            {
+                for (int i = 0; i < Height; i++)
+                {
+                    for (int j = 0; j < Width; j++)
+                    {
+                        rotated[j, Height - i - 1] = _piece[i, j];
+                    }
+                }
+                return new Piece(rotated);
+            }
+            else // if we have rotated states, use them
+            {
+                _rotationIndex = _rotationIndex < 0 ? _rotationStates.Count-1 : _rotationIndex - 1; // move the rotation index down 1, if under 0, move to states list size minus 1
+                return new Piece(_rotationStates[_rotationIndex], _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
+            }
         }
 
         public void MakeItShadow()
