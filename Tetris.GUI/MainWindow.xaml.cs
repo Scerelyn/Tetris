@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tetris.GameEngine;
+using System.Threading;
 
 namespace Tetris.GUI
 {
@@ -23,13 +24,11 @@ namespace Tetris.GUI
     {
 
         Game tetris = new Game();
-        
+        WMPLib.WindowsMediaPlayer Player;
         public MainWindow()
         {
             InitializeComponent();
-            WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
-
-
+            
             for (int i = 0; i < 10; i++)
             {
                 Tetrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -38,8 +37,31 @@ namespace Tetris.GUI
             {
                 Tetrid.RowDefinitions.Add(new RowDefinition());
             }
-            
+            Thread t = new Thread(NewThread);
+            t.Start();
 
+
+        }
+
+        private void PlayFile(String url)
+        {
+            Player = new WMPLib.WindowsMediaPlayer();
+            Player.PlayStateChange += Player_PlayStateChange;
+            Player.URL = url;
+            Player.controls.play();
+        }
+
+        private void Player_PlayStateChange(int NewState)
+        {
+            if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+            }
+        }
+
+        private void NewThread()
+        {
+            PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
         }
     }
 }
