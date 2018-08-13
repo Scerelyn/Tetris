@@ -27,6 +27,9 @@ namespace Tetris.GUI
         public MainWindow()
         {
             InitializeComponent();
+            WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+
+
             for (int i = 0; i < 10; i++)
             {
                 Tetrid.ColumnDefinitions.Add(new ColumnDefinition());
