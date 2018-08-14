@@ -21,6 +21,15 @@
               Grid.Column ="1"
               Background="Black"
         ></Grid>
+        <Label Name="PauseLabel"
+               Grid.Column="1"
+               Content="Paused"
+               Visibility="Hidden"
+               Foreground="White"
+               FontSize="60"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               />
         <StackPanel Orientation="Horizontal"
                     Grid.Column="2"
                     Background="Gray">

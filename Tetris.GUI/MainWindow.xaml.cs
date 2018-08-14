@@ -166,6 +166,38 @@ namespace Tetris.GUI
                         tetris.Rotate();
                     }
                     break;
+                case Key.Down:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.MoveDown();
+                    }
+                    break;
+                case Key.Space:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.SmashDown();
+                    }
+                    break;
+                case Key.LeftCtrl:
+                case Key.RightCtrl:
+                case Key.Z:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.Rotate(false);
+                    }
+                    break;
+                case Key.F1:
+                case Key.Escape:
+                    tetris.Pause();
+                    if(tetris.Status == Game.GameStatus.Paused)
+                    {
+                        PauseLabel.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        PauseLabel.Visibility = Visibility.Hidden;
+                    }
+                    break;
             }
             DrawPiece();
         }
