@@ -153,6 +153,19 @@ namespace Tetris.GUI
                         tetris.MoveLeft();
                     }
                     break;
+                case Key.Right:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.MoveRight();
+                    }
+                    break;
+                case Key.X:
+                case Key.Up:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.Rotate();
+                    }
+                    break;
             }
             DrawPiece();
         }
