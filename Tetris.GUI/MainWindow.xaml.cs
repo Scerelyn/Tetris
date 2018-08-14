@@ -117,17 +117,9 @@ namespace Tetris.GUI
                     else
                     {
                         this.Dispatcher.Invoke(() =>
-
-<<<<<<< HEAD
-                            {
+                        {
                                 DrawPiece();
                             });
-=======
-                        {
-                            DrawPiece();
-                        });
->>>>>>> 8fa5d1ed4597a89e77ef1c5ec189140ff94478a5
-
                         if (timerCount >= (1000 - (tetris.Lines * 10)))
                         {
                             timer.Interval -= 50;
@@ -150,22 +142,20 @@ namespace Tetris.GUI
                 }
             }
         }
-
-<<<<<<< HEAD
         private void Tetrid_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
                 case Key.Left:
 
-                    if(tetris.Status != Game.GameStatus.Paused)
+                    if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.MoveLeft();
                     }
                     break;
             }
             DrawPiece();
-=======
+        }
         private void PlayFile(String url)
         {
             Player = new WMPLib.WindowsMediaPlayer();
@@ -185,7 +175,6 @@ namespace Tetris.GUI
         private void NewThread()
         {
             PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
->>>>>>> 8fa5d1ed4597a89e77ef1c5ec189140ff94478a5
         }
     }
 }
