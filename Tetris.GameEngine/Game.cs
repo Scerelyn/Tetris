@@ -269,42 +269,34 @@ namespace Tetris.GameEngine
             else
             {
                 //wall kicking logic here
-                if (_posX + 1 < _default_board_width) //x+1 is ok?
+                if (_posX + 1 < _default_board_width && _posX - 1 > 0 && _posY + 1 < _default_board_height) //x+1 is ok?
                 {
-                    if (_gameBoard.CanPosAt(tmp_piece, _posX+1, _posY)) // attempt rightward wall kick
+                    if (_gameBoard.CanPosAt(tmp_piece, _posX + 1, _posY)) // attempt rightward wall kick
                     {
                         _currPiece = tmp_piece;
-                        MoveRight();
-                        return; //break the method, so we dont rotate again
+                        _posX++;
                     }
-                    else if (_posY+1 < _default_board_height) // y+1
-                    {
-                        if (_gameBoard.CanPosAt(tmp_piece, _posX+1, _posY+1)) // attempt down right wall kick
-                        {
-                            _currPiece = tmp_piece;
-                            MoveRight();
-                            MoveDown();
-                            return;
-                        }
-                    }
-                }
-                if (_posX - 1 > 0) // x-1 is ok?
-                {
-                    if (_gameBoard.CanPosAt(tmp_piece, _posX - 1, _posY)) // attempt leftward wall kick
+                    else if (_gameBoard.CanPosAt(tmp_piece, _posX + 1, _posY + 1)) // attempt down right wall kick
                     {
                         _currPiece = tmp_piece;
-                        MoveLeft();
-                        return;
+                        _posX++;
+                        _posY++;
                     }
-                    else if (_posY + 1 < _default_board_height) // y+1
+                    else if (_gameBoard.CanPosAt(tmp_piece, _posX - 1, _posY)) // attempt leftward wall kick
                     {
-                        if (_gameBoard.CanPosAt(tmp_piece, _posX - 1, _posY + 1)) // attempt down left wall kick
-                        {
-                            _currPiece = tmp_piece;
-                            MoveLeft();
-                            MoveDown();
-                            return;
-                        }
+                        _currPiece = tmp_piece;
+                        _posX--;
+                    }
+                    else if (_gameBoard.CanPosAt(tmp_piece, _posX - 1, _posY + 1)) // attempt down left wall kick
+                    {
+                        _currPiece = tmp_piece;
+                        _posX--;
+                        _posY++;
+                    }
+                    else if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY + 1)) // attempt down left wall kick
+                    {
+                        _currPiece = tmp_piece;
+                        _posY++;
                     }
                 }
             }

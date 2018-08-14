@@ -28,6 +28,31 @@ namespace Tetris.GUI
         public MainWindow()
         {
             InitializeComponent();
+            SetColors();
+            SetBoard();
+            tetris.Start();
+            timer = new System.Timers.Timer(800);
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Enabled = true;
+            timer.Start();
+            Console.WriteLine(board[1, 1]);
+        }
+
+        private void SetColors()
+        {
+            colors[0] = new SolidColorBrush(Colors.Black);
+            colors[1] = new SolidColorBrush(Colors.Cyan);
+            colors[2] = new SolidColorBrush(Colors.Yellow);
+            colors[3] = new SolidColorBrush(Colors.Blue);
+            colors[4] = new SolidColorBrush(Colors.DarkOrange);
+            colors[5] = new SolidColorBrush(Colors.LawnGreen);
+            colors[6] = new SolidColorBrush(Colors.Red);
+            colors[7] = new SolidColorBrush(Colors.DarkMagenta);
+            colors[8] = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void SetBoard()
+        {
             
             for (int i = 0; i < 10; i++)
             {
