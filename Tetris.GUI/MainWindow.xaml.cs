@@ -52,8 +52,8 @@ namespace Tetris.GUI
             colors[1] = new SolidColorBrush(Colors.Cyan);
             colors[2] = new SolidColorBrush(Colors.Yellow);
             colors[3] = new SolidColorBrush(Colors.Blue);
-            colors[4] = new SolidColorBrush(Colors.Orange);
-            colors[5] = new SolidColorBrush(Colors.LightGreen);
+            colors[4] = new SolidColorBrush(Colors.DarkOrange);
+            colors[5] = new SolidColorBrush(Colors.LawnGreen);
             colors[6] = new SolidColorBrush(Colors.Red);
             colors[7] = new SolidColorBrush(Colors.DarkMagenta);
             colors[8] = new SolidColorBrush(Colors.Gray);
