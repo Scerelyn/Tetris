@@ -258,9 +258,9 @@ namespace Tetris.GameEngine
             MoveDown();
         }
 
-        public void Rotate()
+        public void Rotate(bool goRight=true)
         {
-            Piece tmp_piece = _currPiece.RotateRight();
+            Piece tmp_piece = goRight ? _currPiece.RotateRight() : _currPiece.RotateLeft();
             if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY))
             {
                 _currPiece = tmp_piece;

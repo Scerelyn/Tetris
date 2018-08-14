@@ -8,6 +8,6 @@ namespace Tetris.GameEngine.Interfaces
         void MoveLeft();
         void MoveDown();
         void SmashDown();
-        void Rotate();
+        void Rotate(bool goRight=true);
     }
 }
