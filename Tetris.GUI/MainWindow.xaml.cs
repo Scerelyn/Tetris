@@ -153,6 +153,19 @@ namespace Tetris.GUI
                         tetris.MoveLeft();
                     }
                     break;
+                case Key.Right:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.MoveRight();
+                    }
+                    break;
+                case Key.X:
+                case Key.Up:
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.Rotate();
+                    }
+                    break;
             }
             DrawPiece();
         }
@@ -168,13 +181,13 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+                PlayFile("TypeA.mp3");
             }
         }
 
         private void NewThread()
         {
-            PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+            PlayFile("TypeA.mp3");
         }
     }
 }
