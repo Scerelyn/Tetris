@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Timers;
 using Tetris.GameEngine.Interfaces;
 
 namespace Tetris.GameEngine
 {
-    public class Game: IMovable, IMode
+    public class Game : IMovable, IMode
     {
         private const int _default_board_width = 10;
         private const int _default_board_height = 22;
@@ -39,7 +40,7 @@ namespace Tetris.GameEngine
         public Game()
         {
             _gameBoard = new Board(_default_board_width, _default_board_height);
-            
+
             _currPiece = null;
             _nextPiece = null;
             _status = GameStatus.ReadyToStart;
@@ -65,6 +66,7 @@ namespace Tetris.GameEngine
             DropNewPiece();
         }
 
+
         public void Pause()
         {
             if (this._status == GameStatus.InProgress)
@@ -74,9 +76,8 @@ namespace Tetris.GameEngine
             else if (this._status == GameStatus.Paused)
             {
                 StartCountDown();
-                this._status = GameStatus.InProgress;
             }
-            else 
+            else
             {
                 return;
             }
@@ -84,12 +85,24 @@ namespace Tetris.GameEngine
 
         private void StartCountDown()
         {
-            
+            TimerNum.Elapsed += CountdownEvent;
+            TimerNum.Interval = 1000;
+            TimerNum.Start();
+            String s = TimerNum.ToString();
+        }
+        public void CountdownEvent(Object Sender, ElapsedEventArgs args)
+        {
+            CountDownNum--;
+            if (CountDownNum == 0)
+            {
+                TimerNum.Stop();
+                CountDownNum = 3;
+                this._status = GameStatus.InProgress;
+            }
         }
 
         public void GameOver()
         {
-            if ( (this._status != GameStatus.InProgress) && (this._status != GameStatus.Paused) )
             {
                 throw new InvalidOperationException("Only game with status 'InProgress' or 'Pause'  can be finished");
             }
@@ -107,7 +120,6 @@ namespace Tetris.GameEngine
 
         public int PosX
         {
-            get 
             {
                 return this._posX;
             }
@@ -131,7 +143,6 @@ namespace Tetris.GameEngine
                 }
                 Board tmp_board = (Board)_gameBoard.Clone();
                 Piece tmp_piece = (Piece)_currPiece.Clone();
-                
                 if (ShadowPieceMode == true)
                 {
                     Piece shadow_piece = (Piece)_currPiece.Clone();
@@ -144,9 +155,6 @@ namespace Tetris.GameEngine
 
         public Piece NextPiece
         {
-            get 
-            { 
-                return _nextPiece; 
             }
         }
 
@@ -160,27 +168,21 @@ namespace Tetris.GameEngine
 
         public GameStatus Status
         {
-            get 
             {
-                return this._status; 
             }
         }
 
         public int Lines
         {
-            get 
-            { 
-                return _lines; 
             }
         }
 
         public int Score
         {
-            get 
-            { 
-                return _score; 
             }
         }
+        public Timer TimerNum { get; private set; } = new Timer();
+        public int CountDownNum { get; private set; } = 3;
 
         #endregion
 
@@ -227,7 +229,6 @@ namespace Tetris.GameEngine
             }
         }
 
-        private void DropNewPiece(Piece pieceToHold=null)
         {
             if (pieceToHold != null) //if dropnewpiece was called with a piece to hold,
             {
@@ -253,9 +254,7 @@ namespace Tetris.GameEngine
             else //else just act as if we just wanted a new piece
             {
                 _rnd = new Random(DateTime.Now.Millisecond);
-                _currPiece = ( _nextPiece != null ) ? _nextPiece : PieceFactory.GetRandomPiece(_rnd);
                 _posY = _currPiece.InitPosY;
-                _posX = ( ( _gameBoard.Width - 1 ) / 2 ) + _currPiece.InitPosX;
                 _nextPiece = PieceFactory.GetRandomPiece(_rnd);
             }
         }
@@ -294,7 +293,6 @@ namespace Tetris.GameEngine
             MoveDown();
         }
 
-        public void Rotate(bool goRight=true)
         {
             Piece tmp_piece = goRight ? _currPiece.RotateRight() : _currPiece.RotateLeft();
             if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY))
@@ -305,7 +303,6 @@ namespace Tetris.GameEngine
             else
             {
                 //wall kicking logic here
-                if (_posX + 1 < _default_board_width && _posX - 1 > 0 && _posY + 1 < _default_board_height) 
                 {
                     if (_gameBoard.CanPosAt(tmp_piece, _posX + 1, _posY)) // attempt rightward wall kick
                     {
@@ -334,9 +331,7 @@ namespace Tetris.GameEngine
                         _currPiece = tmp_piece;
                         _posY++;
                     }
-                    else if (tmp_piece[0,0] == 1) //special case for the I piece, since it can kick 2-3 units at a time
                     {
-                        for (int xKick = 2; xKick < 4; xKick++) { //to avoid excessive copy pastes, we check using a forloop
                             for (int yKick = 2; yKick < 4; yKick++)
                             {
                                 if (_gameBoard.CanPosAt(tmp_piece, _posX + xKick, _posY)) // attempt rightward wall kick
@@ -373,7 +368,6 @@ namespace Tetris.GameEngine
                                 }
                             }
                         }
-                        ExitLoop: ;
                         //a label to exit the two for loops, or else we move way too much
                     }
                 }
