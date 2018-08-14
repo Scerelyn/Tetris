@@ -65,7 +65,7 @@ namespace Tetris.GameEngine
             DropNewPiece();
         }
 
-        public void Pause()
+        public void Pause(bool isWpf)
         {
             if (this._status == GameStatus.InProgress)
             {
@@ -73,12 +73,18 @@ namespace Tetris.GameEngine
             }
             else if (this._status == GameStatus.Paused)
             {
+                StartCountDown();
                 this._status = GameStatus.InProgress;
             }
             else 
             {
                 return;
             }
+        }
+
+        private void StartCountDown()
+        {
+            
         }
 
         public void GameOver()
