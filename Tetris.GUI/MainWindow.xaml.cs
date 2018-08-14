@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tetris.GameEngine;
 using System.Threading;
+using System.Timers;
 
 namespace Tetris.GUI
 {
@@ -22,9 +23,15 @@ namespace Tetris.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        Game tetris = new Game();
         WMPLib.WindowsMediaPlayer Player;
+        private static Game tetris = new Game();
+        private static Board board;
+        private static Timer timer;
+        private static int timerCount = 0;
+        private static readonly int timerStep = 10;
+        private SolidColorBrush[] colors = new SolidColorBrush[9];
+        private Label[,] locations;
+
         public MainWindow()
         {
             InitializeComponent();
