@@ -81,7 +81,7 @@ namespace Tetris.GUI
                 {
 
                     Label piece = new Label();
-                    piece.Background = new SolidColorBrush(Colors.LawnGreen);
+                    piece.Background = new SolidColorBrush(Colors.White);
                     //var binding = new Binding();
                     //piece.DataContext = board[j, i];
                     //binding.Source = board[j, i];
@@ -138,7 +138,7 @@ namespace Tetris.GUI
             {
                 for(int j = 0; j < 20; j++)
                 {
-                    locations[i, j].Background = colors[arr[j, i]];
+                    locations[i, j].Background = colors[arr[j + 2, i]];
                 }
             }
         }
