@@ -65,7 +65,7 @@ namespace Tetris.GameEngine
             DropNewPiece();
         }
 
-        public void Pause(bool isWpf)
+        public void Pause()
         {
             if (this._status == GameStatus.InProgress)
             {

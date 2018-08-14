@@ -31,6 +31,7 @@ namespace Tetris.GUI
         private static int timerCount = 0;
         private static readonly int timerStep = 10;
         private SolidColorBrush[] colors = new SolidColorBrush[9];
+        private SolidColorBrush[] borderColors = new SolidColorBrush[9];
         private Label[,] locations;
 
         public MainWindow()
@@ -59,6 +60,17 @@ namespace Tetris.GUI
             colors[6] = new SolidColorBrush(Colors.Red);
             colors[7] = new SolidColorBrush(Colors.DarkMagenta);
             colors[8] = new SolidColorBrush(Colors.Gray);
+
+            borderColors[0] = new SolidColorBrush(Colors.Black);
+            borderColors[1] = new SolidColorBrush(Color.FromRgb(46,230,230));
+            borderColors[2] = new SolidColorBrush(Color.FromRgb(230, 230, 46));
+            borderColors[3] = new SolidColorBrush(Color.FromRgb(56, 78, 232));
+            borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
+            borderColors[5] = new SolidColorBrush(Color.FromRgb(88, 227, 45));
+            borderColors[6] = new SolidColorBrush(Color.FromRgb(230, 46, 46));
+            borderColors[7] = new SolidColorBrush(Color.FromRgb(72, 17, 72));
+            borderColors[8] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+
         }
 
         private void SetBoard()
@@ -84,6 +96,7 @@ namespace Tetris.GUI
 
                     Label piece = new Label();
                     piece.Background = new SolidColorBrush(Colors.White);
+                    piece.BorderThickness = new Thickness(2);
                     //var binding = new Binding();
                     //piece.DataContext = board[j, i];
                     //binding.Source = board[j, i];
@@ -139,6 +152,7 @@ namespace Tetris.GUI
                 for (int j = 0; j < 20; j++)
                 {
                     locations[i, j].Background = colors[arr[j + 2, i]];
+                    locations[i, j].BorderBrush = borderColors[arr[j + 2, i]];
                 }
             }
         }
