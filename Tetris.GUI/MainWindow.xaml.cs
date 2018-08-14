@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Timers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tetris.GameEngine;
+using System.Threading;
+using System.Timers;
 using Tetris.GUI.Converters;
 
 namespace Tetris.GUI
@@ -23,15 +24,14 @@ namespace Tetris.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        WMPLib.WindowsMediaPlayer Player;
         private static Game tetris = new Game();
         private static Board board;
-        private static Timer timer;
+        private static System.Timers.Timer timer;
         private static int timerCount = 0;
         private static readonly int timerStep = 10;
         private SolidColorBrush[] colors = new SolidColorBrush[9];
         private Label[,] locations;
-
 
         public MainWindow()
         {
@@ -44,6 +44,8 @@ namespace Tetris.GUI
             timer.Enabled = true;
             timer.Start();
             Console.WriteLine(board[1, 1]);
+            Thread t = new Thread(NewThread);
+            t.Start();
         }
 
         private void SetColors()
@@ -116,9 +118,15 @@ namespace Tetris.GUI
                     {
                         this.Dispatcher.Invoke(() =>
 
+<<<<<<< HEAD
                             {
                                 DrawPiece();
                             });
+=======
+                        {
+                            DrawPiece();
+                        });
+>>>>>>> 8fa5d1ed4597a89e77ef1c5ec189140ff94478a5
 
                         if (timerCount >= (1000 - (tetris.Lines * 10)))
                         {
@@ -143,6 +151,7 @@ namespace Tetris.GUI
             }
         }
 
+<<<<<<< HEAD
         private void Tetrid_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -156,6 +165,27 @@ namespace Tetris.GUI
                     break;
             }
             DrawPiece();
+=======
+        private void PlayFile(String url)
+        {
+            Player = new WMPLib.WindowsMediaPlayer();
+            Player.PlayStateChange += Player_PlayStateChange;
+            Player.URL = url;
+            Player.controls.play();
+        }
+
+        private void Player_PlayStateChange(int NewState)
+        {
+            if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+            }
+        }
+
+        private void NewThread()
+        {
+            PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+>>>>>>> 8fa5d1ed4597a89e77ef1c5ec189140ff94478a5
         }
     }
 }
