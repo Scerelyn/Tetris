@@ -11,7 +11,10 @@ namespace Tetris.GameEngine
         /// List of Tetris Pieces
         /// </summary>
         private static List<Piece> _pieces;
-
+        /// <summary>
+        /// The bag to shuffle into and draw from
+        /// </summary>
+        private static Stack<Piece> _bag = new Stack<Piece>();
         #endregion
 
         #region Constructors
@@ -48,8 +51,22 @@ namespace Tetris.GameEngine
         /// <returns>Random Piece</returns>
         public static Piece GetRandomPiece(Random r)
         {
-            int ind = r.Next(_pieces.Count);
-            return GetPiecebyId(ind);
+            //to avoid duplicate pieces, and abide by the tetris standards, we use a bag randomizing algorithm
+            if (_bag.Count > 0)
+            {
+                return _bag.Pop(); //normally we get from a bag
+            }
+            else //if its empty
+            {
+                List<Piece> cpyPieces = new List<Piece>(_pieces); //duplicate the _pieces list
+                while (cpyPieces.Count > 0) //while the copied _pieces has pieces left in it
+                {
+                    int rng = r.Next(cpyPieces.Count);
+                    _bag.Push(cpyPieces[rng]); //push a random piece
+                    cpyPieces.RemoveAt(rng); //remove it to eventually end the loop
+                } //by here, the bag has one of each piece which will pop off one when this method is called again, then refill it again if needed
+                return _bag.Pop(); //now get a piece
+            }
         }
 
         #endregion
