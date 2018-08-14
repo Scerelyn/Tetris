@@ -90,6 +90,9 @@ namespace TetrisConsoleUI
                 case ConsoleKey.Escape:
                     _game.GameOver();
                     break;
+                case ConsoleKey.C:
+                    _game.HoldPiece();
+                    break;
                 default:
                     break;
             }
