@@ -97,6 +97,9 @@ namespace TetrisConsoleUI
 
         private static void OnTimedEvent(object source, ElapsedEventArgs e)
         {
+#if DEBUG
+            (source as System.Timers.Timer).Stop();
+#endif
             if (_game.Status != Game.GameStatus.Finished)
             {
                 if (_game.Status != Game.GameStatus.Paused)
@@ -118,6 +121,9 @@ namespace TetrisConsoleUI
                     }
                 }
             }
+#if DEBUG
+            (source as System.Timers.Timer).Start();
+#endif
         }
     }
 }
