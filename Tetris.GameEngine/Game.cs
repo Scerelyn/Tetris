@@ -258,9 +258,9 @@ namespace Tetris.GameEngine
             MoveDown();
         }
 
-        public void Rotate()
+        public void Rotate(bool goRight=true)
         {
-            Piece tmp_piece = _currPiece.RotateRight();
+            Piece tmp_piece = goRight ? _currPiece.RotateRight() : _currPiece.RotateLeft();
             if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY))
             {
                 _currPiece = tmp_piece;
@@ -269,7 +269,7 @@ namespace Tetris.GameEngine
             else
             {
                 //wall kicking logic here
-                if (_posX + 1 < _default_board_width && _posX - 1 > 0 && _posY + 1 < _default_board_height) //x+1 is ok?
+                if (_posX + 1 < _default_board_width && _posX - 1 > 0 && _posY + 1 < _default_board_height) 
                 {
                     if (_gameBoard.CanPosAt(tmp_piece, _posX + 1, _posY)) // attempt rightward wall kick
                     {
@@ -297,6 +297,48 @@ namespace Tetris.GameEngine
                     {
                         _currPiece = tmp_piece;
                         _posY++;
+                    }
+                    else if (tmp_piece[0,0] == 1) //special case for the I piece, since it can kick 2-3 units at a time
+                    {
+                        for (int xKick = 2; xKick < 4; xKick++) { //to avoid excessive copy pastes, we check using a forloop
+                            for (int yKick = 2; yKick < 4; yKick++)
+                            {
+                                if (_gameBoard.CanPosAt(tmp_piece, _posX + xKick, _posY)) // attempt rightward wall kick
+                                {
+                                    _currPiece = tmp_piece;
+                                    _posX += xKick;
+                                    goto ExitLoop; //a goto to a label just outside the two for loops since staying in the for loops will cause the piece to move too much
+                                }
+                                else if (_gameBoard.CanPosAt(tmp_piece, _posX + xKick, _posY + yKick)) // attempt down right wall kick
+                                {
+                                    _currPiece = tmp_piece;
+                                    _posX += xKick;
+                                    _posY += yKick;
+                                    goto ExitLoop;
+                                }
+                                else if (_gameBoard.CanPosAt(tmp_piece, _posX - xKick, _posY)) // attempt leftward wall kick
+                                {
+                                    _currPiece = tmp_piece;
+                                    _posX -= xKick;
+                                    goto ExitLoop;
+                                }
+                                else if (_gameBoard.CanPosAt(tmp_piece, _posX - xKick, _posY + yKick)) // attempt down left wall kick
+                                {
+                                    _currPiece = tmp_piece;
+                                    _posX -= xKick;
+                                    _posY += yKick;
+                                    goto ExitLoop;
+                                }
+                                else if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY + yKick)) // attempt down left wall kick
+                                {
+                                    _currPiece = tmp_piece;
+                                    _posY += yKick;
+                                    goto ExitLoop;
+                                }
+                            }
+                        }
+                        ExitLoop: ;
+                        //a label to exit the two for loops, or else we move way too much
                     }
                 }
             }
