@@ -8,8 +8,8 @@ namespace TetrisConsoleUI
     class TetrisConsoleUI
     {
         private static Game _game;
-        private static  ConsoleDrawing _drawer;
-        private static  System.Timers.Timer _gameTimer;
+        private static ConsoleDrawing _drawer;
+        private static System.Timers.Timer _gameTimer;
         private static int _timerCounter = 0;
         private static readonly int _timerStep = 10;
 
@@ -38,7 +38,7 @@ namespace TetrisConsoleUI
             {
                 if (Console.KeyAvailable)
                 {
-                    KeyPressedHandler( Console.ReadKey(true) );
+                    KeyPressedHandler(Console.ReadKey(true));
                     _drawer.DrawScene(_game);
                     _gameTimer.Enabled = true;
                 }
@@ -56,6 +56,10 @@ namespace TetrisConsoleUI
             switch (input_key.Key)
             {
                 case ConsoleKey.LeftArrow:
+                    if (_game.Status != Game.GameStatus.Paused)
+                        _game.MoveLeft();
+                    break;
+                case ConsoleKey.Z:
                     if (_game.Status != Game.GameStatus.Paused)
                         _game.MoveLeft();
                     break;
@@ -90,6 +94,9 @@ namespace TetrisConsoleUI
                 case ConsoleKey.Escape:
                     _game.GameOver();
                     break;
+                case ConsoleKey.C:
+                    _game.HoldPiece();
+                    break;
                 default:
                     break;
             }
@@ -113,7 +120,7 @@ namespace TetrisConsoleUI
                     else
                     {
                         _drawer.DrawScene(_game);
-                        if ( _timerCounter >= ( 1000 - (_game.Lines * 10) ) )
+                        if (_timerCounter >= (1000 - (_game.Lines * 10)))
                         {
                             _gameTimer.Interval -= 50;
                             _timerCounter = 0;

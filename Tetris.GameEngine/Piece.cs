@@ -66,6 +66,20 @@ namespace Tetris.GameEngine
             }
         }
 
+        public Piece InitialRotationState
+        {
+            get
+            {
+                if (_rotationStates != null && _rotationStates.Count > 0 )
+                {
+                    return new Piece(_rotationStates[0], _rotationStates, 0);
+                }
+                else
+                {
+                    return this;
+                }
+            }
+        }
         #endregion
 
         #region Public Methods

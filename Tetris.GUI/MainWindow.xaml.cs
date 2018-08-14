@@ -213,13 +213,13 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+                PlayFile("TypeA.mp3");
             }
         }
 
         private void NewThread()
         {
-            PlayFile("C:/Users/Jt/Desktop/Tetris/SoundResources/TypeA.mp3");
+            PlayFile("TypeA.mp3");
         }
     }
 }

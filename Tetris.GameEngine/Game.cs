@@ -30,6 +30,7 @@ namespace Tetris.GameEngine
         private int _posY;
         private int _lines;
         private int _score;
+        private Piece _heldPiece = null;
 
         #endregion
 
@@ -64,7 +65,7 @@ namespace Tetris.GameEngine
             DropNewPiece();
         }
 
-        public void Pause()
+        public void Pause(bool isWpf)
         {
             if (this._status == GameStatus.InProgress)
             {
@@ -72,12 +73,18 @@ namespace Tetris.GameEngine
             }
             else if (this._status == GameStatus.Paused)
             {
+                StartCountDown();
                 this._status = GameStatus.InProgress;
             }
             else 
             {
                 return;
             }
+        }
+
+        private void StartCountDown()
+        {
+            
         }
 
         public void GameOver()
@@ -87,6 +94,11 @@ namespace Tetris.GameEngine
                 throw new InvalidOperationException("Only game with status 'InProgress' or 'Pause'  can be finished");
             }
             _status = GameStatus.Finished;
+        }
+
+        public void HoldPiece()
+        {
+            DropNewPiece(_currPiece.InitialRotationState);
         }
 
         #endregion
@@ -215,13 +227,37 @@ namespace Tetris.GameEngine
             }
         }
 
-        private void DropNewPiece()
+        private void DropNewPiece(Piece pieceToHold=null)
         {
-            _rnd = new Random(DateTime.Now.Millisecond);
-            _currPiece = ( _nextPiece != null ) ? _nextPiece : PieceFactory.GetRandomPiece(_rnd);
-            _posY = _currPiece.InitPosY;
-            _posX = ( ( _gameBoard.Width - 1 ) / 2 ) + _currPiece.InitPosX;
-            _nextPiece = PieceFactory.GetRandomPiece(_rnd);
+            if (pieceToHold != null) //if dropnewpiece was called with a piece to hold,
+            {
+                if (_heldPiece != null) // if we have a held piece ready
+                {
+                    Piece p = _currPiece; //temp
+                    _currPiece = _heldPiece; //swap the current piece with the held on
+                    _heldPiece = p.InitialRotationState; //then swap the heldpiece
+                    _posY = _currPiece.InitPosY; //reset positions
+                    _posX = ((_gameBoard.Width - 1) / 2) + _currPiece.InitPosX;
+                }
+                else //if the _heldPiece is not null
+                {
+                    _heldPiece = pieceToHold.InitialRotationState; //store it
+                    //then just call in the next piece
+                    _rnd = new Random(DateTime.Now.Millisecond);
+                    _currPiece = (_nextPiece != null) ? _nextPiece : PieceFactory.GetRandomPiece(_rnd);
+                    _posY = _currPiece.InitPosY;
+                    _posX = ((_gameBoard.Width - 1) / 2) + _currPiece.InitPosX;
+                    _nextPiece = PieceFactory.GetRandomPiece(_rnd);
+                }
+            }
+            else //else just act as if we just wanted a new piece
+            {
+                _rnd = new Random(DateTime.Now.Millisecond);
+                _currPiece = ( _nextPiece != null ) ? _nextPiece : PieceFactory.GetRandomPiece(_rnd);
+                _posY = _currPiece.InitPosY;
+                _posX = ( ( _gameBoard.Width - 1 ) / 2 ) + _currPiece.InitPosX;
+                _nextPiece = PieceFactory.GetRandomPiece(_rnd);
+            }
         }
 
         #endregion
