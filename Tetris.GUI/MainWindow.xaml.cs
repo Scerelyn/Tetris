@@ -44,6 +44,8 @@ namespace Tetris.GUI
             timer.Enabled = true;
             timer.Start();
             Console.WriteLine(board[1, 1]);
+            Thread t = new Thread(NewThread);
+            t.Start();
         }
 
         private void SetColors()
