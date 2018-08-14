@@ -61,7 +61,7 @@ namespace Tetris.GUI
 
         private void SetBoard()
         {
-            
+
             for (int i = 0; i < 10; i++)
             {
                 Tetrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -73,7 +73,7 @@ namespace Tetris.GUI
             }
             tetris = new Game();
             board = tetris.ActualBoard;
-           locations = new Label[10, 20];
+            locations = new Label[10, 20];
             StandardTetrisNumToColorConverter convert = new StandardTetrisNumToColorConverter();
             for (int i = 0; i < 10; i++)
             {
@@ -101,7 +101,7 @@ namespace Tetris.GUI
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            Console.WriteLine(board[1,1]);
+            Console.WriteLine(board[1, 1]);
             if (tetris.Status != Game.GameStatus.Finished)
             {
                 if (tetris.Status != Game.GameStatus.Paused)
@@ -119,7 +119,7 @@ namespace Tetris.GUI
                             {
                                 DrawPiece();
                             });
-                        
+
                         if (timerCount >= (1000 - (tetris.Lines * 10)))
                         {
                             timer.Interval -= 50;
@@ -134,13 +134,28 @@ namespace Tetris.GUI
         {
             board = tetris.ActualBoard;
             int[,] arr = board.ToArray();
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for(int j = 0; j < 20; j++)
+                for (int j = 0; j < 20; j++)
                 {
                     locations[i, j].Background = colors[arr[j + 2, i]];
                 }
             }
+        }
+
+        private void Tetrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Left:
+
+                    if(tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.MoveLeft();
+                    }
+                    break;
+            }
+            DrawPiece();
         }
     }
 }
