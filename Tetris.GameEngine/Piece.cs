@@ -129,7 +129,7 @@ namespace Tetris.GameEngine
             }
             else // if we have rotated states, use them
             {
-                _rotationIndex = _rotationIndex < 0 ? _rotationStates.Count-1 : _rotationIndex - 1; // move the rotation index down 1, if under 0, move to states list size minus 1
+                _rotationIndex = _rotationIndex <= 0 ? _rotationStates.Count-1 : _rotationIndex - 1; // move the rotation index down 1, if under 0, move to states list size minus 1
                 return new Piece(_rotationStates[_rotationIndex], _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
             }
         }
