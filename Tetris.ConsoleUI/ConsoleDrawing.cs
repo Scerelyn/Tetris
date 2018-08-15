@@ -65,7 +65,7 @@ namespace TetrisConsoleUI
                 {
                     Console.CursorLeft = game.ActualBoard.Width + 5;
                     Console.CursorTop = 3;
-                    DrawArray(game.NextPiece.ToArray(), false);
+                    DrawArray(game.NextPieces[0].ToArray(), false);
                 }
 
                 //Back to the Future, err... Beginning
