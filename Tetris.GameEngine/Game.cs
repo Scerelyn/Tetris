@@ -134,7 +134,6 @@ namespace Tetris.GameEngine
                 {
                     result[i] = nextPieces[i];
                 }
-                CycleNextArray();
                 return result;
                 
             }
