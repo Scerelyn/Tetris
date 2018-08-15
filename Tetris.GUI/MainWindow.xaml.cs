@@ -38,6 +38,7 @@ namespace Tetris.GUI
         {
             InitializeComponent();
             SetColors();
+            GenerateBorders();
             SetBoard();
             tetris.Start();
             timer = new System.Timers.Timer(800);
@@ -47,6 +48,36 @@ namespace Tetris.GUI
             Console.WriteLine(board[1, 1]);
             Thread t = new Thread(NewThread);
             t.Start();
+        }
+
+        private void GenerateBorders()
+        {
+            for(int i = 0; i <20; i++)
+            {
+                if(i != 0)
+                {
+                    RightBorder.RowDefinitions.Add(new RowDefinition());
+                }
+                Label piece = new Label();
+                piece.Background = colors[8];
+                piece.BorderThickness = new Thickness(2);
+                piece.BorderBrush = borderColors[8];
+                Grid.SetRow(piece, i);
+                RightBorder.Children.Add(piece);
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                if (i != 0)
+                {
+                    LeftBorder.RowDefinitions.Add(new RowDefinition());
+                }
+                Label piece = new Label();
+                piece.Background = colors[8];
+                piece.BorderThickness = new Thickness(2);
+                piece.BorderBrush = borderColors[8];
+                Grid.SetRow(piece, i);
+                LeftBorder.Children.Add(piece);
+            }
         }
 
         private void SetColors()
