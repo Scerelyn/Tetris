@@ -13,9 +13,19 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid Name="LeftPanel"
+        <Grid Name="LeftGrid"
                     Background="#78bc61">
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Name="LeftPanel">
+                
+            </StackPanel>
+            <Grid Name="LeftBorder"
+                  Grid.Column="1">
+                
+            </Grid>
         </Grid>
         <Grid Name="Tetrid"
               Grid.Column ="1"
@@ -30,10 +40,20 @@
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                />
-        <Grid Name="RightPanel"
+        <Grid Name="RightGrid"
               Grid.Column="2"
               Background="#78bc61">
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="RightBorder">
+                
+            </Grid>
+            <StackPanel Name="RightPanel"
+                        Grid.Column="1">
+                
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

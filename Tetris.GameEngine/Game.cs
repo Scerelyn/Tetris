@@ -26,6 +26,7 @@ namespace Tetris.GameEngine
         private GameStatus _status;
         private Piece _currPiece;
         private Piece _nextPiece;
+        private Piece[] nextPieces;
         private Random _rnd;
         private int _posX;
         private int _posY;
@@ -50,6 +51,7 @@ namespace Tetris.GameEngine
             _posX = _posY = 0;
             _lines = 0;
             _score = 0;
+            nextPieces = new Piece[6];
         }
 
         #endregion
@@ -119,6 +121,13 @@ namespace Tetris.GameEngine
         #endregion
 
         #region Public Properties
+
+        public Piece[] NextPieces
+        {
+            get { return nextPieces; }
+            set { nextPieces = value; }
+        }
+
 
         public int PosX
         {
@@ -271,11 +280,37 @@ namespace Tetris.GameEngine
             else //else just act as if we just wanted a new piece
             {
                 _rnd = new Random(DateTime.Now.Millisecond);
-                _currPiece = (_nextPiece != null) ? _nextPiece : PieceFactory.GetRandomPiece(_rnd);
+                if(nextPieces[0] != null)
+                {
+                    _currPiece = nextPieces[0];
+                    CycleNextArray();
+                }
+                else
+                {
+                    FillNextArray();
+                    _currPiece = nextPieces[0];
+                    CycleNextArray();
+                }
                 _posY = _currPiece.InitPosY;
                 _posX = ((_gameBoard.Width - 1) / 2) + _currPiece.InitPosX;
-                _nextPiece = PieceFactory.GetRandomPiece(_rnd);
             }
+        }
+
+        private void FillNextArray()
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                nextPieces[i] = PieceFactory.GetRandomPiece(_rnd);
+            }
+        }
+
+        private void CycleNextArray()
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                nextPieces[i] = nextPieces[i + 1];
+            }
+            nextPieces[5] = PieceFactory.GetRandomPiece(_rnd);
         }
 
         #endregion
