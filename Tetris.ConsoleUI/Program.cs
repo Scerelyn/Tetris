@@ -127,6 +127,10 @@ namespace TetrisConsoleUI
                         }
                     }
                 }
+                else if (_game.CountDownNum > 0)
+                {
+                    _drawer.DrawScene(_game);
+                }
             }
 #if DEBUG
             (source as System.Timers.Timer).Start();

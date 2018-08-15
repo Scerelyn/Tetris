@@ -41,6 +41,22 @@ namespace TetrisConsoleUI
                 Console.SetCursorPosition(posX, posY);
                 DrawArray(game.ActualBoard.ToArray(), true);
 
+                //Pause indicator
+                string pauseInd = "";
+                if (game.InCountdownState)
+                {
+                    pauseInd = $"\nResuming in {game.CountDownNum}";
+                }
+                else if(game.Status == Game.GameStatus.Paused)
+                {
+                    pauseInd = "\nPaused       "; // the console does not update characters that arent used/needed to update, so the resuming statement remains even after the pause is done, so wipe it with spaces
+                }
+                else
+                {
+                    pauseInd = "\n             ";
+                }
+                Console.WriteLine(pauseInd);
+
                 //Draw next Block
                 Console.CursorLeft = game.ActualBoard.Width + 4;
                 Console.CursorTop = 2;
@@ -71,6 +87,7 @@ namespace TetrisConsoleUI
     [SPACE]   Smash Bloock down
     [↓]       Push block down 1 Unit
     [↑]       Turn Clockwise
+    [C]       Hold Current Piece
     [G]       Turn ghost Block on and off (Default on)
     [N]       Turn Next Block on and off
     [P]       Pause Game
