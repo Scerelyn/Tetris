@@ -124,8 +124,21 @@ namespace Tetris.GameEngine
 
         public Piece[] NextPieces
         {
-            get { return nextPieces; }
-            set { nextPieces = value; }
+            get {
+                if(nextPieces == null)
+                {
+                    FillNextArray();
+                }
+                Piece[] result = new Piece[6];
+                for(int i = 0; i < 6; i++)
+                {
+                    result[i] = nextPieces[i];
+                }
+                CycleNextArray();
+                return result;
+                
+            }
+
         }
 
 
