@@ -86,6 +86,8 @@ namespace Tetris.GameEngine
         {
             TimerNum.Elapsed += CountdownEvent;
             TimerNum.Interval = 1000;
+            CountDownNum = 3;
+            InCountdownState = true;
             TimerNum.Start();
             String s = TimerNum.ToString();
         }
@@ -95,7 +97,7 @@ namespace Tetris.GameEngine
             if (CountDownNum == 0)
             {
                 TimerNum.Stop();
-                CountDownNum = 3;
+                InCountdownState = false;
                 this._status = GameStatus.InProgress;
             }
         }
@@ -196,6 +198,7 @@ namespace Tetris.GameEngine
         }
         public Timer TimerNum { get; private set; } = new Timer();
         public int CountDownNum { get; private set; } = 3;
+        public bool InCountdownState { get; private set; } = false;
 
         #endregion
 
