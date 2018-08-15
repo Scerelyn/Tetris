@@ -2,6 +2,7 @@
 using System.Threading;
 using Tetris.GameEngine;
 using System.Timers;
+using SharpDX.XInput;
 
 namespace TetrisConsoleUI
 {
@@ -12,7 +13,8 @@ namespace TetrisConsoleUI
         private static System.Timers.Timer _gameTimer;
         private static int _timerCounter = 0;
         private static readonly int _timerStep = 10;
-
+        private static Controller controller;
+        private static System.Timers.Timer controllerPollTimer;
         static int Main(string[] args)
         {
             //preparing Console
@@ -32,7 +34,14 @@ namespace TetrisConsoleUI
             _gameTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             _gameTimer.Start();
 
+            
             _drawer.DrawScene(_game);
+
+            controller = new Controller(0);
+            controllerPollTimer = new System.Timers.Timer(80);
+            controllerPollTimer.Elapsed += ControllerPoll;
+            controllerPollTimer.Start();
+
 
             while (_game.Status != Game.GameStatus.Finished)
             {
@@ -49,6 +58,51 @@ namespace TetrisConsoleUI
             Console.ResetColor();
             Console.CursorVisible = true;
             return 0;
+        }
+
+        private static void ControllerPoll(object sender, ElapsedEventArgs e)
+        {
+            if (_game.Status == Game.GameStatus.Finished)
+            {
+                controllerPollTimer.Stop();
+            }
+            if (controller.IsConnected)
+            {
+                ControllerButtonHandler();
+                _drawer.DrawScene(_game);
+            }
+        }
+
+        private static void ControllerButtonHandler()
+        {
+            State prevState = controller.GetState();
+            switch (prevState.Gamepad.Buttons)
+            {
+                case GamepadButtonFlags.A:
+                    _game.Rotate(false);
+                    break;
+                case GamepadButtonFlags.B:
+                    _game.Rotate(true);
+                    break;
+                case GamepadButtonFlags.DPadUp:
+                    _game.SmashDown();
+                    break;
+                case GamepadButtonFlags.DPadDown:
+                    _game.MoveDown();
+                    break;
+                case GamepadButtonFlags.DPadLeft:
+                    _game.MoveLeft();
+                    break;
+                case GamepadButtonFlags.DPadRight:
+                    _game.MoveRight();
+                    break;
+                case GamepadButtonFlags.Start:
+                    _game.Pause();
+                    break;
+                case GamepadButtonFlags.X:
+                    _game.HoldPiece();
+                    break;
+            }
         }
 
         private static void KeyPressedHandler(ConsoleKeyInfo input_key)
