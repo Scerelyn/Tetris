@@ -30,8 +30,8 @@ namespace Tetris.GUI
         private static System.Timers.Timer timer;
         private static int timerCount = 0;
         private static readonly int timerStep = 10;
-        private SolidColorBrush[] colors = new SolidColorBrush[9];
-        private SolidColorBrush[] borderColors = new SolidColorBrush[9];
+        private SolidColorBrush[] colors = new SolidColorBrush[10];
+        private SolidColorBrush[] borderColors = new SolidColorBrush[10];
         private Label[,] locations;
 
         public MainWindow()
@@ -59,9 +59,9 @@ namespace Tetris.GUI
                     RightBorder.RowDefinitions.Add(new RowDefinition());
                 }
                 Label piece = new Label();
-                piece.Background = colors[8];
+                piece.Background = colors[9];
                 piece.BorderThickness = new Thickness(2);
-                piece.BorderBrush = borderColors[8];
+                piece.BorderBrush = borderColors[9];
                 Grid.SetRow(piece, i);
                 RightBorder.Children.Add(piece);
             }
@@ -72,9 +72,9 @@ namespace Tetris.GUI
                     LeftBorder.RowDefinitions.Add(new RowDefinition());
                 }
                 Label piece = new Label();
-                piece.Background = colors[8];
+                piece.Background = colors[9];
                 piece.BorderThickness = new Thickness(2);
-                piece.BorderBrush = borderColors[8];
+                piece.BorderBrush = borderColors[9];
                 Grid.SetRow(piece, i);
                 LeftBorder.Children.Add(piece);
             }
@@ -85,22 +85,24 @@ namespace Tetris.GUI
             colors[0] = new SolidColorBrush(Colors.Black);
             colors[1] = new SolidColorBrush(Colors.Cyan);
             colors[2] = new SolidColorBrush(Colors.Yellow);
-            colors[3] = new SolidColorBrush(Colors.Blue);
+            colors[3] = new SolidColorBrush(Colors.DodgerBlue);
             colors[4] = new SolidColorBrush(Colors.DarkOrange);
             colors[5] = new SolidColorBrush(Colors.LawnGreen);
             colors[6] = new SolidColorBrush(Colors.Red);
-            colors[7] = new SolidColorBrush(Colors.DarkMagenta);
-            colors[8] = new SolidColorBrush(Colors.Gray);
+            colors[7] = new SolidColorBrush(Colors.MediumPurple);
+            colors[8] = new SolidColorBrush(Colors.LightGray);
+            colors[9] = new SolidColorBrush(Colors.Gray);
 
             borderColors[0] = new SolidColorBrush(Colors.Black);
-            borderColors[1] = new SolidColorBrush(Color.FromRgb(46,230,230));
-            borderColors[2] = new SolidColorBrush(Color.FromRgb(230, 230, 46));
-            borderColors[3] = new SolidColorBrush(Color.FromRgb(56, 78, 232));
+            borderColors[1] = new SolidColorBrush(Color.FromRgb(16,200,200));
+            borderColors[2] = new SolidColorBrush(Color.FromRgb(200, 200, 16));
+            borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
             borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
-            borderColors[5] = new SolidColorBrush(Color.FromRgb(88, 227, 45));
-            borderColors[6] = new SolidColorBrush(Color.FromRgb(230, 46, 46));
-            borderColors[7] = new SolidColorBrush(Color.FromRgb(72, 17, 72));
-            borderColors[8] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+            borderColors[5] = new SolidColorBrush(Color.FromRgb(58, 197, 15));
+            borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
+            borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
+            borderColors[8] = new SolidColorBrush(Colors.Gray);
+            borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
 
         }
 
@@ -128,13 +130,6 @@ namespace Tetris.GUI
                     Label piece = new Label();
                     piece.Background = new SolidColorBrush(Colors.White);
                     piece.BorderThickness = new Thickness(2);
-                    //var binding = new Binding();
-                    //piece.DataContext = board[j, i];
-                    //binding.Source = board[j, i];
-                    //binding.Converter = convert;
-                    //binding.Mode = BindingMode.Default;
-                    //binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                    //piece.SetBinding(BackgroundProperty, binding);
                     locations[i, j] = piece;
                     Grid.SetColumn(piece, i);
                     Grid.SetRow(piece, j);
