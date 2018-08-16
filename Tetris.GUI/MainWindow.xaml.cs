@@ -187,54 +187,91 @@ namespace Tetris.GUI
 
         private void DrawNexts()
         {
-            FillBlock(NextPiece1Grid, tetris.NextPieces[0].PieceArray);
-            FillBlock(NextPiece2Grid, tetris.NextPieces[1].PieceArray);
-            FillBlock(NextPiece3Grid, tetris.NextPieces[2].PieceArray);
-            FillBlock(NextPiece4Grid, tetris.NextPieces[3].PieceArray);
-            FillBlock(NextPiece5Grid, tetris.NextPieces[4].PieceArray);
-            FillBlock(NextPiece6Grid, tetris.NextPieces[5].PieceArray);
+            FillBlock(NextPiece1Grid, tetris.NextPieces[0].TypePiece);
+            FillBlock(NextPiece2Grid, tetris.NextPieces[1].TypePiece);
+            FillBlock(NextPiece3Grid, tetris.NextPieces[2].TypePiece);
+            FillBlock(NextPiece4Grid, tetris.NextPieces[3].TypePiece);
+            FillBlock(NextPiece5Grid, tetris.NextPieces[4].TypePiece);
+            FillBlock(NextPiece6Grid, tetris.NextPieces[5].TypePiece);
         }
 
-        private void FillBlock(Grid grid, int[,] piece)
+        private void FillBlock(Grid grid, PieceType pieceType)
         {
             grid.Children.Clear();
-            grid.RowDefinitions.Clear();
-            grid.ColumnDefinitions.Clear();
-            for(int i = 0; i < piece.GetLength(0)+2; i++)
+            int thickness = 1;
+            if(grid == NextPiece1Grid)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition());
+                thickness = 2;
             }
-            for (int j = 0; j < piece.GetLength(1) + 2; j++)
+            switch (pieceType)
             {
-                grid.RowDefinitions.Add(new RowDefinition());
+
+                case PieceType.I:
+                    for(int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[1];
+                        cell.BorderBrush = borderColors[1];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, i);
+                        Grid.SetRow(cell, 1);
+                        grid.Children.Add(cell);
+                    }
+                    break;
+                case PieceType.S:
+                    int sX = 0;
+                    int sY = 2;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[5];
+                        cell.BorderBrush = borderColors[5];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, sX);
+                        Grid.SetRow(cell, sY);
+                        if(sX != 1 || (sY == 1 && sX == 1))
+                        {
+                            sX++;
+                        }
+                        else
+                        {
+                            sY--;
+                        }
+                        grid.Children.Add(cell);
+                    }
+                    break;
+                case PieceType.Z:
+                    int zX = 0;
+                    int zY = 1;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[6];
+                        cell.BorderBrush = borderColors[6];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, zX);
+                        Grid.SetRow(cell, zY);
+                        if (zX != 1 || (zY == 2 && zX == 1))
+                        {
+                            zX++;
+                        }
+                        else
+                        {
+                            zY++;
+                        }
+                        grid.Children.Add(cell);
+                    }
+                    break;
+                case PieceType.T:
+                    break;
+                case PieceType.O:
+                    break;
+                case PieceType.L:
+                    break;
+                case PieceType.J:
+                    break;
             }
 
-            for(int i = 0; i < piece.GetLength(0)+2;i++)
-            {
-                for (int j = 0; j < piece.GetLength(1) + 2; j++)
-                {
-                    Label cell = new Label();
-                    Grid.SetColumn(cell, i);
-                    Grid.SetRow(cell, j);
-                    cell.BorderThickness = new Thickness(2);
-                    if (i == 0 || i == piece.GetLength(0) + 1)
-                    {
-                        cell.Background = colors[0];
-                        cell.BorderBrush = borderColors[0];
-                    }
-                    else if (j == 0 || j == piece.GetLength(1)+1)
-                    {
-                        cell.Background = colors[0];
-                        cell.BorderBrush = borderColors[0];
-                    }
-                    else
-                    {
-                        cell.Background = colors[piece[i-1, j-1]];
-                        cell.BorderBrush = borderColors[piece[i-1, j-1]];
-                    }
-                    grid.Children.Add(cell);
-                }
-            }
         }
 
         private void Tetrid_KeyDown(object sender, KeyEventArgs e)

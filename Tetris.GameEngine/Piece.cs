@@ -17,12 +17,14 @@ namespace Tetris.GameEngine
 
         #region Constructors
 
-        public Piece(int[,] p, List<int[,]> rotationStates=null, int rotateIndex=0)
+        public Piece(int[,] p, PieceType pieceType, List<int[,]> rotationStates=null, int rotateIndex=0)
         {
+            
             if (p == null)
             {
                 throw new ArgumentNullException();
             }
+            TypePiece = pieceType;
             _piece = (int[,])p.Clone();
             _initPosY = (p.GetUpperBound(0) + 1) * -1;
             _initPosX = 0;
@@ -42,11 +44,7 @@ namespace Tetris.GameEngine
             }
         }
 
-        public int[,] PieceArray
-        {
-            get { return _piece; }
-        }
-
+        public PieceType TypePiece { get; set; }
 
         public int Width
         {
@@ -78,7 +76,7 @@ namespace Tetris.GameEngine
             {
                 if (_rotationStates != null && _rotationStates.Count > 0 )
                 {
-                    return new Piece(_rotationStates[0], _rotationStates, 0);
+                    return new Piece(_rotationStates[0], TypePiece, _rotationStates, 0);
                 }
                 else
                 {
@@ -106,12 +104,12 @@ namespace Tetris.GameEngine
                         rotated[j, Height - i - 1] = _piece[i, j];
                     }
                 }
-                return new Piece( rotated );
+                return new Piece( rotated, TypePiece );
             }
             else // if we have rotated states, use them
             {
                 _rotationIndex = _rotationIndex >= _rotationStates.Count-1 ? 0 : _rotationIndex + 1; // move the rotation index up 1, if over the states size, move to 0
-                return new Piece(_rotationStates[_rotationIndex], _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
+                return new Piece(_rotationStates[_rotationIndex], TypePiece, _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
             }
         }
 
@@ -131,12 +129,12 @@ namespace Tetris.GameEngine
                         rotated[j, Height - i - 1] = _piece[i, j];
                     }
                 }
-                return new Piece(rotated);
+                return new Piece(rotated, TypePiece);
             }
             else // if we have rotated states, use them
             {
                 _rotationIndex = _rotationIndex <= 0 ? _rotationStates.Count-1 : _rotationIndex - 1; // move the rotation index down 1, if under 0, move to states list size minus 1
-                return new Piece(_rotationStates[_rotationIndex], _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
+                return new Piece(_rotationStates[_rotationIndex], TypePiece, _rotationStates, _rotationIndex); // return the new piece with the new int array, copy over the states and index
             }
         }
 
@@ -181,7 +179,7 @@ namespace Tetris.GameEngine
 
         public object Clone()
         {
-            return new Piece(this._piece);
+            return new Piece(this._piece, TypePiece);
         }
 
         #endregion

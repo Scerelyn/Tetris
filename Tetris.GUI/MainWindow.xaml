@@ -80,15 +80,30 @@
                 <Grid Name="HeldPieceGrid"
                       Background="Black"
                       Grid.Column="1"
-                      Grid.Row="1">
+                      Grid.Row="1"
+                      Width="100"
+                      Height="100">
                     
                 </Grid>
 
                 <Grid Name="NextPiece1Grid"
                       Background="Black"
                       Grid.Column="1"
-                      Grid.Row="3">
-                    
+                      Grid.Row="3"
+                      Width="100"
+                      Height="100">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
                 </Grid>
 
                 <Grid Grid.Column="1"
@@ -100,7 +115,23 @@
                     </Grid.ColumnDefinitions>
                     <Grid Name="NextPiece2Grid"
                           Background="Black"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          Width="50"
+                          Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    
                 </Grid>
 
                 <Grid Grid.Column="1"
@@ -112,7 +143,22 @@
                     </Grid.ColumnDefinitions>
                     <Grid Name="NextPiece3Grid"
                           Background="Black"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          Width="50"
+                          Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Column="1"
@@ -124,7 +170,22 @@
                     </Grid.ColumnDefinitions>
                     <Grid Name="NextPiece4Grid"
                           Background="Black"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          Width="50"
+                          Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Column="1"
@@ -136,7 +197,22 @@
                     </Grid.ColumnDefinitions>
                     <Grid Name="NextPiece5Grid"
                           Background="Black"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          Width="50"
+                          Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Column="1"
@@ -148,7 +224,22 @@
                     </Grid.ColumnDefinitions>
                     <Grid Name="NextPiece6Grid"
                           Background="Black"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          Width="50"
+                          Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
                 </Grid>
 
             </Grid>

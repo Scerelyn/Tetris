@@ -99,7 +99,7 @@ namespace Tetris.GameEngine
             int[,] IPiece270Deg = new int[,] { { 1 }, { 1 }, { 1 }, { 1 } };
             List<int[,]> IRotationStates = new List<int[,]>() { IPiece0Deg, IPiece90Deg, IPiece180Deg, IPiece270Deg };
 
-            _pieces.Add(new Piece(IPiece0Deg, IRotationStates, 0));
+            _pieces.Add(new Piece(IPiece0Deg, PieceType.I, IRotationStates, 0));
 
             //##
             //##, O Piece
@@ -109,7 +109,7 @@ namespace Tetris.GameEngine
             int[,] OPiece270Deg = new int[,] { { 2, 2 }, { 2, 2 } }; // seems redundant but if we want O spin for whatever reason, just change these
             List<int[,]> ORotationStates = new List<int[,]>() { OPiece0Deg, OPiece90Deg, OPiece180Deg, OPiece270Deg, };
 
-            _pieces.Add(new Piece(OPiece0Deg, ORotationStates, 0));
+            _pieces.Add(new Piece(OPiece0Deg, PieceType.O, ORotationStates, 0));
 
             //  #
             //###, L Piece
@@ -119,7 +119,7 @@ namespace Tetris.GameEngine
             int[,] LPiece270Deg = new int[,] { { 3, 3 }, { 0, 3 }, { 0, 3 } };
             List<int[,]> LRotationStates = new List<int[,]>() { LPiece0Deg, LPiece90Deg, LPiece180Deg, LPiece270Deg };
 
-            _pieces.Add(new Piece(LPiece0Deg, LRotationStates, 0));
+            _pieces.Add(new Piece(LPiece0Deg, PieceType.L, LRotationStates, 0));
 
             //#
             //###, J Piece
@@ -129,7 +129,7 @@ namespace Tetris.GameEngine
             int[,] JPiece270Deg = new int[,] { { 0, 4 }, { 0, 4 }, { 4, 4 } };
             List<int[,]> JRotationStates = new List<int[,]>() { JPiece0Deg, JPiece90Deg, JPiece180Deg, JPiece270Deg };
 
-            _pieces.Add(new Piece(JPiece0Deg, JRotationStates, 0));
+            _pieces.Add(new Piece(JPiece0Deg, PieceType.J, JRotationStates, 0));
 
             // ##, S Piece
             //##
@@ -139,7 +139,7 @@ namespace Tetris.GameEngine
             int[,] SPiece270Deg = new int[,] { { 5, 0 }, { 5, 5 }, { 0, 5 } };
             List<int[,]> SRotationStates = new List<int[,]>() { SPiece0Deg, SPiece90Deg, SPiece180Deg, SPiece270Deg };
 
-            _pieces.Add(new Piece(SPiece0Deg, SRotationStates, 0));
+            _pieces.Add(new Piece(SPiece0Deg, PieceType.S, SRotationStates, 0));
 
             //##
             // ##, Z Piece
@@ -149,7 +149,7 @@ namespace Tetris.GameEngine
             int[,] ZPiece270Deg = new int[,] { { 0, 6 }, { 6, 6 }, { 6, 0 } };
             List<int[,]> ZRotationStates = new List<int[,]>() { ZPiece0Deg, ZPiece90Deg, ZPiece180Deg, ZPiece270Deg };
 
-            _pieces.Add(new Piece(ZPiece0Deg, ZRotationStates, 0));
+            _pieces.Add(new Piece(ZPiece0Deg, PieceType.Z, ZRotationStates, 0));
 
             //###, T Piece
             // #
@@ -159,7 +159,7 @@ namespace Tetris.GameEngine
             int[,] TPiece270Deg = new int[,] { { 0, 7 }, { 7, 7 }, { 0, 7 } };
             List<int[,]> TRotationStates = new List<int[,]>() { TPiece0Deg, TPiece90Deg, TPiece180Deg, TPiece270Deg };
 
-            _pieces.Add(new Piece(TPiece0Deg, TRotationStates, 0));
+            _pieces.Add(new Piece(TPiece0Deg, PieceType.T, TRotationStates, 0));
         }
 
         #endregion

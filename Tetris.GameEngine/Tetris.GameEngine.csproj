@@ -45,6 +45,7 @@
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="PieceFactory.cs" />
+    <Compile Include="PieceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
