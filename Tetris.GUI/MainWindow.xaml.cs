@@ -16,6 +16,7 @@ using Tetris.GameEngine;
 using System.Threading;
 using System.Timers;
 using Tetris.GUI.Converters;
+using SharpDX.XInput;
 
 namespace Tetris.GUI
 {
@@ -33,6 +34,9 @@ namespace Tetris.GUI
         private SolidColorBrush[] colors = new SolidColorBrush[10];
         private SolidColorBrush[] borderColors = new SolidColorBrush[10];
         private Label[,] locations;
+        private Controller p1Controller = null;
+        private System.Timers.Timer controllerPollTimer;
+        private State prevControllerState;
 
         public MainWindow()
         {
@@ -45,6 +49,18 @@ namespace Tetris.GUI
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             timer.Enabled = true;
             timer.Start();
+
+            p1Controller = new Controller(0);
+            if (p1Controller != null)
+            {
+                controllerPollTimer = new System.Timers.Timer(10);
+                controllerPollTimer.Elapsed += (source, args) => {
+                    HandlControllerInput();
+                };
+                controllerPollTimer.Start();
+                prevControllerState = p1Controller.GetState();
+            }
+
             Console.WriteLine(board[1, 1]);
             Thread t = new Thread(NewThread);
             t.Start();
@@ -352,6 +368,44 @@ namespace Tetris.GUI
         private void NewThread()
         {
             PlayFile("TypeA.mp3");
+        }
+
+        private void HandlControllerInput() {
+            State curState = p1Controller.GetState();
+            if (curState.Gamepad.Buttons != prevControllerState.Gamepad.Buttons)
+            {
+                switch (curState.Gamepad.Buttons)
+                {
+                    case GamepadButtonFlags.A:
+                        tetris.Rotate(false);
+                        break;
+                    case GamepadButtonFlags.B:
+                        tetris.Rotate(true);
+                        break;
+                    case GamepadButtonFlags.DPadUp:
+                        tetris.SmashDown();
+                        break;
+                    case GamepadButtonFlags.DPadDown:
+                        tetris.MoveDown();
+                        break;
+                    case GamepadButtonFlags.DPadLeft:
+                        tetris.MoveLeft();
+                        break;
+                    case GamepadButtonFlags.DPadRight:
+                        tetris.MoveRight();
+                        break;
+                    case GamepadButtonFlags.Start:
+                        tetris.Pause();
+                        break;
+                    case GamepadButtonFlags.X:
+                        tetris.HoldPiece();
+                        break;
+                }
+                Dispatcher.Invoke(() => {
+                    DrawPiece();
+                });
+                prevControllerState = curState;
+            }
         }
     }
 }

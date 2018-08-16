@@ -15,6 +15,7 @@ namespace TetrisConsoleUI
         private static readonly int _timerStep = 10;
         private static Controller controller;
         private static System.Timers.Timer controllerPollTimer;
+        private static State prevControllerState;
         static int Main(string[] args)
         {
             //preparing Console
@@ -38,9 +39,13 @@ namespace TetrisConsoleUI
             _drawer.DrawScene(_game);
 
             controller = new Controller(0);
-            controllerPollTimer = new System.Timers.Timer(80);
-            controllerPollTimer.Elapsed += ControllerPoll;
-            controllerPollTimer.Start();
+            if (controller != null)
+            {
+                controllerPollTimer = new System.Timers.Timer(50);
+                controllerPollTimer.Elapsed += ControllerPoll;
+                controllerPollTimer.Start();
+                prevControllerState = controller.GetState();
+            }
 
 
             while (_game.Status != Game.GameStatus.Finished)
@@ -69,39 +74,43 @@ namespace TetrisConsoleUI
             if (controller.IsConnected)
             {
                 ControllerButtonHandler();
-                _drawer.DrawScene(_game);
             }
         }
 
         private static void ControllerButtonHandler()
         {
-            State prevState = controller.GetState();
-            switch (prevState.Gamepad.Buttons)
+            State curState = controller.GetState();
+            if (curState.Gamepad.Buttons != prevControllerState.Gamepad.Buttons)
             {
-                case GamepadButtonFlags.A:
-                    _game.Rotate(false);
-                    break;
-                case GamepadButtonFlags.B:
-                    _game.Rotate(true);
-                    break;
-                case GamepadButtonFlags.DPadUp:
-                    _game.SmashDown();
-                    break;
-                case GamepadButtonFlags.DPadDown:
-                    _game.MoveDown();
-                    break;
-                case GamepadButtonFlags.DPadLeft:
-                    _game.MoveLeft();
-                    break;
-                case GamepadButtonFlags.DPadRight:
-                    _game.MoveRight();
-                    break;
-                case GamepadButtonFlags.Start:
-                    _game.Pause();
-                    break;
-                case GamepadButtonFlags.X:
-                    _game.HoldPiece();
-                    break;
+                switch (curState.Gamepad.Buttons)
+                {
+                    case GamepadButtonFlags.A:
+                        _game.Rotate(false);
+                        break;
+                    case GamepadButtonFlags.B:
+                        _game.Rotate(true);
+                        break;
+                    case GamepadButtonFlags.DPadUp:
+                        _game.SmashDown();
+                        break;
+                    case GamepadButtonFlags.DPadDown:
+                        _game.MoveDown();
+                        break;
+                    case GamepadButtonFlags.DPadLeft:
+                        _game.MoveLeft();
+                        break;
+                    case GamepadButtonFlags.DPadRight:
+                        _game.MoveRight();
+                        break;
+                    case GamepadButtonFlags.Start:
+                        _game.Pause();
+                        break;
+                    case GamepadButtonFlags.X:
+                        _game.HoldPiece();
+                        break;
+                }
+                _drawer.DrawScene(_game);
+                prevControllerState = curState;
             }
         }
 
