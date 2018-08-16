@@ -125,7 +125,7 @@ namespace Tetris.GameEngine
         public Piece[] NextPieces
         {
             get {
-                if(nextPieces == null)
+                if(nextPieces[0] == null)
                 {
                     FillNextArray();
                 }

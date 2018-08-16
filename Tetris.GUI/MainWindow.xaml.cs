@@ -181,7 +181,62 @@ namespace Tetris.GUI
                     locations[i, j].BorderBrush = borderColors[arr[j + 2, i]];
                 }
             }
+
+            DrawNexts();
         }
+
+        private void DrawNexts()
+        {
+            FillBlock(NextPiece1Grid, tetris.NextPieces[0].PieceArray);
+            FillBlock(NextPiece2Grid, tetris.NextPieces[1].PieceArray);
+            FillBlock(NextPiece3Grid, tetris.NextPieces[2].PieceArray);
+            FillBlock(NextPiece4Grid, tetris.NextPieces[3].PieceArray);
+            FillBlock(NextPiece5Grid, tetris.NextPieces[4].PieceArray);
+            FillBlock(NextPiece6Grid, tetris.NextPieces[5].PieceArray);
+        }
+
+        private void FillBlock(Grid grid, int[,] piece)
+        {
+            grid.Children.Clear();
+            grid.RowDefinitions.Clear();
+            grid.ColumnDefinitions.Clear();
+            for(int i = 0; i < piece.GetLength(0)+2; i++)
+            {
+                grid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            for (int j = 0; j < piece.GetLength(1) + 2; j++)
+            {
+                grid.RowDefinitions.Add(new RowDefinition());
+            }
+
+            for(int i = 0; i < piece.GetLength(0)+2;i++)
+            {
+                for (int j = 0; j < piece.GetLength(1) + 2; j++)
+                {
+                    Label cell = new Label();
+                    Grid.SetColumn(cell, i);
+                    Grid.SetRow(cell, j);
+                    cell.BorderThickness = new Thickness(2);
+                    if (i == 0 || i == piece.GetLength(0) + 1)
+                    {
+                        cell.Background = colors[0];
+                        cell.BorderBrush = borderColors[0];
+                    }
+                    else if (j == 0 || j == piece.GetLength(1)+1)
+                    {
+                        cell.Background = colors[0];
+                        cell.BorderBrush = borderColors[0];
+                    }
+                    else
+                    {
+                        cell.Background = colors[piece[i-1, j-1]];
+                        cell.BorderBrush = borderColors[piece[i-1, j-1]];
+                    }
+                    grid.Children.Add(cell);
+                }
+            }
+        }
+
         private void Tetrid_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)

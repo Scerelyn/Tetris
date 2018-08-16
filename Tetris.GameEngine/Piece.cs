@@ -42,6 +42,12 @@ namespace Tetris.GameEngine
             }
         }
 
+        public int[,] PieceArray
+        {
+            get { return _piece; }
+        }
+
+
         public int Width
         {
             get
