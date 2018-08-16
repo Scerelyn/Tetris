@@ -348,6 +348,11 @@ namespace Tetris.GUI
                         CountDownLabel.Visibility = Visibility.Visible;
                     }
                     break;
+                case Key.LeftShift:
+                case Key.RightShift:
+                case Key.C:
+                    tetris.HoldPiece();
+                    break;
             }
             DrawPiece();
         }
