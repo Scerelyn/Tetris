@@ -46,11 +46,15 @@ namespace Tetris.GUI
             timer.Start();
 
             p1Controller = new Controller(0);
-            if (p1Controller != null)
+            if (p1Controller.IsConnected)
             {
                 controllerPollTimer = new System.Timers.Timer(10);
-                controllerPollTimer.Elapsed += (source, args) => {
-                    HandlControllerInput();
+                controllerPollTimer.Elapsed += (source, args) =>
+                {
+                    if (p1Controller.IsConnected)
+                    {
+                        HandlControllerInput();
+                    }
                 };
                 controllerPollTimer.Start();
                 prevControllerState = p1Controller.GetState();
@@ -108,7 +112,7 @@ namespace Tetris.GUI
             colors[9] = new SolidColorBrush(Colors.Gray);
 
             borderColors[0] = new SolidColorBrush(Colors.Black);
-            borderColors[1] = new SolidColorBrush(Color.FromRgb(16,200,200));
+            borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
             borderColors[2] = new SolidColorBrush(Color.FromRgb(200, 200, 16));
             borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
             borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
@@ -171,8 +175,8 @@ namespace Tetris.GUI
                     {
                         this.Dispatcher.Invoke(() =>
                         {
-                                DrawPiece();
-                            });
+                            DrawPiece();
+                        });
                         if (timerCount >= (1000 - (tetris.Lines * 10)))
                         {
                             timer.Interval -= 50;
@@ -212,7 +216,7 @@ namespace Tetris.GUI
         {
             grid.Children.Clear();
             int thickness = 1;
-            if(grid == NextPiece1Grid)
+            if (grid == NextPiece1Grid)
             {
                 thickness = 2;
             }
@@ -220,7 +224,7 @@ namespace Tetris.GUI
             {
 
                 case PieceType.I:
-                    for(int i = 0; i < 4; i++)
+                    for (int i = 0; i < 4; i++)
                     {
                         Label cell = new Label();
                         cell.Background = colors[1];
@@ -234,7 +238,7 @@ namespace Tetris.GUI
                 case PieceType.S:
                     int sX = 0;
                     int sY = 2;
-                    for(int i = 0; i < 4; i++)
+                    for (int i = 0; i < 4; i++)
                     {
                         Label cell = new Label();
                         cell.Background = colors[5];
@@ -242,7 +246,7 @@ namespace Tetris.GUI
                         cell.BorderThickness = new Thickness(thickness);
                         Grid.SetColumn(cell, sX);
                         Grid.SetRow(cell, sY);
-                        if(sX != 1 || (sY == 1 && sX == 1))
+                        if (sX != 1 || (sY == 1 && sX == 1))
                         {
                             sX++;
                         }
@@ -376,9 +380,9 @@ namespace Tetris.GUI
                 M.CountDownLabel.Visibility = Visibility.Hidden));
 
         }
-    }
 
-        private void HandlControllerInput() {
+        private void HandlControllerInput()
+        {
             State curState = p1Controller.GetState();
             if (curState.Gamepad.Buttons != prevControllerState.Gamepad.Buttons)
             {
@@ -409,7 +413,8 @@ namespace Tetris.GUI
                         tetris.HoldPiece();
                         break;
                 }
-                Dispatcher.Invoke(() => {
+                Dispatcher.Invoke(() =>
+                {
                     DrawPiece();
                 });
                 prevControllerState = curState;

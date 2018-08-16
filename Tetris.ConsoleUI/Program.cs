@@ -40,7 +40,7 @@ namespace TetrisConsoleUI
             _drawer.DrawScene(_game);
 
             controller = new Controller(0);
-            if (controller != null)
+            if (controller.IsConnected)
             {
                 controllerPollTimer = new System.Timers.Timer(50);
                 controllerPollTimer.Elapsed += ControllerPoll;
