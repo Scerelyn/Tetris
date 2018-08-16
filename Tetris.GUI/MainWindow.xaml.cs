@@ -445,6 +445,7 @@ namespace Tetris.GUI
                 case Key.C:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
+                        FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
                         tetris.HoldPiece();
                     }
                     break;
@@ -542,6 +543,7 @@ namespace Tetris.GUI
                     case GamepadButtonFlags.X:
                         if (tetris.Status != Game.GameStatus.Paused)
                         {
+                            FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
                             tetris.HoldPiece();
                         }
                         break;

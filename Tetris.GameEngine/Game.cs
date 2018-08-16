@@ -71,6 +71,10 @@ namespace Tetris.GameEngine
 
         #region Public Methods
 
+        public PieceType GetCurrentPieceType()
+        {
+            return _currPiece.TypePiece;
+        }
         public void Start()
         {
             if (this._status != GameStatus.ReadyToStart)
