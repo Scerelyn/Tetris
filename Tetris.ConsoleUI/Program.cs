@@ -3,10 +3,11 @@ using System.Threading;
 using Tetris.GameEngine;
 using System.Timers;
 using SharpDX.XInput;
+using Tetris.GameEngine.Interfaces;
 
 namespace TetrisConsoleUI
 {
-    class TetrisConsoleUI
+    class TetrisConsoleUI : IGameView
     {
         private static Game _game;
         private static ConsoleDrawing _drawer;
@@ -29,7 +30,7 @@ namespace TetrisConsoleUI
             Console.ReadKey(true);
             Console.Clear();
 
-            _game = new Game();
+            _game = new Game(this);
             _game.Start();
             _gameTimer = new System.Timers.Timer(800);
             _gameTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
@@ -199,5 +200,10 @@ namespace TetrisConsoleUI
             (source as System.Timers.Timer).Start();
 #endif
         }
+
+        public void Update(IGameView G)
+        {
+            throw new NotImplementedException();
+    }
     }
 }

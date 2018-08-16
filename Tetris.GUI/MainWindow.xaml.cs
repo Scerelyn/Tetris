@@ -1,34 +1,28 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Tetris.GameEngine;
 using System.Threading;
 using System.Timers;
 using Tetris.GUI.Converters;
 using SharpDX.XInput;
+using Tetris.GameEngine.Interfaces;
 
 namespace Tetris.GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IGameView
     {
         WMPLib.WindowsMediaPlayer Player;
-        private static Game tetris = new Game();
+        private static Game tetris;
         private static Board board;
         private static System.Timers.Timer timer;
+        private static System.Timers.Timer CountDowntimer;
         private static int timerCount = 0;
         private static readonly int timerStep = 10;
         private SolidColorBrush[] colors = new SolidColorBrush[10];
@@ -41,6 +35,7 @@ namespace Tetris.GUI
         public MainWindow()
         {
             InitializeComponent();
+            tetris = new Game(this);
             SetColors();
             GenerateBorders();
             SetBoard();
@@ -64,13 +59,16 @@ namespace Tetris.GUI
             Console.WriteLine(board[1, 1]);
             Thread t = new Thread(NewThread);
             t.Start();
+            CountDownLabel.DataContext = tetris;
+            Binding b = new Binding("CountDownNum");
+            CountDownLabel.SetBinding(Label.ContentProperty, b);
         }
 
         private void GenerateBorders()
         {
-            for(int i = 0; i <20; i++)
+            for (int i = 0; i < 20; i++)
             {
-                if(i != 0)
+                if (i != 0)
                 {
                     RightBorder.RowDefinitions.Add(new RowDefinition());
                 }
@@ -134,7 +132,7 @@ namespace Tetris.GUI
             {
                 Tetrid.RowDefinitions.Add(new RowDefinition());
             }
-            tetris = new Game();
+            tetris = new Game(this);
             board = tetris.ActualBoard;
             locations = new Label[10, 20];
             StandardTetrisNumToColorConverter convert = new StandardTetrisNumToColorConverter();
@@ -184,7 +182,6 @@ namespace Tetris.GUI
                 }
             }
         }
-
         private void DrawPiece()
         {
             board = tetris.ActualBoard;
@@ -302,26 +299,26 @@ namespace Tetris.GUI
                     }
                     break;
                 case Key.Right:
-                    if(tetris.Status != Game.GameStatus.Paused)
+                    if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.MoveRight();
                     }
                     break;
                 case Key.X:
                 case Key.Up:
-                    if(tetris.Status != Game.GameStatus.Paused)
+                    if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.Rotate();
                     }
                     break;
                 case Key.Down:
-                    if(tetris.Status != Game.GameStatus.Paused)
+                    if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.MoveDown();
                     }
                     break;
                 case Key.Space:
-                    if(tetris.Status != Game.GameStatus.Paused)
+                    if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.SmashDown();
                     }
@@ -329,7 +326,7 @@ namespace Tetris.GUI
                 case Key.LeftCtrl:
                 case Key.RightCtrl:
                 case Key.Z:
-                    if(tetris.Status != Game.GameStatus.Paused)
+                    if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.Rotate(false);
                     }
@@ -337,18 +334,20 @@ namespace Tetris.GUI
                 case Key.F1:
                 case Key.Escape:
                     tetris.Pause();
-                    if(tetris.Status == Game.GameStatus.Paused)
+                    if (!tetris.InCountdownState)
                     {
                         PauseLabel.Visibility = Visibility.Visible;
                     }
-                    else
+                    else if (tetris.InCountdownState)
                     {
                         PauseLabel.Visibility = Visibility.Hidden;
+                        CountDownLabel.Visibility = Visibility.Visible;
                     }
                     break;
             }
             DrawPiece();
         }
+
         private void PlayFile(String url)
         {
             Player = new WMPLib.WindowsMediaPlayer();
@@ -369,6 +368,15 @@ namespace Tetris.GUI
         {
             PlayFile("TypeA.mp3");
         }
+
+        public void Update(IGameView G)
+        {
+            Tetris.GUI.MainWindow M = (MainWindow)G;
+            this.Dispatcher.Invoke(new Action(() =>
+                M.CountDownLabel.Visibility = Visibility.Hidden));
+
+        }
+    }
 
         private void HandlControllerInput() {
             State curState = p1Controller.GetState();

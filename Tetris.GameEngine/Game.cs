@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Timers;
 using Tetris.GameEngine.Interfaces;
-
 namespace Tetris.GameEngine
 {
-    public class Game : IMovable, IMode
+    public class Game : IMovable, IMode, INotifyPropertyChanged
     {
         private const int _default_board_width = 10;
         private const int _default_board_height = 22;
@@ -32,14 +32,27 @@ namespace Tetris.GameEngine
         private int _posY;
         private int _lines;
         private int _score;
+        private int countdownnum = 3;
+        private IGameView game = null;
         private Piece _heldPiece = null;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void fieldChanged(String field = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(field));
+            }
+        }
 
         #endregion
 
         #region Constructors
 
-        public Game()
+        public Game(IGameView G)
         {
+            game = G;
             _gameBoard = new Board(_default_board_width, _default_board_height);
 
             _currPiece = null;
@@ -86,22 +99,27 @@ namespace Tetris.GameEngine
 
         private void StartCountDown()
         {
+            InCountdownState = true;
+            CountDownNum = 3;
             TimerNum.Elapsed += CountdownEvent;
             TimerNum.Interval = 1000;
-            CountDownNum = 3;
-            InCountdownState = true;
             TimerNum.Start();
             String s = TimerNum.ToString();
         }
         public void CountdownEvent(Object Sender, ElapsedEventArgs args)
         {
-            CountDownNum--;
+            CountDownNum-=1;
             if (CountDownNum == 0)
             {
                 TimerNum.Stop();
                 InCountdownState = false;
                 this._status = GameStatus.InProgress;
+                game.Update(game);
+                CountDownNum = 3;
+                TimerNum.Elapsed -= CountdownEvent;
+
             }
+
         }
 
         public void GameOver()
@@ -218,7 +236,7 @@ namespace Tetris.GameEngine
             }
         }
         public Timer TimerNum { get; private set; } = new Timer();
-        public int CountDownNum { get; private set; } = 3;
+        public int CountDownNum { get { return countdownnum; } private set { countdownnum = value; fieldChanged(); } }
         public bool InCountdownState { get; private set; } = false;
 
         #endregion
@@ -292,7 +310,7 @@ namespace Tetris.GameEngine
             else //else just act as if we just wanted a new piece
             {
                 _rnd = new Random(DateTime.Now.Millisecond);
-                if(nextPieces[0] != null)
+                if (nextPieces[0] != null)
                 {
                     _currPiece = nextPieces[0];
                     CycleNextArray();
@@ -310,7 +328,7 @@ namespace Tetris.GameEngine
 
         private void FillNextArray()
         {
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 nextPieces[i] = PieceFactory.GetRandomPiece(_rnd);
             }
@@ -318,7 +336,7 @@ namespace Tetris.GameEngine
 
         private void CycleNextArray()
         {
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 nextPieces[i] = nextPieces[i + 1];
             }
@@ -440,7 +458,7 @@ namespace Tetris.GameEngine
                     ExitLoop:;
                     //a label to exit the two for loops, or else we move way too much
                 }
-                
+
             }
         }
 

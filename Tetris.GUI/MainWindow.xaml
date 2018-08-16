@@ -41,6 +41,14 @@
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                />
+        <Label Name="CountDownLabel"
+               Grid.Column="1"
+               Visibility="Hidden"
+               Foreground="White"
+               FontSize="60"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               />
         <Grid Name="RightGrid"
               Grid.Column="2"
               >
