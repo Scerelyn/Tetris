@@ -280,12 +280,104 @@ namespace Tetris.GUI
                     }
                     break;
                 case PieceType.T:
+                    int tX = 0;
+                    int tY = 2;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[7];
+                        cell.BorderBrush = borderColors[7];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, tX);
+                        Grid.SetRow(cell, tY);
+                        if (tX != 1)
+                        {
+                            tX++;
+                        }
+                        else if(tX == 1 && tY == 1)
+                        {
+                            tY++;
+                            tX++;
+                        }
+                        else
+                        {
+                            tY--;
+                        }
+                        grid.Children.Add(cell);
+                    }
                     break;
                 case PieceType.O:
+                    int oX = 1;
+                    int oY = 1;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[2];
+                        cell.BorderBrush = borderColors[2];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, oX);
+                        Grid.SetRow(cell, oY);
+
+                        if(oX != 2)
+                        {
+                            oX++;
+                        }
+                        else if(oY == 1 && oX == 2)
+                        {
+                            oX--;
+                            oY++;
+                        }
+
+                        grid.Children.Add(cell);
+                    }
                     break;
                 case PieceType.L:
+                    int lX = 0;
+                    int lY = 2;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[3];
+                        cell.BorderBrush = borderColors[3];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, lX);
+                        Grid.SetRow(cell, lY);
+
+                        if(lX != 2)
+                        {
+                            lX++;
+                        }
+                        else
+                        {
+                            lY--;
+                        }                        
+
+                        grid.Children.Add(cell);
+                    }
                     break;
                 case PieceType.J:
+                    int jX = 0;
+                    int jY = 1;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Label cell = new Label();
+                        cell.Background = colors[4];
+                        cell.BorderBrush = borderColors[4];
+                        cell.BorderThickness = new Thickness(thickness);
+                        Grid.SetColumn(cell, jX);
+                        Grid.SetRow(cell, jY);
+
+                        if(jY != 1)
+                        {
+                            jX++;
+                        }
+                        else
+                        {
+                            jY++;
+                        }
+
+                        grid.Children.Add(cell);
+                    }
                     break;
             }
 
