@@ -296,15 +296,15 @@ namespace Tetris.GameEngine
                     _posY = _currPiece.InitPosY; //reset positions
                     _posX = ((_gameBoard.Width - 1) / 2) + _currPiece.InitPosX;
                 }
-                else //if the _heldPiece is not null
+                else //if the _heldPiece is null
                 {
                     _heldPiece = pieceToHold.InitialRotationState; //store it
                     //then just call in the next piece
-                    _rnd = new Random(DateTime.Now.Millisecond);
-                    _currPiece = (_nextPiece != null) ? _nextPiece : PieceFactory.GetRandomPiece(_rnd);
+                    _currPiece = _nextPiece ?? nextPieces[0];
                     _posY = _currPiece.InitPosY;
                     _posX = ((_gameBoard.Width - 1) / 2) + _currPiece.InitPosX;
-                    _nextPiece = PieceFactory.GetRandomPiece(_rnd);
+                    _nextPiece = nextPieces[0];
+                    CycleNextArray();
                 }
             }
             else //else just act as if we just wanted a new piece
