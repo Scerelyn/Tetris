@@ -351,7 +351,10 @@ namespace Tetris.GUI
                 case Key.LeftShift:
                 case Key.RightShift:
                 case Key.C:
-                    tetris.HoldPiece();
+                    if (tetris.Status != Game.GameStatus.Paused)
+                    {
+                        tetris.HoldPiece();
+                    }
                     break;
             }
             DrawPiece();
@@ -394,28 +397,61 @@ namespace Tetris.GUI
                 switch (curState.Gamepad.Buttons)
                 {
                     case GamepadButtonFlags.A:
-                        tetris.Rotate(false);
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.Rotate(false);
+                        }
                         break;
                     case GamepadButtonFlags.B:
-                        tetris.Rotate(true);
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.Rotate(true);
+                        }
                         break;
                     case GamepadButtonFlags.DPadUp:
-                        tetris.SmashDown();
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.SmashDown();
+                        }
                         break;
                     case GamepadButtonFlags.DPadDown:
-                        tetris.MoveDown();
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.MoveDown();
+                        }
                         break;
                     case GamepadButtonFlags.DPadLeft:
-                        tetris.MoveLeft();
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.MoveLeft();
+                        }
                         break;
                     case GamepadButtonFlags.DPadRight:
-                        tetris.MoveRight();
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.MoveRight();
+                        }
                         break;
                     case GamepadButtonFlags.Start:
                         tetris.Pause();
+                        Dispatcher.Invoke(() =>
+                        {
+                            if (!tetris.InCountdownState)
+                            {
+                                PauseLabel.Visibility = Visibility.Visible;
+                            }
+                            else if (tetris.InCountdownState)
+                            {
+                                PauseLabel.Visibility = Visibility.Hidden;
+                                CountDownLabel.Visibility = Visibility.Visible;
+                            }
+                        });
                         break;
                     case GamepadButtonFlags.X:
-                        tetris.HoldPiece();
+                        if (tetris.Status != Game.GameStatus.Paused)
+                        {
+                            tetris.HoldPiece();
+                        }
                         break;
                 }
                 Dispatcher.Invoke(() =>
