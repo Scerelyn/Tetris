@@ -30,7 +30,7 @@ namespace TetrisConsoleUI
             Console.ReadKey(true);
             Console.Clear();
 
-            _game = new Game(this);
+            _game = new Game(null);
             _game.Start();
             _gameTimer = new System.Timers.Timer(800);
             _gameTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
