@@ -7,7 +7,6 @@ using System.Windows.Media;
 using Tetris.GameEngine;
 using System.Threading;
 using System.Timers;
-using Tetris.GUI.Converters;
 using SharpDX.XInput;
 using Tetris.GameEngine.Interfaces;
 
@@ -139,7 +138,6 @@ namespace Tetris.GUI
             tetris = new Game(this);
             board = tetris.ActualBoard;
             locations = new Label[10, 20];
-            StandardTetrisNumToColorConverter convert = new StandardTetrisNumToColorConverter();
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 20; j++)
