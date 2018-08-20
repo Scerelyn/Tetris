@@ -205,7 +205,31 @@ namespace Tetris.GUI
                     borderColors[8] = new SolidColorBrush(Colors.Gray);
                     borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
                     break;
-                //default case
+                case 4: //Vadim Gerasimov's colors
+                    colors[0] = Brushes.Black;
+                    colors[1] = Brushes.Maroon;
+                    colors[2] = Brushes.Navy;
+                    colors[3] = Brushes.Purple;
+                    colors[4] = Brushes.Silver;
+                    colors[5] = Brushes.DarkGreen;
+                    colors[6] = Brushes.Teal;
+                    colors[7] = Brushes.Brown;
+                    colors[8] = Brushes.GhostWhite;
+                    colors[9] = Brushes.BlueViolet;
+
+                    borderColors[0] = Brushes.Black;
+                    borderColors[1] = Brushes.Maroon;
+                    borderColors[2] = Brushes.Navy;
+                    borderColors[3] = Brushes.Purple;
+                    borderColors[4] = Brushes.Silver;
+                    borderColors[5] = Brushes.DarkGreen;
+                    borderColors[6] = Brushes.Teal;
+                    borderColors[7] = Brushes.Brown;
+                    borderColors[8] = Brushes.GhostWhite;
+                    borderColors[9] = Brushes.BlueViolet;
+
+                    break;
+                //default colors
                 case 0:
                 default:
                     colors[0] = new SolidColorBrush(Colors.Black);
@@ -231,11 +255,7 @@ namespace Tetris.GUI
                     borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
                     break;
             }
-        }
-
-        private void SetOtherColors()
-        {
-            
+            GenerateBorders();
         }
 
         private void SetBoard()
@@ -564,19 +584,18 @@ namespace Tetris.GUI
                     break;
                 case Key.D1:
                     SetColors(0);
-                    GenerateBorders();
                     break;
                 case Key.D2:
                     SetColors(1);
-                    GenerateBorders();
                     break;
                 case Key.D3:
                     SetColors(2);
-                    GenerateBorders();
                     break;
                 case Key.D4:
                     SetColors(3);
-                    GenerateBorders();
+                    break;
+                case Key.D5:
+                    SetColors(4);
                     break;
             }
             DrawPiece();
