@@ -70,6 +70,10 @@ namespace Tetris.GUI
 
         private void GenerateBorders()
         {
+            LeftBorder.Children.Clear();
+            LeftBorder.RowDefinitions.Clear();
+            RightBorder.Children.Clear();
+            RightBorder.RowDefinitions.Clear();
             for (int i = 0; i < 20; i++)
             {
                 if (i != 0)
@@ -560,15 +564,19 @@ namespace Tetris.GUI
                     break;
                 case Key.D1:
                     SetColors(0);
+                    GenerateBorders();
                     break;
                 case Key.D2:
                     SetColors(1);
+                    GenerateBorders();
                     break;
                 case Key.D3:
                     SetColors(2);
+                    GenerateBorders();
                     break;
                 case Key.D4:
                     SetColors(3);
+                    GenerateBorders();
                     break;
             }
             DrawPiece();
