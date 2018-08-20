@@ -9,6 +9,7 @@ using System.Threading;
 using System.Timers;
 using SharpDX.XInput;
 using Tetris.GameEngine.Interfaces;
+using System.Windows.Media.Imaging;
 
 namespace Tetris.GUI
 {
@@ -24,8 +25,8 @@ namespace Tetris.GUI
         private static System.Timers.Timer CountDowntimer;
         private static int timerCount = 0;
         private static readonly int timerStep = 10;
-        private SolidColorBrush[] colors = new SolidColorBrush[10];
-        private SolidColorBrush[] borderColors = new SolidColorBrush[10];
+        private Brush[] colors = new Brush[10];
+        private Brush[] borderColors = new Brush[10];
         private Label[,] locations;
         private Controller p1Controller = null;
         private System.Timers.Timer controllerPollTimer;
@@ -97,30 +98,140 @@ namespace Tetris.GUI
             }
         }
 
-        private void SetColors()
+        private void SetColors(int themeID=0)
         {
-            colors[0] = new SolidColorBrush(Colors.Black);
-            colors[1] = new SolidColorBrush(Colors.Cyan);
-            colors[2] = new SolidColorBrush(Colors.Yellow);
-            colors[3] = new SolidColorBrush(Colors.DodgerBlue);
-            colors[4] = new SolidColorBrush(Colors.DarkOrange);
-            colors[5] = new SolidColorBrush(Colors.LawnGreen);
-            colors[6] = new SolidColorBrush(Colors.Red);
-            colors[7] = new SolidColorBrush(Colors.MediumPurple);
-            colors[8] = new SolidColorBrush(Colors.LightGray);
-            colors[9] = new SolidColorBrush(Colors.Gray);
+            switch (themeID)
+            {
+                case 1: //water
+                    colors[0] = new SolidColorBrush(Colors.Black);
+                    colors[1] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-cyan.jpg",   UriKind.RelativeOrAbsolute)));
+                    colors[2] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-yellow.jpg", UriKind.RelativeOrAbsolute)));
+                    colors[3] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-blue.jpg",   UriKind.RelativeOrAbsolute)));
+                    colors[4] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-orange.jpg", UriKind.RelativeOrAbsolute)));
+                    colors[5] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-green.jpg",  UriKind.RelativeOrAbsolute)));
+                    colors[6] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-red.jpg",    UriKind.RelativeOrAbsolute)));
+                    colors[7] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-purple.jpg", UriKind.RelativeOrAbsolute)));
+                    colors[8] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-grey.jpg",   UriKind.RelativeOrAbsolute)));
+                    colors[9] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-dgrey.jpg",  UriKind.RelativeOrAbsolute)));
 
-            borderColors[0] = new SolidColorBrush(Colors.Black);
-            borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
-            borderColors[2] = new SolidColorBrush(Color.FromRgb(200, 200, 16));
-            borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
-            borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
-            borderColors[5] = new SolidColorBrush(Color.FromRgb(58, 197, 15));
-            borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
-            borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
-            borderColors[8] = new SolidColorBrush(Colors.Gray);
-            borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    borderColors[0] = new SolidColorBrush(Colors.Black);
+                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
+                    borderColors[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
+                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
+                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
+                    borderColors[5] = new SolidColorBrush(Color.FromRgb(28, 167, 5));
+                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
+                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
+                    borderColors[8] = new SolidColorBrush(Colors.Gray);
+                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    break;
+                case 2: //wireframe
+                    colors[0] = new SolidColorBrush(Colors.Black);
+                    colors[1] = new SolidColorBrush(Colors.Black);
+                    colors[2] = new SolidColorBrush(Colors.Black);
+                    colors[3] = new SolidColorBrush(Colors.Black);
+                    colors[4] = new SolidColorBrush(Colors.Black);
+                    colors[5] = new SolidColorBrush(Colors.Black);
+                    colors[6] = new SolidColorBrush(Colors.Black);
+                    colors[7] = new SolidColorBrush(Colors.Black);
+                    colors[8] = new SolidColorBrush(Colors.Black);
+                    colors[9] = new SolidColorBrush(Colors.Black);
 
+                    borderColors[0] = new SolidColorBrush(Colors.Black);
+                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
+                    borderColors[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
+                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
+                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
+                    borderColors[5] = new SolidColorBrush(Color.FromRgb(28, 167, 5));
+                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
+                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
+                    borderColors[8] = new SolidColorBrush(Colors.Gray);
+                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    break;
+
+                case 3: //~gradiants~
+                    LinearGradientBrush[] brushes = new LinearGradientBrush[10];
+                    colors[0] = new SolidColorBrush(Colors.Black);
+
+                    brushes[1] = new LinearGradientBrush();
+                    brushes[1].GradientStops.Add(new GradientStop(Colors.Cyan, 0.0));
+                    brushes[1].GradientStops.Add(new GradientStop(Colors.DarkCyan, 1.0));
+                    colors[1] = brushes[1];
+                    brushes[2] = new LinearGradientBrush();
+                    brushes[2].GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
+                    brushes[2].GradientStops.Add(new GradientStop(Colors.DarkGoldenrod, 1.0));
+                    colors[2] = brushes[2];
+                    brushes[3] = new LinearGradientBrush();
+                    brushes[3].GradientStops.Add(new GradientStop(Colors.DodgerBlue, 0.0));
+                    brushes[3].GradientStops.Add(new GradientStop(Colors.Blue, 1.0));
+                    colors[3] = brushes[3];
+                    brushes[4] = new LinearGradientBrush();
+                    brushes[4].GradientStops.Add(new GradientStop(Colors.Orange, 0.0));
+                    brushes[4].GradientStops.Add(new GradientStop(Colors.OrangeRed, 1.0));
+                    colors[4] = brushes[4];
+                    brushes[5] = new LinearGradientBrush();
+                    brushes[5].GradientStops.Add(new GradientStop(Colors.LawnGreen, 0.0));
+                    brushes[5].GradientStops.Add(new GradientStop(Colors.Olive, 1.0));
+                    colors[5] = brushes[5];
+                    brushes[6] = new LinearGradientBrush();
+                    brushes[6].GradientStops.Add(new GradientStop(Colors.Red, 0.0));
+                    brushes[6].GradientStops.Add(new GradientStop(Colors.Maroon, 1.0));
+                    colors[6] = brushes[6];
+                    brushes[7] = new LinearGradientBrush();
+                    brushes[7].GradientStops.Add(new GradientStop(Colors.MediumPurple, 0.0));
+                    brushes[7].GradientStops.Add(new GradientStop(Colors.Purple, 1.0));
+                    colors[7] = brushes[7];
+                    brushes[8] = new LinearGradientBrush();
+                    brushes[8].GradientStops.Add(new GradientStop(Colors.LightGray, 0.0));
+                    brushes[8].GradientStops.Add(new GradientStop(Colors.GhostWhite, 1.0));
+                    colors[8] = brushes[8];
+                    brushes[9] = new LinearGradientBrush();
+                    brushes[9].GradientStops.Add(new GradientStop(Colors.Black, 0.0));
+                    brushes[9].GradientStops.Add(new GradientStop(Colors.DarkGray, 1.0));
+                    colors[9] = brushes[9];
+
+                    borderColors[0] = new SolidColorBrush(Colors.Black);
+                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
+                    borderColors[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
+                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
+                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
+                    borderColors[5] = new SolidColorBrush(Color.FromRgb(28, 167, 5));
+                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
+                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
+                    borderColors[8] = new SolidColorBrush(Colors.Gray);
+                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    break;
+                //default case
+                case 0:
+                default:
+                    colors[0] = new SolidColorBrush(Colors.Black);
+                    colors[1] = new SolidColorBrush(Colors.Cyan);
+                    colors[2] = new SolidColorBrush(Colors.Yellow);
+                    colors[3] = new SolidColorBrush(Colors.DodgerBlue);
+                    colors[4] = new SolidColorBrush(Colors.DarkOrange);
+                    colors[5] = new SolidColorBrush(Colors.LawnGreen);
+                    colors[6] = new SolidColorBrush(Colors.Red);
+                    colors[7] = new SolidColorBrush(Colors.MediumPurple);
+                    colors[8] = new SolidColorBrush(Colors.LightGray);
+                    colors[9] = new SolidColorBrush(Colors.Gray);
+
+                    borderColors[0] = new SolidColorBrush(Colors.Black);
+                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
+                    borderColors[2] = new SolidColorBrush(Color.FromRgb(200, 200, 16));
+                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
+                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
+                    borderColors[5] = new SolidColorBrush(Color.FromRgb(58, 197, 15));
+                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
+                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
+                    borderColors[8] = new SolidColorBrush(Colors.Gray);
+                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    break;
+            }
+        }
+
+        private void SetOtherColors()
+        {
+            
         }
 
         private void SetBoard()
@@ -446,6 +557,18 @@ namespace Tetris.GUI
                         FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
                         tetris.HoldPiece();
                     }
+                    break;
+                case Key.D1:
+                    SetColors(0);
+                    break;
+                case Key.D2:
+                    SetColors(1);
+                    break;
+                case Key.D3:
+                    SetColors(2);
+                    break;
+                case Key.D4:
+                    SetColors(3);
                     break;
             }
             DrawPiece();
