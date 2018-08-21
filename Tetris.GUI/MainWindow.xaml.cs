@@ -27,7 +27,7 @@ namespace Tetris.GUI
             //currentPage = gbp;
             //this.Content = gbp;
             SetContent(new MainMenuPage());
-        }
+                    }
 
         private void SetContent(ITetrisPage p)
         {
