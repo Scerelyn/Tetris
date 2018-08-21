@@ -140,9 +140,23 @@ namespace Tetris.GameEngine
             DropNewPiece(_currPiece.InitialRotationState);
         }
 
+        public PieceType? HeldPieceType()
+        {
+            if(_heldPiece != null)
+            {
+                return _heldPiece.TypePiece;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         #endregion
 
         #region Public Properties
+
+
 
         public Piece[] NextPieces
         {

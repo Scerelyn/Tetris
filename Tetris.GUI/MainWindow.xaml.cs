@@ -23,14 +23,26 @@ namespace Tetris.GUI
         public MainWindow()
         {
             InitializeComponent();
-            GameBoardPage gbp = new GameBoardPage();
-            currentPage = gbp;
-            this.Content = gbp;
+            //GameBoardPage gbp = new GameBoardPage();
+            //currentPage = gbp;
+            //this.Content = gbp;
+            SetContent(new MainMenuPage());
+        }
+
+        private void SetContent(ITetrisPage p)
+        {
+            currentPage = p;
+            this.Content = p;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             currentPage.Page_KeyDown(sender, e);
+        }
+
+        public void StartNewGame()
+        {
+            SetContent(new GameBoardPage());
         }
     }
 }

@@ -340,8 +340,16 @@ namespace Tetris.GUI
                     locations[i, j].BorderBrush = borderColors[arr[j + 2, i]];
                 }
             }
-
+            RedrawHeld();
             DrawNexts();
+        }
+
+        private void RedrawHeld()
+        {
+            if (tetris.HeldPieceType() != null)
+            {
+                FillBlock(HeldPieceGrid, (PieceType)tetris.HeldPieceType());
+            }
         }
 
         private void DrawNexts()
