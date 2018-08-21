@@ -38,6 +38,7 @@ namespace Tetris.GUI
         private Controller p1Controller = null;
         private System.Timers.Timer controllerPollTimer;
         private State prevControllerState;
+        private WMPLib.WindowsMediaPlayer Player2 = new WMPLib.WindowsMediaPlayer();
 
         public GameBoardPage()
         {
@@ -524,7 +525,6 @@ namespace Tetris.GUI
             }
 
         }
-
         public void Page_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -534,12 +534,16 @@ namespace Tetris.GUI
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.MoveLeft();
+                        Player2.URL = "./Sounds/MovePiece.mp3";
+                        Player2.controls.play();
                     }
                     break;
                 case Key.Right:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.MoveRight();
+                        Player2.URL = "./Sounds/MovePiece.mp3";
+                        Player2.controls.play();
                     }
                     break;
                 case Key.X:
@@ -547,18 +551,23 @@ namespace Tetris.GUI
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.Rotate();
+                        Player2.URL = "./Sounds/RotatePiece.mp3";
+                        Player2.controls.play();
                     }
                     break;
                 case Key.Down:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.MoveDown();
+
                     }
                     break;
                 case Key.Space:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.SmashDown();
+                        Player2.URL = "./Sounds/LockPiece.mp3";
+                        Player2.controls.play();
                     }
                     break;
                 case Key.LeftCtrl:
@@ -567,6 +576,8 @@ namespace Tetris.GUI
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
                         tetris.Rotate(false);
+                        Player2.URL = "./Sounds/RotatePiece.mp3";
+                        Player2.controls.play();
                     }
                     break;
                 case Key.F1:
@@ -622,13 +633,14 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                PlayFile("TypeA.mp3");
+                PlayFile("./Sounds/TypeA.mp3");
             }
         }
 
+
         private void NewThread()
         {
-            PlayFile("TypeA.mp3");
+            PlayFile("./Sounds/TypeA.mp3");
         }
 
         public void Update(IGameView G)
