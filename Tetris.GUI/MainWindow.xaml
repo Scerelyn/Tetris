@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:Tetris.GUI"
         mc:Ignorable="d"
         Title="Tetris" Height="600" Width="900"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        MaxHeight="600"
+        MaxWidth="900"
+        MinHeight="600"
+        MinWidth="900">
 
 </Window>
