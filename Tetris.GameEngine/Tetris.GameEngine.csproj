@@ -50,7 +50,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TypeA.mp3">
+    <Content Include="Sounds\ClearLine.mp3" />
+    <Content Include="Sounds\GameOver.mp3" />
+    <Content Include="Sounds\LockPiece.mp3" />
+    <Content Include="Sounds\MovePiece.mp3" />
+    <Content Include="Sounds\RotatePiece.mp3" />
+    <Content Include="Sounds\TetrisB.mp3" />
+    <Content Include="Sounds\TypeA.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

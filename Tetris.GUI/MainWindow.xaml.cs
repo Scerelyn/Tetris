@@ -574,11 +574,11 @@ namespace Tetris.GUI
             DrawPiece();
         }
 
-        private void PlayFile(Uri url)
+        private void PlayFile(String url)
         {
             Player = new WMPLib.WindowsMediaPlayer();
             Player.PlayStateChange += Player_PlayStateChange;
-            Player.URL = url.AbsolutePath;
+            Player.URL = url;
             Player.controls.play();
         }
 
@@ -586,13 +586,13 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                PlayFile(new Uri(@"pack://applicaiton;,,,/Tetris.GUI;component/SoundResources/TypeA.mp3"));
+                PlayFile("./Sounds/TypeA.mp3");
             }
         }
 
         private void NewThread()
         {
-            PlayFile(new Uri(@"pack://applicaiton;,,,/Tetris.GUI;component/SoundResources/TypeA.mp3"));
+            PlayFile("./Sounds/TypeA.mp3");
         }
 
         public void Update(IGameView G)
