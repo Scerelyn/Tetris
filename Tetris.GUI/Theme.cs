@@ -43,12 +43,12 @@ namespace Tetris.GUI
     /// </summary>
     public static class Themes
     {
-        public static Theme Classic { get; private set; }
-        public static Theme Water { get; private set; }
-        public static Theme XRay { get; private set; }
-        public static Theme ClassicGradiant { get; private set; }
-        public static Theme VladimClassic { get; private set; }
-        public static Theme PlainText { get; private set; }
+        public static Theme Classic { get; private set; } = new Theme();
+        public static Theme Water { get; private set; } = new Theme();
+        public static Theme XRay { get; private set; } = new Theme();
+        public static Theme ClassicGradiant { get; private set; } = new Theme();
+        public static Theme VladimClassic { get; private set; } = new Theme();
+        public static Theme PlainText { get; private set; } = new Theme();
 
         static Themes() {
             Classic.FillBrushes[0] = new SolidColorBrush(Colors.Black);
@@ -103,7 +103,6 @@ namespace Tetris.GUI
             XRay.FillBrushes[7] = new SolidColorBrush(Colors.Black);
             XRay.FillBrushes[8] = new SolidColorBrush(Colors.Black);
             XRay.FillBrushes[9] = new SolidColorBrush(Colors.Black);
-
             XRay.BorderBrushes[0] = new SolidColorBrush(Colors.Black);
             XRay.BorderBrushes[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
             XRay.BorderBrushes[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
@@ -117,7 +116,6 @@ namespace Tetris.GUI
 
             LinearGradientBrush[] brushes = new LinearGradientBrush[10];
             ClassicGradiant.FillBrushes[0] = new SolidColorBrush(Colors.Black);
-
             brushes[1] = new LinearGradientBrush();
             brushes[1].GradientStops.Add(new GradientStop(Colors.Cyan, 0.0));
             brushes[1].GradientStops.Add(new GradientStop(Colors.DarkCyan, 1.0));
@@ -154,7 +152,6 @@ namespace Tetris.GUI
             brushes[9].GradientStops.Add(new GradientStop(Colors.Black, 0.0));
             brushes[9].GradientStops.Add(new GradientStop(Colors.DarkGray, 1.0));
             ClassicGradiant.FillBrushes[9] = brushes[9];
-
             ClassicGradiant.BorderBrushes[0] = new SolidColorBrush(Colors.Black);
             ClassicGradiant.BorderBrushes[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
             ClassicGradiant.BorderBrushes[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
@@ -176,7 +173,6 @@ namespace Tetris.GUI
             VladimClassic.FillBrushes[7] = Brushes.Brown;
             VladimClassic.FillBrushes[8] = Brushes.GhostWhite;
             VladimClassic.FillBrushes[9] = Brushes.BlueViolet;
-
             VladimClassic.BorderBrushes[0] = Brushes.Black;
             VladimClassic.BorderBrushes[1] = Brushes.Maroon;
             VladimClassic.BorderBrushes[2] = Brushes.Navy;
@@ -188,7 +184,27 @@ namespace Tetris.GUI
             VladimClassic.BorderBrushes[8] = Brushes.GhostWhite;
             VladimClassic.BorderBrushes[9] = Brushes.BlueViolet;
 
-            PlainText.FillBrushes[0] = new VisualBrush() { Visual = new TextBox() };
+            PlainText.FillBrushes[0] = Brushes.Black;
+            PlainText.FillBrushes[1] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "I", Background = Brushes.Black } };
+            PlainText.FillBrushes[2] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "O", Background = Brushes.Black } };
+            PlainText.FillBrushes[3] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "L", Background = Brushes.Black } };
+            PlainText.FillBrushes[4] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "J", Background = Brushes.Black } };
+            PlainText.FillBrushes[5] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "S", Background = Brushes.Black } };
+            PlainText.FillBrushes[6] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "Z", Background = Brushes.Black } };
+            PlainText.FillBrushes[7] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "T", Background = Brushes.Black } };
+            PlainText.FillBrushes[8] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "G", Background = Brushes.Black } };
+            PlainText.FillBrushes[9] = new VisualBrush() { Visual = new Label() { FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(0,255,0)), Content = "B", Background = Brushes.Black } };
+            PlainText.BorderBrushes[0] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[1] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[2] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[3] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[4] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[5] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[6] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[7] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[8] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
+            PlainText.BorderBrushes[9] = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+
 
         }
     }

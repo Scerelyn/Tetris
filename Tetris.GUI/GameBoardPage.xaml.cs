@@ -117,152 +117,30 @@ namespace Tetris.GUI
             switch (themeID)
             {
                 case 1: //water
-                    colors[0] = new SolidColorBrush(Colors.Black);
-                    colors[1] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-cyan.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[2] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-yellow.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[3] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-blue.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[4] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-orange.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[5] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-green.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[6] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-red.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[7] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-purple.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[8] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-grey.jpg", UriKind.RelativeOrAbsolute)));
-                    colors[9] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/water-dgrey.jpg", UriKind.RelativeOrAbsolute)));
-
-                    borderColors[0] = new SolidColorBrush(Colors.Black);
-                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
-                    borderColors[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
-                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
-                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
-                    borderColors[5] = new SolidColorBrush(Color.FromRgb(28, 167, 5));
-                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
-                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
-                    borderColors[8] = new SolidColorBrush(Colors.Gray);
-                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    colors = Themes.Water.FillBrushes;
+                    borderColors = Themes.Water.BorderBrushes;
                     break;
                 case 2: //wireframe
-                    colors[0] = new SolidColorBrush(Colors.Black);
-                    colors[1] = new SolidColorBrush(Colors.Black);
-                    colors[2] = new SolidColorBrush(Colors.Black);
-                    colors[3] = new SolidColorBrush(Colors.Black);
-                    colors[4] = new SolidColorBrush(Colors.Black);
-                    colors[5] = new SolidColorBrush(Colors.Black);
-                    colors[6] = new SolidColorBrush(Colors.Black);
-                    colors[7] = new SolidColorBrush(Colors.Black);
-                    colors[8] = new SolidColorBrush(Colors.Black);
-                    colors[9] = new SolidColorBrush(Colors.Black);
-
-                    borderColors[0] = new SolidColorBrush(Colors.Black);
-                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
-                    borderColors[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
-                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
-                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
-                    borderColors[5] = new SolidColorBrush(Color.FromRgb(28, 167, 5));
-                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
-                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
-                    borderColors[8] = new SolidColorBrush(Colors.Gray);
-                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    colors = Themes.XRay.FillBrushes;
+                    borderColors = Themes.XRay.BorderBrushes;
                     break;
-
                 case 3: //~gradiants~
-                    LinearGradientBrush[] brushes = new LinearGradientBrush[10];
-                    colors[0] = new SolidColorBrush(Colors.Black);
-
-                    brushes[1] = new LinearGradientBrush();
-                    brushes[1].GradientStops.Add(new GradientStop(Colors.Cyan, 0.0));
-                    brushes[1].GradientStops.Add(new GradientStop(Colors.DarkCyan, 1.0));
-                    colors[1] = brushes[1];
-                    brushes[2] = new LinearGradientBrush();
-                    brushes[2].GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
-                    brushes[2].GradientStops.Add(new GradientStop(Colors.DarkGoldenrod, 1.0));
-                    colors[2] = brushes[2];
-                    brushes[3] = new LinearGradientBrush();
-                    brushes[3].GradientStops.Add(new GradientStop(Colors.DodgerBlue, 0.0));
-                    brushes[3].GradientStops.Add(new GradientStop(Colors.Blue, 1.0));
-                    colors[3] = brushes[3];
-                    brushes[4] = new LinearGradientBrush();
-                    brushes[4].GradientStops.Add(new GradientStop(Colors.Orange, 0.0));
-                    brushes[4].GradientStops.Add(new GradientStop(Colors.OrangeRed, 1.0));
-                    colors[4] = brushes[4];
-                    brushes[5] = new LinearGradientBrush();
-                    brushes[5].GradientStops.Add(new GradientStop(Colors.LawnGreen, 0.0));
-                    brushes[5].GradientStops.Add(new GradientStop(Colors.Olive, 1.0));
-                    colors[5] = brushes[5];
-                    brushes[6] = new LinearGradientBrush();
-                    brushes[6].GradientStops.Add(new GradientStop(Colors.Red, 0.0));
-                    brushes[6].GradientStops.Add(new GradientStop(Colors.Maroon, 1.0));
-                    colors[6] = brushes[6];
-                    brushes[7] = new LinearGradientBrush();
-                    brushes[7].GradientStops.Add(new GradientStop(Colors.MediumPurple, 0.0));
-                    brushes[7].GradientStops.Add(new GradientStop(Colors.Purple, 1.0));
-                    colors[7] = brushes[7];
-                    brushes[8] = new LinearGradientBrush();
-                    brushes[8].GradientStops.Add(new GradientStop(Colors.LightGray, 0.0));
-                    brushes[8].GradientStops.Add(new GradientStop(Colors.GhostWhite, 1.0));
-                    colors[8] = brushes[8];
-                    brushes[9] = new LinearGradientBrush();
-                    brushes[9].GradientStops.Add(new GradientStop(Colors.Black, 0.0));
-                    brushes[9].GradientStops.Add(new GradientStop(Colors.DarkGray, 1.0));
-                    colors[9] = brushes[9];
-
-                    borderColors[0] = new SolidColorBrush(Colors.Black);
-                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
-                    borderColors[2] = new SolidColorBrush(Color.FromRgb(150, 150, 6));
-                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
-                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
-                    borderColors[5] = new SolidColorBrush(Color.FromRgb(28, 167, 5));
-                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
-                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
-                    borderColors[8] = new SolidColorBrush(Colors.Gray);
-                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    colors = Themes.ClassicGradiant.FillBrushes;
+                    borderColors = Themes.ClassicGradiant.BorderBrushes;
                     break;
                 case 4: //Vadim Gerasimov's colors
-                    colors[0] = Brushes.Black;
-                    colors[1] = Brushes.Maroon;
-                    colors[2] = Brushes.Navy;
-                    colors[3] = Brushes.Purple;
-                    colors[4] = Brushes.Silver;
-                    colors[5] = Brushes.DarkGreen;
-                    colors[6] = Brushes.Teal;
-                    colors[7] = Brushes.Brown;
-                    colors[8] = Brushes.GhostWhite;
-                    colors[9] = Brushes.BlueViolet;
-
-                    borderColors[0] = Brushes.Black;
-                    borderColors[1] = Brushes.Maroon;
-                    borderColors[2] = Brushes.Navy;
-                    borderColors[3] = Brushes.Purple;
-                    borderColors[4] = Brushes.Silver;
-                    borderColors[5] = Brushes.DarkGreen;
-                    borderColors[6] = Brushes.Teal;
-                    borderColors[7] = Brushes.Brown;
-                    borderColors[8] = Brushes.GhostWhite;
-                    borderColors[9] = Brushes.BlueViolet;
-
+                    colors = Themes.VladimClassic.FillBrushes;
+                    borderColors = Themes.VladimClassic.BorderBrushes;
+                    break;
+                case 5:
+                    colors = Themes.PlainText.FillBrushes;
+                    borderColors = Themes.PlainText.BorderBrushes;
                     break;
                 //default colors
                 case 0:
                 default:
-                    colors[0] = new SolidColorBrush(Colors.Black);
-                    colors[1] = new SolidColorBrush(Colors.Cyan);
-                    colors[2] = new SolidColorBrush(Colors.Yellow);
-                    colors[3] = new SolidColorBrush(Colors.DodgerBlue);
-                    colors[4] = new SolidColorBrush(Colors.DarkOrange);
-                    colors[5] = new SolidColorBrush(Colors.LawnGreen);
-                    colors[6] = new SolidColorBrush(Colors.Red);
-                    colors[7] = new SolidColorBrush(Colors.MediumPurple);
-                    colors[8] = new SolidColorBrush(Colors.LightGray);
-                    colors[9] = new SolidColorBrush(Colors.Gray);
-
-                    borderColors[0] = new SolidColorBrush(Colors.Black);
-                    borderColors[1] = new SolidColorBrush(Color.FromRgb(16, 200, 200));
-                    borderColors[2] = new SolidColorBrush(Color.FromRgb(200, 200, 16));
-                    borderColors[3] = new SolidColorBrush(Color.FromRgb(26, 48, 202));
-                    borderColors[4] = new SolidColorBrush(Color.FromRgb(230, 93, 46));
-                    borderColors[5] = new SolidColorBrush(Color.FromRgb(58, 197, 15));
-                    borderColors[6] = new SolidColorBrush(Color.FromRgb(200, 16, 16));
-                    borderColors[7] = new SolidColorBrush(Color.FromRgb(92, 37, 92));
-                    borderColors[8] = new SolidColorBrush(Colors.Gray);
-                    borderColors[9] = new SolidColorBrush(Color.FromRgb(67, 52, 52));
+                    colors = Themes.Classic.FillBrushes;
+                    borderColors = Themes.Classic.BorderBrushes;
                     break;
             }
             GenerateBorders();
@@ -616,6 +494,9 @@ namespace Tetris.GUI
                     break;
                 case Key.D5:
                     SetColors(4);
+                    break;
+                case Key.D6:
+                    SetColors(5);
                     break;
             }
             DrawPiece();
