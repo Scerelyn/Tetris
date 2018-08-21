@@ -39,7 +39,7 @@ namespace Tetris.GUI
         private System.Timers.Timer controllerPollTimer;
         private State prevControllerState;
         private WMPLib.WindowsMediaPlayer Player2 = new WMPLib.WindowsMediaPlayer();
-
+        private Random rand = new Random();
         public GameBoardPage()
         {
             InitializeComponent();
@@ -633,14 +633,31 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                PlayFile("./Sounds/TypeA.mp3");
+                if (rand.Next(0, 2) == 0)
+                {
+                    PlayFile("./Sounds/TypeA.mp3");
+
+                }
+                else
+                {
+                    PlayFile("./Sounds/TypeB.mp3");
+                }
             }
         }
 
 
         private void NewThread()
         {
-            PlayFile("./Sounds/TypeA.mp3");
+            
+            if (rand.Next(0, 2) == 0)
+            {
+                PlayFile("./Sounds/TypeA.mp3");
+
+            }
+            else
+            {
+                PlayFile("./Sounds/TypeB.mp3");
+            }
         }
 
         public void Update(IGameView G)

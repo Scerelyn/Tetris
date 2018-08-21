@@ -65,7 +65,7 @@
     <Content Include="Sounds\RotatePiece.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\TetrisB.mp3">
+    <Content Include="Sounds\TypeB.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\TypeA.mp3">
