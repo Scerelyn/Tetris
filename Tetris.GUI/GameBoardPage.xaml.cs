@@ -640,6 +640,7 @@ namespace Tetris.GUI
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             MainWindow mw = (MainWindow)Parent;
             mw.ReturnToMenu();
         }
