@@ -132,9 +132,13 @@ namespace Tetris.GUI
                     colors = Themes.VladimClassic.FillBrushes;
                     borderColors = Themes.VladimClassic.BorderBrushes;
                     break;
-                case 5:
+                case 5: //Terminal ish theme
                     colors = Themes.PlainText.FillBrushes;
                     borderColors = Themes.PlainText.BorderBrushes;
+                    break;
+                case 6: //haha funny ee moh gees
+                    colors = Themes.Emoji.FillBrushes;
+                    borderColors = Themes.Emoji.BorderBrushes;
                     break;
                 //default colors
                 case 0:
@@ -505,6 +509,9 @@ namespace Tetris.GUI
                     break;
                 case Key.D6:
                     SetColors(5);
+                    break;
+                case Key.D7:
+                    SetColors(6);
                     break;
             }
             DrawPiece();

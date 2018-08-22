@@ -49,6 +49,7 @@ namespace Tetris.GUI
         public static Theme ClassicGradiant { get; private set; } = new Theme();
         public static Theme VladimClassic { get; private set; } = new Theme();
         public static Theme PlainText { get; private set; } = new Theme();
+        public static Theme Emoji { get; private set; } = new Theme();
 
         static Themes() {
             Classic.FillBrushes[0] = new SolidColorBrush(Colors.Black);
@@ -205,7 +206,26 @@ namespace Tetris.GUI
             PlainText.BorderBrushes[8] = new SolidColorBrush(Color.FromArgb(64, 0, 255, 0));
             PlainText.BorderBrushes[9] = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
 
-
+            Emoji.FillBrushes[0] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.FillBrushes[1] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_100.png")));
+            Emoji.FillBrushes[2] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_www.png")));
+            Emoji.FillBrushes[3] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_theclap.png")));
+            Emoji.FillBrushes[4] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_tearing.png")));
+            Emoji.FillBrushes[5] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_ok.png")));
+            Emoji.FillBrushes[6] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_checkem.png")));
+            Emoji.FillBrushes[7] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_bird.png")));
+            Emoji.FillBrushes[8] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_ak47.png")));
+            Emoji.FillBrushes[9] = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Tetris.GUI;component/AltTextures/emoji_B.png")));
+            Emoji.BorderBrushes[0] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[1] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[2] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[3] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[4] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[5] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[6] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[7] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[8] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
+            Emoji.BorderBrushes[9] = new SolidColorBrush(Color.FromRgb(54, 57, 63));
         }
     }
 }
