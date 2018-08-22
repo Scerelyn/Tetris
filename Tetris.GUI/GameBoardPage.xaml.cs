@@ -630,5 +630,11 @@ namespace Tetris.GUI
                 prevControllerState = curState;
             }
         }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = (MainWindow)Parent;
+            mw.ReturnToMenu();
+        }
     }
 }

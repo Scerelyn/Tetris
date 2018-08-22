@@ -44,5 +44,10 @@ namespace Tetris.GUI
         {
             SetContent(new GameBoardPage());
         }
+
+        public void ReturnToMenu()
+        {
+            SetContent(new MainMenuPage());
+        }
     }
 }

@@ -86,7 +86,8 @@
                         <Button Name="MenuButton"
                                 Grid.Column="1"
                                 Grid.Row="1"
-                                Content="Menu">
+                                Content="Menu"
+                                Click="MenuButton_Click">
 
                         </Button>
                     </Grid>

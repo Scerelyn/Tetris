@@ -27,6 +27,78 @@ namespace Tetris.GUI
             InitializeComponent();
             SetColors();
             GenerateBorders();
+            GenerateLeftBoard();
+        }
+
+        private void GenerateLeftBoard()
+        {
+            int[,] leftBoard = new int[,]
+                {
+                    {4,4,5,5,6,6,0,7,1,3},
+                    {4,7,0,5,6,6,6,3,1,1},
+                    {4,7,0,6,2,2,0,5,5,1},
+                    {3,3,3,0,2,2,5,5,0,1},
+                    {4,4,4,6,6,3,0,2,2,3},
+                    {0,7,4,5,6,6,0,2,2,3},
+                    {3,7,7,5,5,1,1,1,1,0},
+                    {3,7,1,0,5,0,0,5,5,0},
+                    {3,3,1,0,7,0,5,5,2,2},
+                    {0,6,1,7,7,7,6,6,2,2},
+                    {6,6,1,0,4,4,0,6,6,4},
+                    {6,7,7,7,4,5,0,1,0,4},
+                    {0,0,7,0,4,5,5,1,5,5},
+                    {2,2,1,3,5,5,0,1,2,2},
+                    {0,6,1,5,5,3,3,4,4,4},
+                    {6,6,1,0,0,7,3,5,0,4},
+                    {6,0,6,6,7,7,3,5,5,0},
+                    {4,4,4,6,6,7,0,3,5,0},
+                    {0,7,4,2,2,3,3,3,0,0},
+                    {7,7,7,2,2,0,1,1,1,1}
+                };
+            DrawBoard(LeftGrid, leftBoard);
+            int[,] rightBoard = new int[,]
+            {
+                {2,2,6,0,5,5,3,7,4,1},
+                {1,4,4,5,5,0,7,7,7,7},
+                {1,4,2,2,0,6,3,3,7,7},
+                {1,4,2,2,6,6,0,3,3,7},
+                {1,5,5,4,6,6,6,3,3,0},
+                {5,5,0,4,4,4,6,6,3,3},
+                {0,1,0,6,2,2,4,5,7,0},
+                {0,1,6,6,2,2,4,4,4,3},
+                {1,1,6,0,5,5,4,3,3,3},
+                {1,2,2,5,5,0,4,4,4,6},
+                {1,2,2,0,3,7,7,7,6,6},
+                {1,0,3,3,3,7,7,1,6,6},
+                {5,5,1,4,3,3,0,1,6,0},
+                {0,5,1,2,2,3,4,1,2,2},
+                {0,6,1,2,2,3,4,1,2,2},
+                {6,6,1,0,3,4,4,5,5,1},
+                {6,7,3,3,3,6,6,0,5,1},
+                {7,7,7,4,0,7,6,6,3,1},
+                {0,5,5,4,7,7,2,2,3,1},
+                {5,5,4,4,0,7,2,2,3,3},
+            };
+            DrawBoard(RightGrid, rightBoard);
+        }
+
+        private void DrawBoard(Grid g, int[,] board)
+        {
+            for(int i = 0; i < 20; i++)
+            {
+                g.RowDefinitions.Add(new RowDefinition());
+                if(i % 2 == 0)
+                {
+                    g.ColumnDefinitions.Add(new ColumnDefinition());
+                }
+                for(int j = 0; j < 10; j++)
+                {
+                    Label piece = GenerateLabel(board[i, j]);
+                    Grid.SetRow(piece, i);
+                    Grid.SetColumn(piece, j);
+                    g.Children.Add(piece);
+                }
+            }
         }
 
         private void GenerateBorders()
@@ -53,17 +125,37 @@ namespace Tetris.GUI
             }
 
             //set left and right
-            rowIndex = 0;
-            colIndex = 0;
             for(int i = 0; i < 2; i++)
             {
-                Grid column = new Grid();
+                Grid column = LeftBorder;
+                if(i == 1 )
+                {
+                    column = RightBorder;
+                }
+                for(int j = 0; j < 18; j++)
+                {
+                    column.RowDefinitions.Add(new RowDefinition());
+                    Label piece = GenerateLabel(9);
+                    Grid.SetRow(piece, j);
+                    column.Children.Add(piece);
+                }
+            }
+
+            //set top and bottom
+            for(int i = 0; i < 2;i++)
+            {
+                Grid row = TopBorder;
+                if(i == 1)
+                {
+                    row = BottomBorder;
+                }
                 for(int j = 0; j < 8; j++)
                 {
-
+                    row.ColumnDefinitions.Add(new ColumnDefinition());
+                    Label piece = GenerateLabel(9);
+                    Grid.SetColumn(piece, j);
+                    row.Children.Add(piece);
                 }
-
-                colIndex = 2;
             }
         }
 
