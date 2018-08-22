@@ -103,26 +103,7 @@ namespace Tetris.GUI
 
         private void GenerateBorders()
         {
-            int rowIndex = 0;
-            int colIndex = 0;
-            //set corners
-            for(int i = 0; i < 4; i++)
-            {
-                Label piece = GenerateLabel(9);
-                Grid.SetRow(piece, rowIndex);
-                Grid.SetColumn(piece, colIndex);
-                MidGrid.Children.Add(piece);
 
-                if(rowIndex == 2)
-                {
-                    rowIndex = 0;
-                    colIndex = 2;
-                }
-                else
-                {
-                    rowIndex = 2;
-                }
-            }
 
             //set left and right
             for(int i = 0; i < 2; i++)
@@ -132,29 +113,12 @@ namespace Tetris.GUI
                 {
                     column = RightBorder;
                 }
-                for(int j = 0; j < 18; j++)
+                for(int j = 0; j < 20; j++)
                 {
                     column.RowDefinitions.Add(new RowDefinition());
                     Label piece = GenerateLabel(9);
                     Grid.SetRow(piece, j);
                     column.Children.Add(piece);
-                }
-            }
-
-            //set top and bottom
-            for(int i = 0; i < 2;i++)
-            {
-                Grid row = TopBorder;
-                if(i == 1)
-                {
-                    row = BottomBorder;
-                }
-                for(int j = 0; j < 8; j++)
-                {
-                    row.ColumnDefinitions.Add(new ColumnDefinition());
-                    Label piece = GenerateLabel(9);
-                    Grid.SetColumn(piece, j);
-                    row.Children.Add(piece);
                 }
             }
         }
@@ -201,6 +165,16 @@ namespace Tetris.GUI
         {
             MainWindow mw = (MainWindow)this.Parent;
             mw.StartNewGame();
+        }
+
+        private void UltraButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MusicButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -20,11 +20,7 @@
         </Grid>
         <Grid Name="MidGrid"
               Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="8*"/>
@@ -33,39 +29,78 @@
 
             <Grid Name="MenuGrid"
                   Grid.Column="1"
-                  Grid.Row="1"
                   Background="#78bc61">
                 <StackPanel Name="MenuPanel"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Top"
                             HorizontalAlignment="Center">
-                    <Label Name="TitleLabel"
+                    <Grid Margin="30">
+                        
+                        <Grid Height="120"
+                              Width="180">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Label Background="Cyan"
+                                   />
+                            <Label Background="Cyan"
+                                   Grid.Row="1"
+                                   Grid.Column="1"/>
+                            <Label Background="Cyan"
+                                   Grid.Column="1"/>
+                            <Label Background="Cyan"
+                                   Grid.Column="2"/>
+                        </Grid>
+                        <Label Name="TitleLabel"
                            Content="Tetris"
-                           FontSize="36"/>
+                           FontSize="60"
+                           Margin="-20"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Center"/>
+                    </Grid>
+                    
                     <Button Name="NewGameButton"
-                            Content="New Game"
-                           Click="NewGameButton_Click"/>
+                            Content="Classic"
+                            Click="NewGameButton_Click"
+                            Margin="10"
+                            Width="100"
+                            Height="25"/>
+
+                    <Button Name="UltraButton"
+                            Content="Ultra"
+                            Margin="10"
+                            Width="100"
+                            Height="25"
+                            Click="UltraButton_Click"/>
+
+                    <Button Name="MusicButton"
+                            Content="Music"
+                            Margin="10"
+                            Width="100"
+                            Height="25"
+                            Click="MusicButton_Click"/>
+                    <Button Name="SettingsButton"
+                            Content="Settings"
+                            Margin="10"
+                            Width="100"
+                            Height="25"/>
+
                 </StackPanel>
             </Grid>
 
             <Grid Name="LeftBorder"
-                  Grid.Column="0"
-                  Grid.Row="1">
+                  Grid.Column="0">
             </Grid>
             <Grid Name="RightBorder"
-                  Grid.Column="2"
-                  Grid.Row="1">
+                  Grid.Column="2">
                 
             </Grid>
-            <Grid Name="TopBorder"
-                  Grid.Column="1"
-                  Grid.Row="0">
-                
-            </Grid>
-            <Grid Name="BottomBorder"
-                  Grid.Column="1"
-                  Grid.Row="2">
-                
-            </Grid>
+
 
         </Grid>
         <Grid Name="RightGrid"
