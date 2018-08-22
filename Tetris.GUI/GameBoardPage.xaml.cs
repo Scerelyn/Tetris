@@ -40,6 +40,8 @@ namespace Tetris.GUI
         private State prevControllerState;
         private WMPLib.WindowsMediaPlayer Player2 = new WMPLib.WindowsMediaPlayer();
         private Random rand = new Random();
+        private Thread t;
+
         public GameBoardPage()
         {
             InitializeComponent();
@@ -70,7 +72,7 @@ namespace Tetris.GUI
             }
 
             Console.WriteLine(board[1, 1]);
-            Thread t = new Thread(NewThread);
+            t = new Thread(NewThread);
             t.Start();
             CountDownLabel.DataContext = tetris;
             Binding b = new Binding("CountDownNum");
@@ -640,6 +642,10 @@ namespace Tetris.GUI
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
+            Player.PlayStateChange -= Player_PlayStateChange;
+            Player.controls.stop();
+            Player.PlayStateChange += Player_PlayStateChange;
+            t.Abort();
             MainWindow mw = (MainWindow)Parent;
             mw.ReturnToMenu();
         }
