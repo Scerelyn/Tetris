@@ -78,17 +78,6 @@
                             Height="25"
                             Click="UltraButton_Click"/>
 
-                    <Button Name="MusicButton"
-                            Content="Music"
-                            Margin="10"
-                            Width="100"
-                            Height="25"
-                            Click="MusicButton_Click"/>
-                    <Button Name="SettingsButton"
-                            Content="Settings"
-                            Margin="10"
-                            Width="100"
-                            Height="25"/>
 
                 </StackPanel>
             </Grid>

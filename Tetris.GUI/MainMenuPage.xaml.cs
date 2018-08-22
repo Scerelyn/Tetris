@@ -172,9 +172,5 @@ namespace Tetris.GUI
 
         }
 
-        private void MusicButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -188,12 +188,14 @@ namespace Tetris.GUI
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             Console.WriteLine(board[1, 1]);
+
             if (tetris.Status != Game.GameStatus.Finished)
             {
                 if (tetris.Status != Game.GameStatus.Paused)
                 {
                     timerCount += timerStep;
                     tetris.MoveDown();
+                    
                     if (tetris.Status == Game.GameStatus.Finished)
                     {
                         timer.Stop();
@@ -203,6 +205,7 @@ namespace Tetris.GUI
                         this.Dispatcher.Invoke(() =>
                         {
                             DrawPiece();
+                            
                         });
                         if (timerCount >= (1000 - (tetris.Lines * 10)))
                         {
@@ -215,6 +218,7 @@ namespace Tetris.GUI
         }
         private void DrawPiece()
         {
+            ScoreBoard.Content = "Score: " + tetris.Score;
             board = tetris.ActualBoard;
             int[,] arr = board.ToArray();
             for (int i = 0; i < 10; i++)

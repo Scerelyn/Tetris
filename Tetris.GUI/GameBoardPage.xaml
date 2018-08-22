@@ -30,10 +30,18 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Grid Name="ScoreGrid"
-
-                          Background="Purple">
-
+                    <Grid Name="ScoreGrid">
+                        <Label Name="ScoreBoard"
+                               HorizontalAlignment="Center"
+                               Background="Black"
+                               Content="Score: 0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Width="200"
+                               Height="50"
+                               FontSize="24"
+                                HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <StackPanel Name="ControlsDisplay"
@@ -67,6 +75,9 @@
                                HorizontalAlignment="Center"
                                Foreground="White"/>
                             <Label Content="ESC - Pause"
+                               HorizontalAlignment="Center"
+                               Foreground="White"/>
+                            <Label Content="1-7 - Change Theme"
                                HorizontalAlignment="Center"
                                Foreground="White"/>
                         </StackPanel>
