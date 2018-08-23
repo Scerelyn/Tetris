@@ -35,6 +35,7 @@ namespace Tetris.GameEngine
         private int countdownnum = 3;
         private IGameView game = null;
         private Piece _heldPiece = null;
+        private bool _alreadyHeldPiece = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -137,7 +138,10 @@ namespace Tetris.GameEngine
 
         public void HoldPiece()
         {
-            DropNewPiece(_currPiece.InitialRotationState);
+            if (!_alreadyHeldPiece)
+            {
+                DropNewPiece(_currPiece.InitialRotationState);
+            }
         }
 
         public PieceType? HeldPieceType()
@@ -324,9 +328,11 @@ namespace Tetris.GameEngine
                     _nextPiece = nextPieces[0];
                     CycleNextArray();
                 }
+                _alreadyHeldPiece = true;
             }
             else //else just act as if we just wanted a new piece
             {
+                _alreadyHeldPiece = false;
                 _rnd = new Random(DateTime.Now.Millisecond);
                 if (nextPieces[0] != null)
                 {
