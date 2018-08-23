@@ -34,8 +34,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <Label Name="ScoreBoard"
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>                        <Label Name="ScoreBoard"
                                HorizontalAlignment="Center"
                                Background="Black"
                                Content="Score: 0"
@@ -44,7 +44,7 @@
                                Width="200"
                                Height="50"
                                FontSize="24"
-                                HorizontalContentAlignment="Center"
+                               HorizontalContentAlignment="Center"
                                VerticalContentAlignment="Center"/>
                         <Label Name="TimeBoard"
                                Grid.Row="1"
@@ -57,8 +57,18 @@
                                Height="50"
                                FontSize="24"
                                 HorizontalContentAlignment="Center"
-                               VerticalContentAlignment="Center"/>
-                    </Grid>
+                               VerticalContentAlignment="Center"/>                        <Label Name="LevelLabel"
+                               HorizontalAlignment="Center"
+                               Background="Black"
+                               Content="Level: 1"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Width="200"
+                               Height="50"
+                               FontSize="24"
+                               HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"
+                               Grid.Row="2"/>                    </Grid>
                     <Grid Grid.Row="1">
                         <StackPanel Name="ControlsDisplay"
                                 VerticalAlignment="Center"
