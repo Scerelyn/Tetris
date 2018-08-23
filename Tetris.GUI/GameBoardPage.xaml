@@ -178,11 +178,11 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="10*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="3*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="5*"/>
@@ -194,13 +194,19 @@
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-
+                <Label
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Content="Held"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="12"/>
                 <Grid Name="HeldPieceGrid"
                       Background="Black"
                       Grid.Column="1"
                       Grid.Row="1"
-                      Width="100"
-                      Height="100">
+                      Width="90"
+                      Height="90">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -214,13 +220,20 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                 </Grid>
-
+                <Label
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Content="Next" 
+                       FontSize="12"
+                        />
                 <Grid Name="NextPiece1Grid"
                       Background="Black"
                       Grid.Column="1"
                       Grid.Row="3"
-                      Width="100"
-                      Height="100">
+                      Width="90"
+                      Height="90">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
