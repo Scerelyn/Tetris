@@ -46,6 +46,7 @@ namespace Tetris.GUI
         {
             InitializeComponent();
             Focus();
+            PieceFactory.ResetRandomizer();
             tetris = new Game(this);
             SetColors();
             GenerateBorders();
@@ -76,6 +77,7 @@ namespace Tetris.GUI
             CountDownLabel.DataContext = tetris;
             Binding b = new Binding("CountDownNum");
             CountDownLabel.SetBinding(Label.ContentProperty, b);
+            PieceFactory.ResetRandomizer();
             tetris.Pause();
             CountDownLabel.Visibility = Visibility.Visible;
             tetris.Pause();
