@@ -29,7 +29,6 @@ namespace Tetris.GUI
         private static Game tetris;
         private static Board board;
         private static System.Timers.Timer timer;
-        private static System.Timers.Timer CountDowntimer;
         private static int timerCount = 0;
         private static int scoreToNext = 1000;
         private static readonly int timerStep = 10;
@@ -52,6 +51,7 @@ namespace Tetris.GUI
             InitializeComponent();
             IsUltra = isUltra;
             Focus();
+            PieceFactory.ResetRandomizer();
             tetris = new Game(this);
             SetColors();
             GenerateBorders();
@@ -61,7 +61,6 @@ namespace Tetris.GUI
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             timer.Enabled = true;
             timer.Start();
-
             gameTime = new System.Timers.Timer(1000);
             gameTime.Elapsed += new ElapsedEventHandler(GameTimeEvent);
             gameTime.Enabled = true;
@@ -89,6 +88,10 @@ namespace Tetris.GUI
             CountDownLabel.DataContext = tetris;
             Binding b = new Binding("CountDownNum");
             CountDownLabel.SetBinding(Label.ContentProperty, b);
+            PieceFactory.ResetRandomizer();
+            tetris.Pause();
+            CountDownLabel.Visibility = Visibility.Visible;
+            tetris.Pause();
         }
 
         private void GenerateBorders()
@@ -240,6 +243,7 @@ namespace Tetris.GUI
                     }
                     if (tetris.Status == Game.GameStatus.Finished)
                     {
+                        Player.controls.stop();
                         Player2.URL = "./Sounds/GameOver.mp3";
                         Player2.controls.play();
                         timer.Stop();
@@ -249,7 +253,7 @@ namespace Tetris.GUI
                         this.Dispatcher.Invoke(() =>
                         {
                             DrawPiece();
-                            
+
                         });
                         if (scoreToNext <= tetris.Score)
                         {
@@ -602,10 +606,10 @@ namespace Tetris.GUI
 
         private void PlayFile(String url)
         {
-            //Player = new WMPLib.WindowsMediaPlayer();
-            //Player.PlayStateChange += Player_PlayStateChange;
-            //Player.URL = url;
-            //Player.controls.play();
+            Player = new WMPLib.WindowsMediaPlayer();
+            Player.PlayStateChange += Player_PlayStateChange;
+            Player.URL = url;
+            Player.controls.play();
         }
 
         private void Player_PlayStateChange(int NewState)
