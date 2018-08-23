@@ -69,6 +69,14 @@ namespace Tetris.GameEngine
             }
         }
 
+        /// <summary>
+        /// Resets the bag-based randomizer
+        /// </summary>
+        public static void ResetRandomizer()
+        {
+            _bag.Clear();
+        }
+
         #endregion
 
         #region Public Properties
