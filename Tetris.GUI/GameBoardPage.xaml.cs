@@ -29,7 +29,6 @@ namespace Tetris.GUI
         private static Game tetris;
         private static Board board;
         private static System.Timers.Timer timer;
-        private static System.Timers.Timer CountDowntimer;
         private static int timerCount = 0;
         private static int scoreToNext = 1000;
         private static readonly int timerStep = 10;
@@ -56,7 +55,6 @@ namespace Tetris.GUI
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             timer.Enabled = true;
             timer.Start();
-
             p1Controller = new Controller(0);
             if (p1Controller.IsConnected)
             {
@@ -78,6 +76,9 @@ namespace Tetris.GUI
             CountDownLabel.DataContext = tetris;
             Binding b = new Binding("CountDownNum");
             CountDownLabel.SetBinding(Label.ContentProperty, b);
+            tetris.Pause();
+            CountDownLabel.Visibility = Visibility.Visible;
+            tetris.Pause();
         }
 
         private void GenerateBorders()
@@ -204,6 +205,7 @@ namespace Tetris.GUI
                     }
                     if (tetris.Status == Game.GameStatus.Finished)
                     {
+                        Player.controls.stop();
                         Player2.URL = "./Sounds/GameOver.mp3";
                         Player2.controls.play();
                         timer.Stop();
@@ -213,7 +215,7 @@ namespace Tetris.GUI
                         this.Dispatcher.Invoke(() =>
                         {
                             DrawPiece();
-                            
+
                         });
                         if (scoreToNext <= tetris.Score)
                         {
