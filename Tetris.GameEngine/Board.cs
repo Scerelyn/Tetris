@@ -61,7 +61,7 @@ namespace Tetris.GameEngine
                 bool isFullLine = true;
                 for (int j = 0; j < this.Width; j++)
                 {
-                    isFullLine = ( isFullLine ) && ( _mBoard[i, j] != 0 );
+                    isFullLine = (isFullLine) && (_mBoard[i, j] != 0);
                 }
                 if (isFullLine)
                 {
