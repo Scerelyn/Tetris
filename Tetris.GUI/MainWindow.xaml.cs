@@ -33,7 +33,7 @@ namespace Tetris.GUI
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
+         {
             currentPage.Page_KeyDown(sender, e);
         }
 

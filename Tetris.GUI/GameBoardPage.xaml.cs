@@ -195,10 +195,17 @@ namespace Tetris.GUI
                 if (tetris.Status != Game.GameStatus.Paused)
                 {
                     timerCount += timerStep;
+                    int linesbefore = tetris.Lines;
                     tetris.MoveDown();
-                    
+                    if (linesbefore < tetris.Lines)
+                    {
+                        Player2.URL = "./Sounds/ClearLine.mp3";
+                        Player2.controls.play();
+                    }
                     if (tetris.Status == Game.GameStatus.Finished)
                     {
+                        Player2.URL = "./Sounds/GameOver.mp3";
+                        Player2.controls.play();
                         timer.Stop();
                     }
                     else
@@ -456,16 +463,32 @@ namespace Tetris.GUI
                 case Key.Down:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
+                        int linesbefore = tetris.Lines;
                         tetris.MoveDown();
+                        if (linesbefore < tetris.Lines)
+                        {
+                            Player2.URL = "./Sounds/ClearLine.mp3";
+                            Player2.controls.play();
+                        }
 
                     }
                     break;
                 case Key.Space:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
+                        int linesbefore = tetris.Lines;
                         tetris.SmashDown();
-                        Player2.URL = "./Sounds/LockPiece.mp3";
-                        Player2.controls.play();
+                        if (linesbefore < tetris.Lines)
+                        {
+                            Player2.URL = "./Sounds/ClearLine.mp3";
+                            Player2.controls.play();
+                        }
+                        else
+                        {
+                            Player2.URL = "./Sounds/LockPiece.mp3";
+                            Player2.controls.play();
+                        }
+
                     }
                     break;
                 case Key.LeftCtrl:
@@ -527,10 +550,10 @@ namespace Tetris.GUI
 
         private void PlayFile(String url)
         {
-            Player = new WMPLib.WindowsMediaPlayer();
-            Player.PlayStateChange += Player_PlayStateChange;
-            Player.URL = url;
-            Player.controls.play();
+            //Player = new WMPLib.WindowsMediaPlayer();
+            //Player.PlayStateChange += Player_PlayStateChange;
+            //Player.URL = url;
+            //Player.controls.play();
         }
 
         private void Player_PlayStateChange(int NewState)
@@ -552,7 +575,7 @@ namespace Tetris.GUI
 
         private void NewThread()
         {
-            
+
             if (rand.Next(0, 2) == 0)
             {
                 PlayFile("./Sounds/TypeA.mp3");
@@ -594,13 +617,30 @@ namespace Tetris.GUI
                     case GamepadButtonFlags.DPadUp:
                         if (tetris.Status != Game.GameStatus.Paused)
                         {
+                            int linesbefore = tetris.Lines;
                             tetris.SmashDown();
+                            if (linesbefore > tetris.Lines)
+                            {
+                                Player2.URL = "./Sounds/ClearLine.mp3";
+                                Player2.controls.play();
+                            }
+                            else
+                            {
+                                Player2.URL = "./Sounds/LockPiece.mp3";
+                                Player2.controls.play();
+                            }
                         }
                         break;
                     case GamepadButtonFlags.DPadDown:
                         if (tetris.Status != Game.GameStatus.Paused)
                         {
+                            int linesbefore = tetris.Lines;
                             tetris.MoveDown();
+                            if (linesbefore > tetris.Lines)
+                            {
+                                Player2.URL = "./Sounds/ClearLine.mp3";
+                                Player2.controls.play();
+                            }
                         }
                         break;
                     case GamepadButtonFlags.DPadLeft:
