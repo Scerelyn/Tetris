@@ -25,7 +25,7 @@ namespace Tetris.GUI
     /// </summary>
     public partial class GameBoardPage : Page, IGameView, ITetrisPage
     {
-        WMPLib.WindowsMediaPlayer Player;
+        WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
         private static Game tetris;
         private static Board board;
         private static System.Timers.Timer timer;
@@ -550,10 +550,10 @@ namespace Tetris.GUI
 
         private void PlayFile(String url)
         {
-            //Player = new WMPLib.WindowsMediaPlayer();
-            //Player.PlayStateChange += Player_PlayStateChange;
-            //Player.URL = url;
-            //Player.controls.play();
+            Player = new WMPLib.WindowsMediaPlayer();
+            Player.PlayStateChange += Player_PlayStateChange;
+            Player.URL = url;
+            Player.controls.play();
         }
 
         private void Player_PlayStateChange(int NewState)
