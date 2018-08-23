@@ -202,7 +202,7 @@ namespace Tetris.GUI
 
         private void GameTimeEvent(object source, ElapsedEventArgs e)
         {
-            if (tetris.Status != Game.GameStatus.Finished)
+            if (tetris.Status != Game.GameStatus.Finished && tetris.Status != Game.GameStatus.Paused)
             {
                 if (seconds == 59)
                 {
@@ -221,7 +221,7 @@ namespace Tetris.GUI
                 {
                     TimeBoard.Content = "Time: " + minutes + ":" + seconds.ToString("00");
                 });
-            }|
+            }
             
         }
 
