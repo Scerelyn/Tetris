@@ -32,6 +32,7 @@ namespace Tetris.GUI
         private static int timerCount = 0;
         private static int scoreToNext = 1000;
         private static readonly int timerStep = 10;
+        private static int level = 1;
         private Brush[] colors = new Brush[10];
         private Brush[] borderColors = new Brush[10];
         private Label[,] locations;
@@ -259,6 +260,10 @@ namespace Tetris.GUI
                         {
                             timer.Interval -= 50;
                             timerCount = 0;
+                            level++;
+                            Dispatcher.Invoke(()=> {
+                                LevelLabel.Content = "Level: " + level;
+                            });
                             scoreToNext += 1000;
                         }
                     }
