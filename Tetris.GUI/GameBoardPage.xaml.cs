@@ -25,7 +25,7 @@ namespace Tetris.GUI
     /// </summary>
     public partial class GameBoardPage : Page, IGameView, ITetrisPage
     {
-        WMPLib.WindowsMediaPlayer Player;
+        WMPLib.WindowsMediaPlayer Player = new WMPLib.WindowsMediaPlayer();
         private static Game tetris;
         private static Board board;
         private static System.Timers.Timer timer;
@@ -42,10 +42,15 @@ namespace Tetris.GUI
         private WMPLib.WindowsMediaPlayer Player2 = new WMPLib.WindowsMediaPlayer();
         private Random rand = new Random();
         private Thread t;
+        private System.Timers.Timer gameTime;
+        private int minutes = 0;
+        private int seconds = 0;
+        private bool IsUltra = false;
 
-        public GameBoardPage()
+        public GameBoardPage(bool isUltra)
         {
             InitializeComponent();
+            IsUltra = isUltra;
             Focus();
             tetris = new Game(this);
             SetColors();
@@ -56,6 +61,12 @@ namespace Tetris.GUI
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             timer.Enabled = true;
             timer.Start();
+
+            gameTime = new System.Timers.Timer(1000);
+            gameTime.Elapsed += new ElapsedEventHandler(GameTimeEvent);
+            gameTime.Enabled = true;
+            gameTime.Start();
+
 
             p1Controller = new Controller(0);
             if (p1Controller.IsConnected)
@@ -186,6 +197,31 @@ namespace Tetris.GUI
             DrawPiece();
         }
 
+        private void GameTimeEvent(object source, ElapsedEventArgs e)
+        {
+            if (tetris.Status != Game.GameStatus.Finished)
+            {
+                if (seconds == 59)
+                {
+                    seconds = 0;
+                    minutes++;
+                    if (IsUltra && minutes == 3)
+                    {
+                        tetris.Status = Game.GameStatus.Finished;
+                    }
+                }
+                else
+                {
+                    seconds++;
+                }
+                Dispatcher.Invoke(() =>
+                {
+                    TimeBoard.Content = "Time: " + minutes + ":" + seconds.ToString("00");
+                });
+            }|
+            
+        }
+
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             Console.WriteLine(board[1, 1]);
@@ -223,6 +259,14 @@ namespace Tetris.GUI
                         }
                     }
                 }
+            }
+            else
+            {
+                this.Dispatcher.Invoke(() =>
+                    {
+                    GameOverLabel.Visibility = Visibility.Visible;
+                    });
+                
             }
         }
         private void DrawPiece()
@@ -463,6 +507,10 @@ namespace Tetris.GUI
                 case Key.Down:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
+                        if(tetris.Status == Game.GameStatus.Finished)
+                        {
+                            GameOverLabel.Visibility = Visibility.Visible;
+                        }
                         int linesbefore = tetris.Lines;
                         tetris.MoveDown();
                         if (linesbefore < tetris.Lines)
@@ -476,6 +524,10 @@ namespace Tetris.GUI
                 case Key.Space:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
+                        if (tetris.Status == Game.GameStatus.Finished)
+                        {
+                            GameOverLabel.Visibility = Visibility.Visible;
+                        }
                         int linesbefore = tetris.Lines;
                         tetris.SmashDown();
                         if (linesbefore < tetris.Lines)
@@ -617,6 +669,10 @@ namespace Tetris.GUI
                     case GamepadButtonFlags.DPadUp:
                         if (tetris.Status != Game.GameStatus.Paused)
                         {
+                            if (tetris.Status == Game.GameStatus.Finished)
+                            {
+                                GameOverLabel.Visibility = Visibility.Visible;
+                            }
                             int linesbefore = tetris.Lines;
                             tetris.SmashDown();
                             if (linesbefore > tetris.Lines)
@@ -634,6 +690,10 @@ namespace Tetris.GUI
                     case GamepadButtonFlags.DPadDown:
                         if (tetris.Status != Game.GameStatus.Paused)
                         {
+                            if (tetris.Status == Game.GameStatus.Finished)
+                            {
+                                GameOverLabel.Visibility = Visibility.Visible;
+                            }
                             int linesbefore = tetris.Lines;
                             tetris.MoveDown();
                             if (linesbefore > tetris.Lines)

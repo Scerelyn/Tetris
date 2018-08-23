@@ -39,7 +39,12 @@ namespace Tetris.GUI
 
         public void StartNewGame()
         {
-            SetContent(new GameBoardPage());
+            SetContent(new GameBoardPage(false));
+        }
+
+        public void StartUltraGame()
+        {
+            SetContent(new GameBoardPage(true));
         }
 
         public void ReturnToMenu()

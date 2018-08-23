@@ -112,7 +112,7 @@ namespace Tetris.GameEngine
         }
         public void CountdownEvent(Object Sender, ElapsedEventArgs args)
         {
-            CountDownNum-=1;
+            CountDownNum -= 1;
             if (CountDownNum == 0)
             {
                 TimerNum.Stop();
@@ -142,7 +142,7 @@ namespace Tetris.GameEngine
 
         public PieceType? HeldPieceType()
         {
-            if(_heldPiece != null)
+            if (_heldPiece != null)
             {
                 return _heldPiece.TypePiece;
             }
@@ -161,17 +161,17 @@ namespace Tetris.GameEngine
         public Piece[] NextPieces
         {
             get {
-                if(nextPieces[0] == null)
+                if (nextPieces[0] == null)
                 {
                     FillNextArray();
                 }
                 Piece[] result = new Piece[6];
-                for(int i = 0; i < 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     result[i] = nextPieces[i];
                 }
                 return result;
-                
+
             }
 
         }
@@ -230,8 +230,15 @@ namespace Tetris.GameEngine
             }
         }
 
+        private int myVar;
+
+
         public GameStatus Status
         {
+            set
+            {
+                this._status = value;
+            }
             get
             {
                 return this._status;

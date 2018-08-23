@@ -169,7 +169,8 @@ namespace Tetris.GUI
 
         private void UltraButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mw = (MainWindow)this.Parent;
+            mw.StartUltraGame();
         }
 
     }

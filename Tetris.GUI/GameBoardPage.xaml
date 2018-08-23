@@ -31,10 +31,26 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid Name="ScoreGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
                         <Label Name="ScoreBoard"
                                HorizontalAlignment="Center"
                                Background="Black"
                                Content="Score: 0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Width="200"
+                               Height="50"
+                               FontSize="24"
+                                HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"/>
+                        <Label Name="TimeBoard"
+                               Grid.Row="1"
+                               HorizontalAlignment="Center"
+                               Background="Black"
+                               Content="Time: 0:00"
                                VerticalAlignment="Center"
                                Foreground="White"
                                Width="200"
@@ -123,6 +139,15 @@
                Visibility="Hidden"
                Foreground="White"
                FontSize="60"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               />
+        <Label Name="GameOverLabel"
+               Grid.Column="1"
+               Content="Game Over"
+               Visibility="Hidden"
+               Foreground="White"
+               FontSize="50"
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                />
