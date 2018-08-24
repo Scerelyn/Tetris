@@ -19,6 +19,7 @@ namespace Tetris.GUI
     public partial class MainWindow : Window
     {
         private ITetrisPage currentPage;
+        private bool[] music = new bool[] { true, true, true, true, true };
 
         public MainWindow()
         {
@@ -39,17 +40,22 @@ namespace Tetris.GUI
 
         public void StartNewGame()
         {
-            SetContent(new GameBoardPage(false));
+            SetContent(new GameBoardPage(false, music));
         }
 
         public void StartUltraGame()
         {
-            SetContent(new GameBoardPage(true));
+            SetContent(new GameBoardPage(true, music));
         }
 
         public void ReturnToMenu()
         {
             SetContent(new MainMenuPage());
+        }
+
+        public void MusicSelection()
+        {
+            SetContent(new MusicMenuPage(music));
         }
     }
 }

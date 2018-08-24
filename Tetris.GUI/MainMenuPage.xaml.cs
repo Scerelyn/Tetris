@@ -173,5 +173,10 @@ namespace Tetris.GUI
             mw.StartUltraGame();
         }
 
+        private void MusicButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = (MainWindow)this.Parent;
+            mw.MusicSelection();
+        }
     }
 }

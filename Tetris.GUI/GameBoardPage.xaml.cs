@@ -46,10 +46,12 @@ namespace Tetris.GUI
         private int minutes = 0;
         private int seconds = 0;
         private bool IsUltra = false;
+        private bool[] Music;
 
-        public GameBoardPage(bool isUltra)
+        public GameBoardPage(bool isUltra, bool[] music)
         {
             InitializeComponent();
+            Music = music;
             IsUltra = isUltra;
             Focus();
             PieceFactory.ResetRandomizer();
