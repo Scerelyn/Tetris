@@ -56,6 +56,15 @@
     <Content Include="Sounds\GameOver.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\HeartOfFire.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\IevanPolkka.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Katyusha.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\LockPiece.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

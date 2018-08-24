@@ -62,7 +62,7 @@ namespace Tetris.GameEngine
                 while (cpyPieces.Count > 0) //while the copied _pieces has pieces left in it
                 {
                     int rng = r.Next(cpyPieces.Count);
-                    _bag.Push(cpyPieces[rng]); //push a random piece
+                    _bag.Push(cpyPieces[rng].InitialRotationState); //push a random piece
                     cpyPieces.RemoveAt(rng); //remove it to eventually end the loop
                 } //by here, the bag has one of each piece which will pop off one when this method is called again, then refill it again if needed
                 return _bag.Pop(); //now get a piece

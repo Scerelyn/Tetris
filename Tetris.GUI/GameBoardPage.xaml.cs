@@ -225,7 +225,7 @@ namespace Tetris.GUI
                     TimeBoard.Content = "Time: " + minutes + ":" + seconds.ToString("00");
                 });
             }
-            
+
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -246,7 +246,10 @@ namespace Tetris.GUI
                     }
                     if (tetris.Status == Game.GameStatus.Finished)
                     {
+                        GameOverLabel.Visibility = Visibility.Visible;
+                        Player.PlayStateChange -= Player_PlayStateChange;
                         Player.controls.stop();
+                        Player.PlayStateChange -= Player_PlayStateChange;
                         Player2.URL = "./Sounds/GameOver.mp3";
                         Player2.controls.play();
                         timer.Stop();
@@ -263,7 +266,8 @@ namespace Tetris.GUI
                             timer.Interval -= 50;
                             timerCount = 0;
                             level++;
-                            Dispatcher.Invoke(()=> {
+                            Dispatcher.Invoke(() =>
+                            {
                                 LevelLabel.Content = "Level: " + level;
                             });
                             scoreToNext += 1000;
@@ -275,9 +279,15 @@ namespace Tetris.GUI
             {
                 this.Dispatcher.Invoke(() =>
                     {
-                    GameOverLabel.Visibility = Visibility.Visible;
+                        GameOverLabel.Visibility = Visibility.Visible;
+                        Player.PlayStateChange -= Player_PlayStateChange;
+                        Player.controls.stop();
+                        Player.PlayStateChange -= Player_PlayStateChange;
+                        Player2.URL = "./Sounds/GameOver.mp3";
+                        Player2.controls.play();
+                        timer.Stop();
                     });
-                
+
             }
         }
         private void DrawPiece()
@@ -518,9 +528,15 @@ namespace Tetris.GUI
                 case Key.Down:
                     if (tetris.Status != Game.GameStatus.Paused)
                     {
-                        if(tetris.Status == Game.GameStatus.Finished)
+                        if (tetris.Status == Game.GameStatus.Finished)
                         {
                             GameOverLabel.Visibility = Visibility.Visible;
+                            Player.PlayStateChange -= Player_PlayStateChange;
+                            Player.controls.stop();
+                            Player.PlayStateChange -= Player_PlayStateChange;
+                            Player2.URL = "./Sounds/GameOver.mp3";
+                            Player2.controls.play();
+                            timer.Stop();
                         }
                         int linesbefore = tetris.Lines;
                         tetris.MoveDown();
@@ -538,6 +554,12 @@ namespace Tetris.GUI
                         if (tetris.Status == Game.GameStatus.Finished)
                         {
                             GameOverLabel.Visibility = Visibility.Visible;
+                            Player.PlayStateChange -= Player_PlayStateChange;
+                            Player.controls.stop();
+                            Player.PlayStateChange -= Player_PlayStateChange;
+                            Player2.URL = "./Sounds/GameOver.mp3";
+                            Player2.controls.play();
+                            timer.Stop();
                         }
                         int linesbefore = tetris.Lines;
                         tetris.SmashDown();
@@ -623,14 +645,23 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                if (rand.Next(0, 2) == 0)
+                switch (rand.Next(0, 5))
                 {
-                    PlayFile("./Sounds/TypeA.mp3");
-
-                }
-                else
-                {
-                    PlayFile("./Sounds/TypeB.mp3");
+                    case 0:
+                        PlayFile("./Sounds/TypeA.mp3");
+                        break;
+                    case 1:
+                        PlayFile("./Sounds/TypeB.mp3");
+                        break;
+                    case 2:
+                        PlayFile("./Sounds/HeartOfFire.mp3");
+                        break;
+                    case 3:
+                        PlayFile("./Sounds/Katyusha.mp3");
+                        break;
+                    case 4:
+                        PlayFile("./Sounds/IevanPolkka.mp3");
+                        break;
                 }
             }
         }
@@ -638,15 +669,23 @@ namespace Tetris.GUI
 
         private void NewThread()
         {
-
-            if (rand.Next(0, 2) == 0)
+            switch (rand.Next(0, 5))
             {
-                PlayFile("./Sounds/TypeA.mp3");
-
-            }
-            else
-            {
-                PlayFile("./Sounds/TypeB.mp3");
+                case 0:
+                    PlayFile("./Sounds/TypeA.mp3");
+                    break;
+                case 1:
+                    PlayFile("./Sounds/TypeB.mp3");
+                    break;
+                case 2:
+                    PlayFile("./Sounds/HeartOfFire.mp3");
+                    break;
+                case 3:
+                    PlayFile("./Sounds/Katyusha.mp3");
+                    break;
+                case 4:
+                    PlayFile("./Sounds/IevanPolkka.mp3");
+                    break;
             }
         }
 
@@ -683,6 +722,12 @@ namespace Tetris.GUI
                             if (tetris.Status == Game.GameStatus.Finished)
                             {
                                 GameOverLabel.Visibility = Visibility.Visible;
+                                Player.PlayStateChange -= Player_PlayStateChange;
+                                Player.controls.stop();
+                                Player.PlayStateChange -= Player_PlayStateChange;
+                                Player2.URL = "./Sounds/GameOver.mp3";
+                                Player2.controls.play();
+                                timer.Stop();
                             }
                             int linesbefore = tetris.Lines;
                             tetris.SmashDown();
@@ -704,6 +749,12 @@ namespace Tetris.GUI
                             if (tetris.Status == Game.GameStatus.Finished)
                             {
                                 GameOverLabel.Visibility = Visibility.Visible;
+                                Player.PlayStateChange -= Player_PlayStateChange;
+                                Player.controls.stop();
+                                Player.PlayStateChange -= Player_PlayStateChange;
+                                Player2.URL = "./Sounds/GameOver.mp3";
+                                Player2.controls.play();
+                                timer.Stop();
                             }
                             int linesbefore = tetris.Lines;
                             tetris.MoveDown();
