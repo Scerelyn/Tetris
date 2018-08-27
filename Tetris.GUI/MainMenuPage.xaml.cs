@@ -27,10 +27,10 @@ namespace Tetris.GUI
             InitializeComponent();
             SetColors();
             GenerateBorders();
-            GenerateLeftBoard();
+            GenerateBoard();
         }
 
-        private void GenerateLeftBoard()
+        private void GenerateBoard()
         {
             int[,] leftBoard = new int[,]
                 {

@@ -25,7 +25,7 @@ namespace Tetris.GUI
         {
             InitializeComponent();
             SetContent(new MainMenuPage());
-                    }
+        }
 
         private void SetContent(ITetrisPage p)
         {
