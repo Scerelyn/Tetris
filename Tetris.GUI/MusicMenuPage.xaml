@@ -64,23 +64,23 @@
                         <CheckBox Name="KorobeinikiBox"
                               Content="Korobeiniki"
                                   FontSize="25"
-                                  Checked="MusicBox_Checked"/>
+                                  Click="MusicBox_Checked"/>
                         <CheckBox Name="TechmoBox"
                                   Content="Techmo"
                                   FontSize="25"
-                                  Checked="MusicBox_Checked"/>
+                                  Click="MusicBox_Checked"/>
                         <CheckBox Name="KatyushaBox"
                                   Content="Katyusha"
                                   FontSize="25"
-                                  Checked="MusicBox_Checked"/>
+                                  Click="MusicBox_Checked"/>
                         <CheckBox Name="HeartOfFireBox"
                                   Content="Heart of Fire"
                                   FontSize="25"
-                                  Checked="MusicBox_Checked"/>
+                                  Click="MusicBox_Checked"/>
                         <CheckBox Name="IevanPolkkaBox"
                                   Content="Ievan Polkka"
                                   FontSize="25"
-                                  Checked="MusicBox_Checked"/>
+                                  Click="MusicBox_Checked"/>
                     </StackPanel>
                     <Button Name="MenuReturnButton"
                             Content="Menu"
@@ -103,5 +103,8 @@
 
 
         </Grid>
+        <Grid Name="LeftGrid"/>
+        <Grid Name="RightGrid"
+              Grid.Column="2"/>
     </Grid>
 </Page>
