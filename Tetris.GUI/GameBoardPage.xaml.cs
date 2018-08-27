@@ -662,37 +662,23 @@ namespace Tetris.GUI
                         list.Add(i);
                     }
                 }
-                switch (rand.Next(0, list.Count))
+                int a = list[rand.Next(0, list.Count)];
+                switch (a)
                 {
                     case 0:
-                        if (Music[0])
-                        {
-                            PlayFile("./Sounds/TypeA.mp3");
-                        }
+                        PlayFile("./Sounds/TypeA.mp3");
                         break;
                     case 1:
-                        if (Music[1])
-                        {
-                            PlayFile("./Sounds/TypeB.mp3");
-                        }
+                        PlayFile("./Sounds/TypeB.mp3");
                         break;
                     case 2:
-                        if (Music[2])
-                        {
-                            PlayFile("./Sounds/HeartOfFire.mp3");
-                        }
+                        PlayFile("./Sounds/Katyusha.mp3");
                         break;
                     case 3:
-                        if (Music[3])
-                        {
-                            PlayFile("./Sounds/Katyusha.mp3");
-                        }
+                        PlayFile("./Sounds/HeartOfFire.mp3");
                         break;
                     case 4:
-                        if (Music[4])
-                        {
-                            PlayFile("./Sounds/IevanPolkka.mp3");
-                        }
+                        PlayFile("./Sounds/IevanPolkka.mp3");
                         break;
                 }
             }
@@ -709,38 +695,23 @@ namespace Tetris.GUI
                     list.Add(i);
                 }
             }
-            int a = rand.Next(0, list.Count);
+            int a = list[rand.Next(0, list.Count)];
             switch (a)
             {
                 case 0:
-                    if (Music[0])
-                    {
                         PlayFile("./Sounds/TypeA.mp3");
-                    }
                     break;
                 case 1:
-                    if (Music[1])
-                    {
                         PlayFile("./Sounds/TypeB.mp3");
-                    }
                     break;
                 case 2:
-                    if (Music[2])
-                    {
-                        PlayFile("./Sounds/HeartOfFire.mp3");
-                    }
+                    PlayFile("./Sounds/Katyusha.mp3");    
                     break;
                 case 3:
-                    if (Music[3])
-                    {
-                        PlayFile("./Sounds/Katyusha.mp3");
-                    }
+                    PlayFile("./Sounds/HeartOfFire.mp3");
                     break;
                 case 4:
-                    if (Music[4])
-                    {
                         PlayFile("./Sounds/IevanPolkka.mp3");
-                    }
                     break;
             }
         }
