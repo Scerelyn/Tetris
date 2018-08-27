@@ -213,7 +213,16 @@ namespace Tetris.GUI
                     minutes++;
                     if (IsUltra && minutes == 3)
                     {
-                        tetris.Status = Game.GameStatus.Finished;
+                        Dispatcher.Invoke(() => {
+                            tetris.Status = Game.GameStatus.Paused;
+                            GameOverLabel.Visibility = Visibility.Visible;
+                            Player.PlayStateChange -= Player_PlayStateChange;
+                            Player.controls.stop();
+                            Player.PlayStateChange -= Player_PlayStateChange;
+                            Player2.URL = "./Sounds/GameOver.mp3";
+                            Player2.controls.play();
+                            timer.Stop();
+                        });
                     }
                 }
                 else
