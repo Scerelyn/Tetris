@@ -104,7 +104,7 @@ namespace Tetris.GUI
             LeftBorder.RowDefinitions.Clear();
             RightBorder.Children.Clear();
             RightBorder.RowDefinitions.Clear();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 if (i != 0)
                 {
@@ -117,7 +117,7 @@ namespace Tetris.GUI
                 Grid.SetRow(piece, i);
                 RightBorder.Children.Add(piece);
             }
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 if (i != 0)
                 {
