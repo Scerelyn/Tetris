@@ -38,7 +38,9 @@ namespace Tetris.GUI
         private Label[,] locations;
         private Controller p1Controller = null;
         private System.Timers.Timer controllerPollTimer;
+        private System.Timers.Timer controllerConnectionTimer;
         private State prevControllerState;
+        private bool controllerWasIn = false;
         private WMPLib.WindowsMediaPlayer Player2 = new WMPLib.WindowsMediaPlayer();
         private Random rand = new Random();
         private Thread t;
@@ -69,20 +71,17 @@ namespace Tetris.GUI
             gameTime.Enabled = true;
             gameTime.Start();
 
-
+            controllerConnectionTimer = new System.Timers.Timer(500);
+            controllerConnectionTimer.Elapsed += ControllerConnectionTimedEvent;
+            controllerConnectionTimer.Start();
             p1Controller = new Controller(0);
             if (p1Controller.IsConnected)
             {
                 controllerPollTimer = new System.Timers.Timer(10);
-                controllerPollTimer.Elapsed += (source, args) =>
-                {
-                    if (p1Controller.IsConnected)
-                    {
-                        HandlControllerInput();
-                    }
-                };
+                controllerPollTimer.Elapsed += HandlControllerInput;
                 controllerPollTimer.Start();
                 prevControllerState = p1Controller.GetState();
+                controllerWasIn = true;
             }
 
             Console.WriteLine(board[1, 1]);
@@ -235,6 +234,29 @@ namespace Tetris.GUI
                 });
             }
 
+        }
+
+        /// <summary>
+        /// Handles controller connected behavior when it is unplugged or plugged in during gameplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void ControllerConnectionTimedEvent(object sender, ElapsedEventArgs args)
+        {
+            if (p1Controller.IsConnected && !controllerWasIn) //controller just connected in, and was not on before
+            {
+                controllerPollTimer = new System.Timers.Timer(10);
+                controllerPollTimer.Elapsed += HandlControllerInput;
+                controllerPollTimer.Start();
+                prevControllerState = p1Controller.GetState();
+                controllerWasIn = true;
+            }
+            else if (!p1Controller.IsConnected && controllerWasIn) //controller was pluggin in before, but then was disconnected
+            {
+                controllerPollTimer.Stop();
+                controllerPollTimer.Elapsed -= HandlControllerInput;
+                controllerWasIn = false;
+            }
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -706,114 +728,117 @@ namespace Tetris.GUI
 
         }
 
-        private void HandlControllerInput()
+        private void HandlControllerInput(object sender, EventArgs args)
         {
-            State curState = p1Controller.GetState();
-            if (curState.Gamepad.Buttons != prevControllerState.Gamepad.Buttons)
+            if (p1Controller.IsConnected)
             {
-                switch (curState.Gamepad.Buttons)
+                State curState = p1Controller.GetState();
+                if (curState.Gamepad.Buttons != prevControllerState.Gamepad.Buttons)
                 {
-                    case GamepadButtonFlags.A:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            tetris.Rotate(false);
-                        }
-                        break;
-                    case GamepadButtonFlags.B:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            tetris.Rotate(true);
-                        }
-                        break;
-                    case GamepadButtonFlags.DPadUp:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            if (tetris.Status == Game.GameStatus.Finished)
+                    switch (curState.Gamepad.Buttons)
+                    {
+                        case GamepadButtonFlags.A:
+                            if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                GameOverLabel.Visibility = Visibility.Visible;
-                                Player.PlayStateChange -= Player_PlayStateChange;
-                                Player.controls.stop();
-                                Player.PlayStateChange -= Player_PlayStateChange;
-                                Player2.URL = "./Sounds/GameOver.mp3";
-                                Player2.controls.play();
-                                timer.Stop();
+                                tetris.Rotate(false);
                             }
-                            int linesbefore = tetris.Lines;
-                            tetris.SmashDown();
-                            if (linesbefore > tetris.Lines)
+                            break;
+                        case GamepadButtonFlags.B:
+                            if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                Player2.URL = "./Sounds/ClearLine.mp3";
-                                Player2.controls.play();
+                                tetris.Rotate(true);
                             }
-                            else
+                            break;
+                        case GamepadButtonFlags.DPadUp:
+                            if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                Player2.URL = "./Sounds/LockPiece.mp3";
-                                Player2.controls.play();
+                                if (tetris.Status == Game.GameStatus.Finished)
+                                {
+                                    GameOverLabel.Visibility = Visibility.Visible;
+                                    Player.PlayStateChange -= Player_PlayStateChange;
+                                    Player.controls.stop();
+                                    Player.PlayStateChange -= Player_PlayStateChange;
+                                    Player2.URL = "./Sounds/GameOver.mp3";
+                                    Player2.controls.play();
+                                    timer.Stop();
+                                }
+                                int linesbefore = tetris.Lines;
+                                tetris.SmashDown();
+                                if (linesbefore > tetris.Lines)
+                                {
+                                    Player2.URL = "./Sounds/ClearLine.mp3";
+                                    Player2.controls.play();
+                                }
+                                else
+                                {
+                                    Player2.URL = "./Sounds/LockPiece.mp3";
+                                    Player2.controls.play();
+                                }
                             }
-                        }
-                        break;
-                    case GamepadButtonFlags.DPadDown:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            if (tetris.Status == Game.GameStatus.Finished)
+                            break;
+                        case GamepadButtonFlags.DPadDown:
+                            if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                GameOverLabel.Visibility = Visibility.Visible;
-                                Player.PlayStateChange -= Player_PlayStateChange;
-                                Player.controls.stop();
-                                Player.PlayStateChange -= Player_PlayStateChange;
-                                Player2.URL = "./Sounds/GameOver.mp3";
-                                Player2.controls.play();
-                                timer.Stop();
+                                if (tetris.Status == Game.GameStatus.Finished)
+                                {
+                                    GameOverLabel.Visibility = Visibility.Visible;
+                                    Player.PlayStateChange -= Player_PlayStateChange;
+                                    Player.controls.stop();
+                                    Player.PlayStateChange -= Player_PlayStateChange;
+                                    Player2.URL = "./Sounds/GameOver.mp3";
+                                    Player2.controls.play();
+                                    timer.Stop();
+                                }
+                                int linesbefore = tetris.Lines;
+                                tetris.MoveDown();
+                                if (linesbefore > tetris.Lines)
+                                {
+                                    Player2.URL = "./Sounds/ClearLine.mp3";
+                                    Player2.controls.play();
+                                }
                             }
-                            int linesbefore = tetris.Lines;
-                            tetris.MoveDown();
-                            if (linesbefore > tetris.Lines)
+                            break;
+                        case GamepadButtonFlags.DPadLeft:
+                            if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                Player2.URL = "./Sounds/ClearLine.mp3";
-                                Player2.controls.play();
+                                tetris.MoveLeft();
                             }
-                        }
-                        break;
-                    case GamepadButtonFlags.DPadLeft:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            tetris.MoveLeft();
-                        }
-                        break;
-                    case GamepadButtonFlags.DPadRight:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            tetris.MoveRight();
-                        }
-                        break;
-                    case GamepadButtonFlags.Start:
-                        tetris.Pause();
-                        Dispatcher.Invoke(() =>
-                        {
-                            if (!tetris.InCountdownState)
+                            break;
+                        case GamepadButtonFlags.DPadRight:
+                            if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                PauseLabel.Visibility = Visibility.Visible;
+                                tetris.MoveRight();
                             }
-                            else if (tetris.InCountdownState)
+                            break;
+                        case GamepadButtonFlags.Start:
+                            tetris.Pause();
+                            Dispatcher.Invoke(() =>
                             {
-                                PauseLabel.Visibility = Visibility.Hidden;
-                                CountDownLabel.Visibility = Visibility.Visible;
+                                if (!tetris.InCountdownState)
+                                {
+                                    PauseLabel.Visibility = Visibility.Visible;
+                                }
+                                else if (tetris.InCountdownState)
+                                {
+                                    PauseLabel.Visibility = Visibility.Hidden;
+                                    CountDownLabel.Visibility = Visibility.Visible;
+                                }
+                            });
+                            break;
+                        case GamepadButtonFlags.X:
+                            if (tetris.Status != Game.GameStatus.Paused)
+                            {
+                                FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
+                                tetris.HoldPiece();
                             }
-                        });
-                        break;
-                    case GamepadButtonFlags.X:
-                        if (tetris.Status != Game.GameStatus.Paused)
-                        {
-                            FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
-                            tetris.HoldPiece();
-                        }
-                        break;
+                            break;
+                    }
+                    Dispatcher.Invoke(() =>
+                    {
+                        DrawPiece();
+                    });
+                    prevControllerState = curState;
                 }
-                Dispatcher.Invoke(() =>
-                {
-                    DrawPiece();
-                });
-                prevControllerState = curState;
             }
         }
 
