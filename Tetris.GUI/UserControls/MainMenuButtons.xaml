@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Tetris.GUI.UserControls.MainMenuButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tetris.GUI.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="300">
+    <StackPanel>
+        <Button Name="NewGameButton"
+                            Content="Classic"
+                            Click="NewGameButton_Click"
+                            Margin="10"
+                            Width="100"
+                            Height="25"/>
+
+        <Button Name="UltraButton"
+                            Content="Ultra"
+                            Margin="10"
+                            Width="100"
+                            Height="25"
+                            Click="UltraButton_Click"/>
+
+        <Button Name="MusicButton"
+                            Content="Music"
+                            Margin="10"
+                            Width="100"
+                            Height="25"
+                            Click="MusicButton_Click"/>
+        <Button Name="SettingsButton"
+                            Content="Settings"
+                            Margin="10"
+                            Width="100"
+                            Height="25"
+                Click="SettingsButton_Click"/>
+    </StackPanel>
+</UserControl>
