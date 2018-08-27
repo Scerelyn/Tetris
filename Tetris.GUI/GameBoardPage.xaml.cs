@@ -212,7 +212,8 @@ namespace Tetris.GUI
                     minutes++;
                     if (IsUltra && minutes == 3)
                     {
-                        Dispatcher.Invoke(() => {
+                        Dispatcher.Invoke(() =>
+                        {
                             tetris.Status = Game.GameStatus.Paused;
                             GameOverLabel.Visibility = Visibility.Visible;
                             Player.PlayStateChange -= Player_PlayStateChange;
@@ -684,7 +685,12 @@ namespace Tetris.GUI
                         list.Add(i);
                     }
                 }
-                int a = list[rand.Next(0, list.Count)];
+                int a = 5;
+                if (list.Count > 0)
+                {
+                    a = list[rand.Next(0, list.Count)];
+
+                }
                 switch (a)
                 {
                     case 0:
@@ -702,6 +708,8 @@ namespace Tetris.GUI
                     case 4:
                         PlayFile("./Sounds/IevanPolkka.mp3");
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -717,23 +725,30 @@ namespace Tetris.GUI
                     list.Add(i);
                 }
             }
-            int a = list[rand.Next(0, list.Count)];
+            int a = 5;
+            if (list.Count > 0)
+            {
+                a = list[rand.Next(0, list.Count)];
+
+            }
             switch (a)
             {
                 case 0:
-                        PlayFile("./Sounds/TypeA.mp3");
+                    PlayFile("./Sounds/TypeA.mp3");
                     break;
                 case 1:
-                        PlayFile("./Sounds/TypeB.mp3");
+                    PlayFile("./Sounds/TypeB.mp3");
                     break;
                 case 2:
-                    PlayFile("./Sounds/Katyusha.mp3");    
+                    PlayFile("./Sounds/Katyusha.mp3");
                     break;
                 case 3:
                     PlayFile("./Sounds/HeartOfFire.mp3");
                     break;
                 case 4:
-                        PlayFile("./Sounds/IevanPolkka.mp3");
+                    PlayFile("./Sounds/IevanPolkka.mp3");
+                    break;
+                default:
                     break;
             }
         }
