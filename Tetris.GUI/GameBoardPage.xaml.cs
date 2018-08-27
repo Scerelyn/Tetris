@@ -103,7 +103,7 @@ namespace Tetris.GUI
             LeftBorder.RowDefinitions.Clear();
             RightBorder.Children.Clear();
             RightBorder.RowDefinitions.Clear();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 if (i != 0)
                 {
@@ -116,7 +116,7 @@ namespace Tetris.GUI
                 Grid.SetRow(piece, i);
                 RightBorder.Children.Add(piece);
             }
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 21; i++)
             {
                 if (i != 0)
                 {
@@ -676,7 +676,16 @@ namespace Tetris.GUI
         {
             if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
             {
-                switch (rand.Next(0, 5))
+                List<int> list = new List<int>();
+                for (int i = 0; i < Music.Length; i++)
+                {
+                    if (Music[i])
+                    {
+                        list.Add(i);
+                    }
+                }
+                int a = list[rand.Next(0, list.Count)];
+                switch (a)
                 {
                     case 0:
                         PlayFile("./Sounds/TypeA.mp3");
@@ -685,10 +694,10 @@ namespace Tetris.GUI
                         PlayFile("./Sounds/TypeB.mp3");
                         break;
                     case 2:
-                        PlayFile("./Sounds/HeartOfFire.mp3");
+                        PlayFile("./Sounds/Katyusha.mp3");
                         break;
                     case 3:
-                        PlayFile("./Sounds/Katyusha.mp3");
+                        PlayFile("./Sounds/HeartOfFire.mp3");
                         break;
                     case 4:
                         PlayFile("./Sounds/IevanPolkka.mp3");
@@ -700,22 +709,31 @@ namespace Tetris.GUI
 
         private void NewThread()
         {
-            switch (rand.Next(0, 5))
+            List<int> list = new List<int>();
+            for (int i = 0; i < Music.Length; i++)
+            {
+                if (Music[i])
+                {
+                    list.Add(i);
+                }
+            }
+            int a = list[rand.Next(0, list.Count)];
+            switch (a)
             {
                 case 0:
-                    PlayFile("./Sounds/TypeA.mp3");
+                        PlayFile("./Sounds/TypeA.mp3");
                     break;
                 case 1:
-                    PlayFile("./Sounds/TypeB.mp3");
+                        PlayFile("./Sounds/TypeB.mp3");
                     break;
                 case 2:
-                    PlayFile("./Sounds/HeartOfFire.mp3");
+                    PlayFile("./Sounds/Katyusha.mp3");    
                     break;
                 case 3:
-                    PlayFile("./Sounds/Katyusha.mp3");
+                    PlayFile("./Sounds/HeartOfFire.mp3");
                     break;
                 case 4:
-                    PlayFile("./Sounds/IevanPolkka.mp3");
+                        PlayFile("./Sounds/IevanPolkka.mp3");
                     break;
             }
         }
