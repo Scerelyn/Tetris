@@ -75,13 +75,20 @@ namespace Tetris.GUI
             controllerConnectionTimer.Elapsed += ControllerConnectionTimedEvent;
             controllerConnectionTimer.Start();
             p1Controller = new Controller(0);
+            controllerPollTimer = new System.Timers.Timer(20);
+            controllerPollTimer.Elapsed += HandlControllerInput;
             if (p1Controller.IsConnected)
             {
-                controllerPollTimer = new System.Timers.Timer(10);
-                controllerPollTimer.Elapsed += HandlControllerInput;
                 controllerPollTimer.Start();
                 prevControllerState = p1Controller.GetState();
                 controllerWasIn = true;
+                HelpLabel_MovePieces.Content = "DPad left/right - Move piece";
+                HelpLabel_RotateCCW.Content = "B - Rotate counterclockwise";
+                HelpLabel_RotateCW.Content = "A - Rotate clockwise";
+                HelpLabel_HoldPiece.Content = "X - Hold piece";
+                HelpLabel_HardDropPiece.Content = "DPad up - Drop piece to bottom";
+                HelpLabel_SoftDropPiece.Content = "DPad down - Drop piece one row";
+                HelpLabel_Pause.Content = "Start - Pause";
             }
 
             Console.WriteLine(board[1, 1]);
@@ -246,17 +253,34 @@ namespace Tetris.GUI
         {
             if (p1Controller.IsConnected && !controllerWasIn) //controller just connected in, and was not on before
             {
-                controllerPollTimer = new System.Timers.Timer(10);
-                controllerPollTimer.Elapsed += HandlControllerInput;
                 controllerPollTimer.Start();
                 prevControllerState = p1Controller.GetState();
                 controllerWasIn = true;
+                Dispatcher.Invoke(()=> 
+                {
+                    HelpLabel_MovePieces.Content = "DPad left/right - Move piece";
+                    HelpLabel_RotateCCW.Content = "B - Rotate counterclockwise";
+                    HelpLabel_RotateCW.Content = "A - Rotate clockwise";
+                    HelpLabel_HoldPiece.Content = "X - Hold piece";
+                    HelpLabel_HardDropPiece.Content = "DPad up - Drop piece to bottom";
+                    HelpLabel_SoftDropPiece.Content = "DPad down - Drop piece one row";
+                    HelpLabel_Pause.Content = "Start - Pause";
+                });
             }
             else if (!p1Controller.IsConnected && controllerWasIn) //controller was pluggin in before, but then was disconnected
             {
                 controllerPollTimer.Stop();
-                controllerPollTimer.Elapsed -= HandlControllerInput;
                 controllerWasIn = false;
+                Dispatcher.Invoke(() => 
+                {
+                    HelpLabel_MovePieces.Content = "LEFT/RIGHT - Move piece";
+                    HelpLabel_RotateCCW.Content = "CTRL/Z - Rotate counterclockwise";
+                    HelpLabel_RotateCW.Content = "UP/X - Rotate clockwise";
+                    HelpLabel_HoldPiece.Content = "X - Hold piece";
+                    HelpLabel_HardDropPiece.Content = "Space - Drop piece to bottom";
+                    HelpLabel_SoftDropPiece.Content = "DOWN - Drop piece one row";
+                    HelpLabel_Pause.Content = "ESC - Pause";
+                });
             }
         }
 
@@ -763,6 +787,7 @@ namespace Tetris.GUI
 
         private void HandlControllerInput(object sender, EventArgs args)
         {
+            controllerPollTimer.Stop();
             if (p1Controller.IsConnected)
             {
                 State curState = p1Controller.GetState();
@@ -861,7 +886,10 @@ namespace Tetris.GUI
                         case GamepadButtonFlags.X:
                             if (tetris.Status != Game.GameStatus.Paused)
                             {
-                                FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
+                                Dispatcher.Invoke(() => 
+                                {
+                                    FillBlock(HeldPieceGrid, tetris.GetCurrentPieceType());
+                                });
                                 tetris.HoldPiece();
                             }
                             break;
@@ -873,6 +901,7 @@ namespace Tetris.GUI
                     prevControllerState = curState;
                 }
             }
+            controllerPollTimer.Start();
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
