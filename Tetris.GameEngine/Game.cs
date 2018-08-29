@@ -441,7 +441,7 @@ namespace Tetris.GameEngine
                     _posX--;
                     _posY++;
                 }
-                else if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY + 1)) // attempt down left wall kick
+                else if (_gameBoard.CanPosAt(tmp_piece, _posX, _posY + 1)) // attempt down wall kick
                 {
                     _currPiece = tmp_piece;
                     _posY++;
