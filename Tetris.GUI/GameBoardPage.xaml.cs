@@ -597,15 +597,18 @@ namespace Tetris.GUI
                     break;
                 case Key.F1:
                 case Key.Escape:
-                    tetris.Pause();
                     if (!tetris.InCountdownState)
                     {
-                        PauseLabel.Visibility = Visibility.Visible;
-                    }
-                    else if (tetris.InCountdownState)
-                    {
-                        PauseLabel.Visibility = Visibility.Hidden;
-                        CountDownLabel.Visibility = Visibility.Visible;
+                        tetris.Pause();
+                        if (!tetris.InCountdownState)
+                        {
+                            PauseLabel.Visibility = Visibility.Visible;
+                        }
+                        else if (tetris.InCountdownState)
+                        {
+                            PauseLabel.Visibility = Visibility.Hidden;
+                            CountDownLabel.Visibility = Visibility.Visible;
+                        }
                     }
                     break;
                 case Key.LeftShift:
