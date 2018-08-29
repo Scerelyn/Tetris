@@ -914,6 +914,10 @@ namespace Tetris.GUI
             Player.controls.stop();
             Player.PlayStateChange += Player_PlayStateChange;
             t.Abort();
+            controllerPollTimer.Stop();
+            controllerPollTimer.Elapsed -= HandlControllerInput;
+            controllerConnectionTimer.Stop();
+            controllerConnectionTimer.Elapsed -= ControllerConnectionTimedEvent;
             MainWindow mw = (MainWindow)Parent;
             mw.ReturnToMenu();
         }
